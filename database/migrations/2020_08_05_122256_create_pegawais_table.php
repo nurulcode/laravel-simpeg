@@ -17,14 +17,13 @@ class CreatePegawaisTable extends Migration
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
             $table->string('nama_lengkap', 100);
-            $table->string('tempat_lahir');
+            $table->string('tempat_lahir', 50);
             $table->date('tanggal_lahir');
-            $table->string('jk');
-            $table->tinyInteger('agama')->default(Agama::Lain);
-            $table->string('phone')->nullable();
-            $table->text('alamat')->nullable();
+            $table->string('jk', 2);
+            $table->string('agama', 10)->nullable();
+            $table->string('phone', 50)->nullable();
+            $table->text('alamat', 100)->nullable();
             $table->string('foto')->nullable()->default('default.png');
-            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

@@ -114,7 +114,7 @@
                                 </span>
                             </a>
                             <ul class="submenu mm-collapse">
-                                <li><a href="{{ route('login') }}"> Pegawai / Tenaga Medis</a></li>
+                                <li><a href="{{ route('pegawais.index') }}"> Pegawai / Tenaga Medis</a></li>
                                 <li><a href="email-read.html"> Pendidikan</a></li>
                                 <li><a href="email-compose.html"> Jabatan</a></li>
                             </ul>
@@ -143,22 +143,6 @@
                                     <li class="breadcrumb-item"><a href="javascript:void(0);">Forms</a></li>
                                     <li class="breadcrumb-item active">Form Validation</li>
                                 </ol>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="float-right d-none d-md-block">
-                                    <div class="dropdown"><button
-                                            class="btn btn-primary dropdown-toggle arrow-none waves-effect waves-light"
-                                            type="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false"><i class="mdi mdi-settings mr-2"></i>
-                                            Settings</button>
-                                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"
-                                                href="#">Action</a> <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item"
-                                                href="#">Separated link</a>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
