@@ -16,9 +16,10 @@ class CreatePegawaisTable extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_lengkap');
+            $table->string('nama_lengkap', 100);
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
+            $table->string('jk');
             $table->tinyInteger('agama')->default(Agama::Lain);
             $table->string('phone')->nullable();
             $table->text('alamat')->nullable();

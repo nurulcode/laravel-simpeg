@@ -19,8 +19,9 @@ class PegawaiTableSeeder extends Seeder
 
           DB::table('pegawais')->insert([
               'nama_lengkap' => $faker->name,
-              'tempat_lahir' => $faker->citySuffix,
+              'tempat_lahir' => $faker->state,
               'tanggal_lahir' => $faker->date($format = 'Y-m-d', $max = 'now'),
+              'jk' => 'L',
               'agama' => 7,
               'phone' => $faker->e164PhoneNumber,
               'alamat' => $faker->address
