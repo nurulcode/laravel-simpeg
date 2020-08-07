@@ -114,9 +114,9 @@
                                 </span>
                             </a>
                             <ul class="submenu mm-collapse">
-                                <li><a href="{{ route('pegawais.index') }}"><i class="ti-angle-right"></i> Pegawai</a></li>
-                                <li><a href="{{ route('pendidikan.index') }}"><i class="ti-angle-right"></i> Pendidikan</a></li>
-                                <li><a href="{{ route('jabatan.index') }}"><i class="ti-angle-right"></i> Jabatan</a></li>
+                                <li><a href="{{ route('pegawais.index') }}"><i class="ti-minus"></i> Pegawai</a></li>
+                                <li><a href="{{ route('pendidikan.index') }}"><i class="ti-minus"></i> Pendidikan</a></li>
+                                <li><a href="{{ route('jabatan.index') }}"><i class="ti-minus"></i> Jabatan</a></li>
                             </ul>
                     </ul>
                 </div>

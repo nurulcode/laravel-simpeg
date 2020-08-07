@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Master\Jabatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class JabatanController extends Controller
 {
@@ -14,7 +16,9 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        return view('masters.jabatan.index');
+
+        $results = DB::table('jabatans')->get();
+        return view('masters.jabatan.index', compact('results'));
     }
 
     /**
@@ -35,7 +39,12 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $jabatan = new Jabatan();
+        $jabatan->nama = $request->nama;
+
+        $jabatan->save();
+        return back()->with('success', 'Data has been saved successfully.');
+
     }
 
     /**

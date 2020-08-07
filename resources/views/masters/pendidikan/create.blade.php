@@ -8,16 +8,16 @@
                     <div class="form-group">
                         <label class="control-label">Kategori</label>
                         <select
-                            class="form-control select2 {{ $errors->has('agama') ? 'is-invalid' : '' }}"
-                            name="agama">
+                            class="form-control select2 {{ $errors->has('kategori') ? 'is-invalid' : '' }}"
+                            name="kategori">
                             <option value="">--Pilih--</option>
                             @foreach($kategoris as $item)
                                 <option value="{{ $item->kategori }}">{{ $item->kategori }}</option>
                             @endforeach
                         </select>
-                        @if($errors->has('agama'))
+                        @if($errors->has('kategori'))
                             <div class="invalid-feedback">
-                                <strong>{{ $errors->first('agama') }}</strong>
+                                <strong>{{ $errors->first('kategori') }}</strong>
                             </div>
                         @endif
                     </div>
@@ -25,16 +25,16 @@
                     <div class="form-group">
                         <label class="control-label">Nama</label>
                         <select
-                            class="form-control select2 {{ $errors->has('agama') ? 'is-invalid' : '' }}"
-                            name="agama">
+                            class="form-control select2 {{ $errors->has('nama') ? 'is-invalid' : '' }}"
+                            name="nama">
                             <option value="">--Pilih--</option>
                             @foreach($namas as $item)
                                 <option value="{{ $item->nama }}"> {{ $item->nama }}</option>
                             @endforeach
                         </select>
-                        @if($errors->has('agama'))
+                        @if($errors->has('nama'))
                             <div class="invalid-feedback">
-                                <strong>{{ $errors->first('agama') }}</strong>
+                                <strong>{{ $errors->first('nama') }}</strong>
                             </div>
                         @endif
                     </div>
