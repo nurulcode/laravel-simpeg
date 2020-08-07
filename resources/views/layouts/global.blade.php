@@ -202,7 +202,7 @@
         <script src="{{ asset('plugins\datatables\dataTables.responsive.min.js') }}"></script>
         <script src="{{ asset('plugins\datatables\responsive.bootstrap4.min.js') }}"></script>
         <!-- Datatable init js -->
-        <script src="assets\pages\datatables.init.js"></script>
+        <script src="{{ asset('assets\pages\datatables.init.js') }}"></script>
 
         @yield('javascript')
     <!--App-->

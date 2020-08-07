@@ -34,8 +34,12 @@
                                 </td>
                                 <td>{{ $pegawai->phone }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('pegawais.edit', $pegawai->id) }}">Edit</a>
-                                    <a href="">Delete</a>
+                                    <a href="{{ route('pegawais.edit', $pegawai->id) }}" class="btn btn-primary btn-sm waves-effect waves-light"><i class="fas fa-trash-alt"></i></a>
+                                    <form action="{{ route('pegawais.destroy', $pegawai->id) }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="button" class="btn btn-danger btn-sm waves-effect waves-light"  onclick="return confirm('Are you sure?')"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
