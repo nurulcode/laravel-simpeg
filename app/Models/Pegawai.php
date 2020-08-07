@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -19,8 +19,4 @@ class Pegawai extends Model
         return Carbon::parse($value)->format('m/d/Y');
     }
 
-    public function getUrlAttribute()
-    {
-        return route('pegawais.show', $this->id);
-    }
 }

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PegawaiRequest;
-use App\Pegawai;
+use App\Models\Pegawai;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class PegawaiController extends Controller
 {
@@ -121,6 +120,7 @@ class PegawaiController extends Controller
      */
     public function destroy(Pegawai $pegawai)
     {
+        // return response()->json($pegawai);
         $pegawai->delete();
         return back()->with('success', 'Data has been removed');
     }

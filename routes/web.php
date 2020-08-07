@@ -25,4 +25,6 @@ Route::match(['get', 'post'], '/register', function () {
 })->name('register');
 
 Route::resource('pegawais', 'PegawaiController');
+Route::resource('pendidikan', 'PendidikanController');
+Route::resource('jabatan', 'JabatanController');
 Route::get('/home', 'HomeController@index')->name('home');

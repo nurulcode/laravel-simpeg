@@ -106,7 +106,7 @@
                         </li>
                         <li>
                             <a href="javascript:void(0);" class="waves-effect">
-                                <i class="ti-calendar"></i>
+                                <i class="ti-view-list-alt"></i>
                                 <span> Master Data
                                     <span class="float-right menu-arrow">
                                         <i class="mdi mdi-chevron-right"></i>
@@ -114,11 +114,10 @@
                                 </span>
                             </a>
                             <ul class="submenu mm-collapse">
-                                <li><a href="{{ route('pegawais.index') }}"> Pegawai / Tenaga Medis</a></li>
-                                <li><a href="email-read.html"> Pendidikan</a></li>
-                                <li><a href="email-compose.html"> Jabatan</a></li>
+                                <li><a href="{{ route('pegawais.index') }}"><i class="ti-angle-right"></i> Pegawai</a></li>
+                                <li><a href="{{ route('pendidikan.index') }}"><i class="ti-angle-right"></i> Pendidikan</a></li>
+                                <li><a href="{{ route('jabatan.index') }}"><i class="ti-angle-right"></i> Jabatan</a></li>
                             </ul>
-                        </li>
                     </ul>
                 </div>
                 <!-- Sidebar -->

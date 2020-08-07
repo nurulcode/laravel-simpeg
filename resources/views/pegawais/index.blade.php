@@ -6,7 +6,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="text-right">
-                    <a href="{{ route('pegawais.create') }}" class="btn btn-primary waves-light mb-3"> Tambah Data</a>
+                    <a href="{{ route('pegawais.create') }}" class="btn btn-primary waves-light mb-3">
+                        Tambah Data</a>
 
                 </div>
                 <table id="datatable" class="table table-bordered dt-responsive nowrap"
@@ -25,7 +26,8 @@
                         @foreach($pegawais as $pegawai)
                             <tr>
                                 <td>
-                                    <a class="" href="{{ route('pegawais.show', $pegawai->id) }}">{{ $pegawai->nama_lengkap }}</a>
+                                    <a class=""
+                                        href="{{ route('pegawais.show', $pegawai->id) }}">{{ $pegawai->nama_lengkap }}</a>
                                 </td>
                                 <td>{{ $pegawai->tempat_lahir }}</td>
                                 <td>{{ $pegawai->tanggal_lahir }}</td>
@@ -34,12 +36,45 @@
                                 </td>
                                 <td>{{ $pegawai->phone }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('pegawais.edit', $pegawai->id) }}" class="btn btn-primary btn-sm waves-effect waves-light"><i class="fas fa-trash-alt"></i></a>
-                                    <form action="{{ route('pegawais.destroy', $pegawai->id) }}" method="post">
+                                    {{-- <a href="{{ route('pegawais.edit', $pegawai->id) }}"
+                                    class="btn btn-primary btn-sm waves-effect waves-light"><i
+                                        class="fas fa-trash-alt"></i></a>
+                                    <form
+                                        action="{{ route('pegawais.destroy', $pegawai->id) }}"
+                                        method="post">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="button" class="btn btn-danger btn-sm waves-effect waves-light"  onclick="return confirm('Are you sure?')"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                        <button type="button" class="btn btn-danger btn-sm waves-effect waves-light"
+                                            onclick="return confirm('Are you sure?')"><i
+                                                class="fas fa-trash-alt"></i></button>
+                                    </form> --}}
+
+                                    <div class="dropdown">
+                                        <button
+                                            class="btn btn-primary btn-sm dropdown-toggle arrow-none waves-effect waves-light"
+                                            type="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            Actions
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item"
+                                                href="{{ route('pegawais.edit', $pegawai->id) }}">Detail</a>
+                                            <a class="dropdown-item"
+                                                href="{{ route('pegawais.show', $pegawai->id) }}">Edit
+                                                Action</a>
+                                            <div class="dropdown-divider"> </div>
+                                            <form
+                                                action="{{ route('pegawais.destroy', $pegawai->id) }}"
+                                                method="post">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button class="dropdown-item" onclick="return confirm('Are you sure?')">
+                                                    Delete Action
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+
                                 </td>
                             </tr>
                         @endforeach
