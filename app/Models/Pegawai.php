@@ -9,6 +9,17 @@ class Pegawai extends Model
 {
     protected $guarded = [];
 
+    public function unit()
+    {
+        return $this->belongsTo('App\Models\Masters\Unit');
+    }
+
+    public function keluargas()
+    {
+        return $this->hasMany('App\Models\Masters\Keluarga');
+    }
+
+
     public function setDateAttribute($value)
     {
         $this->attributes['tanggal_lahir'] = Carbon::createFromFormat('Y-m-d', $value)->format('m/d/Y');

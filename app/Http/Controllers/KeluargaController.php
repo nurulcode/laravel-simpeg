@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Masters\Jabatan;
+use App\Models\Masters\Keluarga;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-
-class JabatanController extends Controller
+class KeluargaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,7 @@ class JabatanController extends Controller
      */
     public function index()
     {
-
-        $results = DB::table('jabatans')->get();
-        return view('masters.jabatan.index', compact('results'));
+        //
     }
 
     /**
@@ -39,21 +35,16 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        $jabatan = new Jabatan();
-        $jabatan->nama = $request->nama;
-
-        $jabatan->save();
-        return back()->with('success', 'Data has been saved successfully.');
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Jabatan  $jabatan
+     * @param  \App\Keluarga  $keluarga
      * @return \Illuminate\Http\Response
      */
-    public function show(Jabatan $jabatan)
+    public function show(Keluarga $keluarga)
     {
         //
     }
@@ -61,10 +52,10 @@ class JabatanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Jabatan  $jabatan
+     * @param  \App\Keluarga  $keluarga
      * @return \Illuminate\Http\Response
      */
-    public function edit(Jabatan $jabatan)
+    public function edit(Keluarga $keluarga)
     {
         //
     }
@@ -73,10 +64,10 @@ class JabatanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Jabatan  $jabatan
+     * @param  \App\Keluarga  $keluarga
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Jabatan $jabatan)
+    public function update(Request $request, Keluarga $keluarga)
     {
         //
     }
@@ -84,10 +75,10 @@ class JabatanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Jabatan  $jabatan
+     * @param  \App\Keluarga  $keluarga
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jabatan $jabatan)
+    public function destroy(Keluarga $keluarga)
     {
         //
     }

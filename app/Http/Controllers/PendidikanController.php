@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Master\Pendidikan;
+use App\Models\Masters\Pendidikan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,7 +38,15 @@ class PendidikanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pendidikan = new Pendidikan();
+
+        $pendidikan->kategori = $request->kategori;
+        $pendidikan->nama = $request->nama;
+        $pendidikan->laki = $request->laki;
+        $pendidikan->perempuan = $request->perempuan;
+
+        $pendidikan->save();
+        return back()->with('success', 'Data has been saved successfully.');
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Master;
+namespace App\Models\Masters;
 
 use Illuminate\Database\Eloquent\Model;
 use Alfa6661\AutoNumber\AutoNumberTrait;
@@ -9,6 +9,7 @@ use Alfa6661\AutoNumber\AutoNumberTrait;
 class Jabatan extends Model
 {
     use AutoNumberTrait;
+    protected $guarded = [];
 
     public function getAutoNumberOptions()
     {

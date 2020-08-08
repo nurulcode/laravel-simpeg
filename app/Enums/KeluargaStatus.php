@@ -9,8 +9,9 @@ use BenSampo\Enum\Enum;
  * @method static static OptionTwo()
  * @method static static OptionThree()
  */
-final class JenisKelamin extends Enum
+final class KeluargaStatus extends Enum
 {
-    const L =  1;
-    const P =  2;
+    const OrangTua =   1;
+    const SuamiIstri =   2;
+    const Anak = 3;
 }

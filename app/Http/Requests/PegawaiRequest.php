@@ -27,9 +27,9 @@ class PegawaiRequest extends FormRequest
             'nama_lengkap' => 'required|min:5|max:200',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
-            'jk' => 'required',
+            'jenis_kelamin' => 'required',
             'agama' => 'required',
-            'phone' => 'required|digits_between:10,12',
+            'telfon' => 'required|digits_between:10,12',
             'alamat' => 'required|min:20|max:200',
         ];
     }

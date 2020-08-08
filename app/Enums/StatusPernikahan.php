@@ -9,8 +9,9 @@ use BenSampo\Enum\Enum;
  * @method static static OptionTwo()
  * @method static static OptionThree()
  */
-final class JenisKelamin extends Enum
+final class StatusPernikahan extends Enum
 {
-    const L =  1;
-    const P =  2;
+    const Menikah = 'Menikah';
+    const Belum = 'Belum Menikah';
+    const Cerai = 'Cerai';
 }

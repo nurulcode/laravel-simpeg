@@ -9,9 +9,10 @@ use BenSampo\Enum\Enum;
  * @method static static OptionTwo()
  * @method static static OptionThree()
  */
-final class StatusPegawai extends Enum
+final class StatusKepegawai extends Enum
 {
     const PNS       =   1;
-    const Honorer   =   2;
-    const Kontrak   =   3;
+    const PTT       =   2;
+    const Honorer   =   3;
+    const Kontrak   =   4;
 }

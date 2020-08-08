@@ -7,48 +7,39 @@
             <div class="card-body">
                 <div class="text-right">
                     <a href="{{ route('pegawais.create') }}" class="btn btn-primary waves-light mb-3">
-                        Tambah Data</a>
-
+                        Tambah Data
+                    </a>
                 </div>
                 <table id="datatable" class="table table-bordered dt-responsive nowrap"
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
-                            <th>Nama</th>
-                            <th>Tempat</th>
-                            <th>Tanggal Lahir</th>
-                            <th>Jenis Kelamin</th>
-                            <th>Phone</th>
+                            <th>Foto</th>
+                            <th>NIP</th>
+                            <th>Nama Lengkap</th>
+                            <th>Tempat, Tgl Lahir</th>
+                            <th>Unit Kerja</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($pegawais as $pegawai)
                             <tr>
+                                <td class="text-center">
+                                    <img src="{{asset('storage/'.$pegawai->foto)}}"
+                                    class="img-fluid" width="50px">
+                                </td>
                                 <td>
                                     <a class=""
-                                        href="{{ route('pegawais.show', $pegawai->id) }}">{{ $pegawai->nama_lengkap }}</a>
+                                        href="{{ route('pegawais.show', $pegawai->id) }}">{{ $pegawai->nip }}</a>
                                 </td>
-                                <td>{{ $pegawai->tempat_lahir }}</td>
-                                <td>{{ $pegawai->tanggal_lahir }}</td>
+                                <td>{{ $pegawai->nama_lengkap }}</td>
+                                <td>{{ $pegawai->tempat_lahir }}, <br> {{ $pegawai->tanggal_lahir }}</td>
+                                {{-- <td class="text-center">
+                                    {{ $pegawai->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}
+                                </td> --}}
+                                <td>{{ $pegawai->unit->nama }}</td>
                                 <td class="text-center">
-                                    {{ $pegawai->jk == 'L' ? 'Laki-laki' : 'Perempuan' }}
-                                </td>
-                                <td>{{ $pegawai->phone }}</td>
-                                <td class="text-center">
-                                    {{-- <a href="{{ route('pegawais.edit', $pegawai->id) }}"
-                                    class="btn btn-primary btn-sm waves-effect waves-light"><i
-                                        class="fas fa-trash-alt"></i></a>
-                                    <form
-                                        action="{{ route('pegawais.destroy', $pegawai->id) }}"
-                                        method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="button" class="btn btn-danger btn-sm waves-effect waves-light"
-                                            onclick="return confirm('Are you sure?')"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </form> --}}
-
                                     <div class="dropdown">
                                         <button
                                             class="btn btn-primary btn-sm dropdown-toggle arrow-none waves-effect waves-light"

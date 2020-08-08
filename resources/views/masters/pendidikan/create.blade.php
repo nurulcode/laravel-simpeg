@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('pegawais.store') }}" enctype="multipart/form-data"
+                <form action="{{ route('pendidikan.store') }}" enctype="multipart/form-data"
                     method="post">
                     @csrf
                     <div class="form-group">
@@ -18,23 +18,6 @@
                         @if($errors->has('kategori'))
                             <div class="invalid-feedback">
                                 <strong>{{ $errors->first('kategori') }}</strong>
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label">Nama</label>
-                        <select
-                            class="form-control select2 {{ $errors->has('nama') ? 'is-invalid' : '' }}"
-                            name="nama">
-                            <option value="">--Pilih--</option>
-                            @foreach($namas as $item)
-                                <option value="{{ $item->nama }}"> {{ $item->nama }}</option>
-                            @endforeach
-                        </select>
-                        @if($errors->has('nama'))
-                            <div class="invalid-feedback">
-                                <strong>{{ $errors->first('nama') }}</strong>
                             </div>
                         @endif
                     </div>

@@ -18,8 +18,7 @@ class PegawaiController extends Controller
      */
     public function index(Request $request)
     {
-        $pegawais = DB::table('pegawais')->get();
-        // return response()->json($pegawais);
+        $pegawais = Pegawai::all();
         return view('pegawais.index', compact('pegawais'));
     }
 
@@ -43,13 +42,25 @@ class PegawaiController extends Controller
     {
         $pegawai = new Pegawai();
 
+        $pegawai->nip = $request->get('nip');
         $pegawai->nama_lengkap = $request->get('nama_lengkap');
         $pegawai->tempat_lahir = $request->get('tempat_lahir');
         $pegawai->tanggal_lahir = Carbon::createFromFormat('m/d/Y', $request->get('tanggal_lahir'))->format('Y-m-d');
-        $pegawai->jk = $request->get('jk');
+
+        $pegawai->jenis_kelamin = $request->get('jenis_kelamin');
         $pegawai->agama = $request->get('agama');
-        $pegawai->phone = $request->get('phone') ;
+        $pegawai->golongan_darah = $request->get('golongan_darah');
+        $pegawai->pernikahan = $request->get('pernikahan');
+        $pegawai->kepegawaian = $request->get('kepegawaian');
+
+        $pegawai->tgl_naik_pangkat = Carbon::createFromFormat('m/d/Y', $request->get('tgl_naik_pangkat'))->format('Y-m-d');
+        $pegawai->tgl_naik_gaji = Carbon::createFromFormat('m/d/Y', $request->get('tgl_naik_pangkat'))->format('Y-m-d');
+
+        $pegawai->telfon = $request->get('telfon') ;
+        $pegawai->email = $request->get('email') ;
         $pegawai->alamat = $request->get('alamat');
+
+        $pegawai->unit_kerja_id = $request->get('unit_kerja_id');
 
         if ( $request->file('foto') ) {
             $foto = $request->file('foto')->store('fotos', 'public');
@@ -95,10 +106,20 @@ class PegawaiController extends Controller
         $pegawai->nama_lengkap = $request->get('nama_lengkap');
         $pegawai->tempat_lahir = $request->get('tempat_lahir');
         $pegawai->tanggal_lahir = Carbon::createFromFormat('m/d/Y', $request->get('tanggal_lahir'))->format('Y-m-d');
-        $pegawai->jk = $request->get('jk');
+
+        $pegawai->jenis_kelamin = $request->get('jenis_kelamin');
         $pegawai->agama = $request->get('agama');
-        $pegawai->phone = $request->get('phone');
+        $pegawai->golongan_darah = $request->get('golongan_darah');
+        $pegawai->pernikahan = $request->get('pernikahan');
+        $pegawai->kepegawaian = $request->get('kepegawaian');
+
+        $pegawai->tgl_naik_pangkat = Carbon::createFromFormat('m/d/Y', $request->get('tgl_naik_pangkat'))->format('Y-m-d');
+        $pegawai->tgl_naik_gaji = Carbon::createFromFormat('m/d/Y', $request->get('tgl_naik_pangkat'))->format('Y-m-d');
+
+        $pegawai->telfon = $request->get('telfon') ;
+        $pegawai->email = $request->get('email') ;
         $pegawai->alamat = $request->get('alamat');
+
 
         if ( $request->file('foto')) {
             if ( $pegawai->foto && file_exists(storage_path('app/public/' . $pegawai->foto ))) {
