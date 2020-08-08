@@ -11,6 +11,6 @@ use BenSampo\Enum\Enum;
  */
 final class JenisKelamin extends Enum
 {
-    const L =  1;
-    const P =  2;
+    const L =  'L';
+    const P =  'P';
 }

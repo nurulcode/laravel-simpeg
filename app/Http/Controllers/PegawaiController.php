@@ -29,7 +29,8 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        return view('pegawais.create');
+        $units = DB::table('units')->get();
+        return view('pegawais.create', compact('units'));
     }
 
     /**
@@ -54,13 +55,13 @@ class PegawaiController extends Controller
         $pegawai->kepegawaian = $request->get('kepegawaian');
 
         $pegawai->tgl_naik_pangkat = Carbon::createFromFormat('m/d/Y', $request->get('tgl_naik_pangkat'))->format('Y-m-d');
-        $pegawai->tgl_naik_gaji = Carbon::createFromFormat('m/d/Y', $request->get('tgl_naik_pangkat'))->format('Y-m-d');
+        $pegawai->tgl_naik_gaji = Carbon::createFromFormat('m/d/Y', $request->get('tgl_naik_gaji'))->format('Y-m-d');
 
         $pegawai->telfon = $request->get('telfon') ;
         $pegawai->email = $request->get('email') ;
         $pegawai->alamat = $request->get('alamat');
 
-        $pegawai->unit_kerja_id = $request->get('unit_kerja_id');
+        $pegawai->unit_id = $request->get('unit_id');
 
         if ( $request->file('foto') ) {
             $foto = $request->file('foto')->store('fotos', 'public');
@@ -90,7 +91,8 @@ class PegawaiController extends Controller
      */
     public function edit(Pegawai $pegawai)
     {
-        return view('pegawais.edit', compact('pegawai'));
+        $units = DB::table('units')->get();
+        return view('pegawais.edit', compact('pegawai', 'units'));
     }
 
     /**

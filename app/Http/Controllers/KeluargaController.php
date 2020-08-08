@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\KeluargaRequest;
 use App\Models\Masters\Keluarga;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 
 class KeluargaController extends Controller
 {
@@ -14,7 +19,14 @@ class KeluargaController extends Controller
      */
     public function index()
     {
-        //
+        $keluargas = DB::table('pegawais')
+                    ->join('keluargas', 'pegawais.id', '=', 'keluargas.pegawai_id')
+                    ->select('pegawais.nama_lengkap as nama_pegawai', 'keluargas.*')
+                    ->get();
+
+                    // ->get();
+                // return response()->json($pegawais);
+        return view('keluargas.index', compact('keluargas'));
     }
 
     /**
@@ -24,7 +36,9 @@ class KeluargaController extends Controller
      */
     public function create()
     {
-        //
+        $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
+        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
+        return view('keluargas.create', compact('pendidikans', 'pegawais'));
     }
 
     /**
@@ -33,9 +47,26 @@ class KeluargaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(KeluargaRequest $request)
     {
-        //
+        $keluarga = new Keluarga();
+
+        $keluarga->nik = $request->nik;
+        $keluarga->nama_lengkap = Str::title($request->nama_lengkap);
+        $keluarga->tempat_lahir = $request->tempat_lahir;
+        $keluarga->tanggal_lahir = Carbon::createFromFormat('m/d/Y', $request->get('tanggal_lahir'))->format('Y-m-d');
+
+        $keluarga->jenis_kelamin = $request->jenis_kelamin;
+        $keluarga->pekerjaan = Str::upper($request->pekerjaan);
+
+        $keluarga->pendidikan_id = $request->pendidikan_id;
+        $keluarga->pegawai_id = $request->pegawai_id;
+
+        $keluarga->status = $request->status;
+
+        // return response()->json($keluarga);
+        $keluarga->save();
+        return back()->with('success', 'Data has been saved successfully.');
     }
 
     /**
@@ -46,7 +77,7 @@ class KeluargaController extends Controller
      */
     public function show(Keluarga $keluarga)
     {
-        //
+        return view('keluargas.show', compact('keluarga'));
     }
 
     /**
@@ -57,7 +88,9 @@ class KeluargaController extends Controller
      */
     public function edit(Keluarga $keluarga)
     {
-        //
+        $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
+        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
+        return view('keluargas.edit', compact('pendidikans', 'pegawais', 'keluarga'));
     }
 
     /**
@@ -67,9 +100,23 @@ class KeluargaController extends Controller
      * @param  \App\Keluarga  $keluarga
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Keluarga $keluarga)
+    public function update(KeluargaRequest $request, Keluarga $keluarga)
     {
-        //
+        $keluarga->nik = $request->nik;
+        $keluarga->nama_lengkap = Str::title($request->nama_lengkap);
+        $keluarga->tempat_lahir = $request->tempat_lahir;
+        $keluarga->tanggal_lahir = Carbon::createFromFormat('m/d/Y', $request->get('tanggal_lahir'))->format('Y-m-d');
+
+        $keluarga->jenis_kelamin = $request->jenis_kelamin;
+        $keluarga->pekerjaan = Str::upper($request->pekerjaan);
+
+        $keluarga->pendidikan_id = $request->pendidikan_id;
+        $keluarga->pegawai_id = $request->pegawai_id;
+
+        $keluarga->status = $request->status;
+
+        $keluarga->save();
+        return redirect()->route('keluargas.index')->with('success', 'Data has been saved successfully.');
     }
 
     /**
@@ -80,6 +127,7 @@ class KeluargaController extends Controller
      */
     public function destroy(Keluarga $keluarga)
     {
-        //
+        $keluarga->delete();
+        return back()->with('success', 'Data has been removed');
     }
 }

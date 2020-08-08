@@ -52,8 +52,7 @@
                 <ul class="navbar-right list-inline float-right mb-0">
                     <li class="dropdown notification-list list-inline-item">
                         <div class="dropdown notification-list nav-pro-img">
-                            <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown"
-                                href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <img src="{{ asset('assets\images\users\user-4.jpg') }}" alt="user" class="rounded-circle" />
                             </a>
                             <div class="dropdown-menu dropdown-menu-right profile-dropdown">
@@ -99,7 +98,7 @@
                     <ul class="metismenu" id="side-menu">
                         <li class="menu-title">Main</li>
                         <li>
-                            <a href="index.html" class="waves-effect">
+                            <a href="{{ route('home') }}" class="waves-effect">
                                 <i class="ti-home"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -114,10 +113,40 @@
                                 </span>
                             </a>
                             <ul class="submenu mm-collapse">
-                                <li><a href="{{ route('pegawais.index') }}"><i class="ti-minus"></i> Pegawai</a></li>
-                                <li><a href="{{ route('pendidikan.index') }}"><i class="ti-minus"></i> Pendidikan</a></li>
-                                <li><a href="{{ route('jabatan.index') }}"><i class="ti-minus"></i> Jabatan</a></li>
+                                <li><a href="{{ route('pendidikan.index') }}"><i class="ti-minus"></i>Pendidikan</a></li>
+                                <li><a href="{{ route('jabatan.index') }}"><i class="ti-minus"></i>Jabatan</a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="ti-view-list-alt"></i>
+                                <span> Manage Pegawai
+                                    <span class="float-right menu-arrow">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                    </span>
+                                </span>
+                            </a>
+                            <ul class="submenu mm-collapse">
+                                <li><a href="{{ route('pegawais.index') }}"><i class="ti-minus"></i>Pegawai</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="ti-view-list-alt"></i>
+                                <span> Riwayat Pegawai
+                                    <span class="float-right menu-arrow">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                    </span>
+                                </span>
+                            </a>
+                            <ul class="submenu mm-collapse">
+                                <li>
+                                    <a href="{{ route('keluargas.index') }}"> <i class="ti-minus"></i> Keluarga </a>
+                                    <a href="{{ route('pendidikan.index') }}"> <i class="ti-minus"></i> Sekolah </a>
+                                    <a href="{{ route('pendidikan.index') }}"> <i class="ti-minus"></i> Bahasa </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <!-- Sidebar -->
@@ -179,31 +208,30 @@
     <script src="{{ asset('plugins\bootstrap-maxlength\bootstrap-maxlength.min.js') }}"></script>
     <script src="{{ asset('plugins\bootstrap-filestyle\js\bootstrap-filestyle.min.js') }}">
     </script>
-    <script
-        src="{{ asset('plugins\bootstrap-touchspin\js\jquery.bootstrap-touchspin.min.js') }}">
+    <script src="{{ asset('plugins\bootstrap-touchspin\js\jquery.bootstrap-touchspin.min.js') }}">
     </script>
     <!-- Plugins Init js -->
     <script src="{{ asset('assets\pages\form-advanced.js') }}"></script>
 
-        <!-- Required datatable js -->
-        <script src="{{ asset('plugins\datatables\jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('plugins\datatables\dataTables.bootstrap4.min.js') }}"></script>
-        <!-- Buttons examples -->
-        <script src="{{ asset('plugins\datatables\dataTables.buttons.min.js') }}"></script>
-        <script src="{{ asset('plugins\datatables\buttons.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('plugins\datatables\jszip.min.js') }}"></script>
-        <script src="{{ asset('plugins\datatables\pdfmake.min.js') }}"></script>
-        <script src="{{ asset('plugins\datatables\vfs_fonts.js') }}"></script>
-        <script src="{{ asset('plugins\datatables\buttons.html5.min.js') }}"></script>
-        <script src="{{ asset('plugins\datatables\buttons.print.min.js') }}"></script>
-        <script src="{{ asset('plugins\datatables\buttons.colVis.min.js') }}"></script>
-        <!-- Responsive examples -->
-        <script src="{{ asset('plugins\datatables\dataTables.responsive.min.js') }}"></script>
-        <script src="{{ asset('plugins\datatables\responsive.bootstrap4.min.js') }}"></script>
-        <!-- Datatable init js -->
-        <script src="{{ asset('assets\pages\datatables.init.js') }}"></script>
+    <!-- Required datatable js -->
+    <script src="{{ asset('plugins\datatables\jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins\datatables\dataTables.bootstrap4.min.js') }}"></script>
+    <!-- Buttons examples -->
+    <script src="{{ asset('plugins\datatables\dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('plugins\datatables\buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('plugins\datatables\jszip.min.js') }}"></script>
+    <script src="{{ asset('plugins\datatables\pdfmake.min.js') }}"></script>
+    <script src="{{ asset('plugins\datatables\vfs_fonts.js') }}"></script>
+    <script src="{{ asset('plugins\datatables\buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('plugins\datatables\buttons.print.min.js') }}"></script>
+    <script src="{{ asset('plugins\datatables\buttons.colVis.min.js') }}"></script>
+    <!-- Responsive examples -->
+    <script src="{{ asset('plugins\datatables\dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('plugins\datatables\responsive.bootstrap4.min.js') }}"></script>
+    <!-- Datatable init js -->
+    <script src="{{ asset('assets\pages\datatables.init.js') }}"></script>
 
-        @yield('javascript')
+    @yield('javascript')
     <!--App-->
     <script src="{{ asset('assets\js\app.js') }}"></script>
 </body>

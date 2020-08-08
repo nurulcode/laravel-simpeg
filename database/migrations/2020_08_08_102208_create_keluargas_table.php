@@ -22,7 +22,6 @@ class CreateKeluargasTable extends Migration
 
             $table->string('jenis_kelamin');
             $table->string('pekerjaan');
-            $table->string('hubungan');
             $table->string('status');
 
             $table->foreignId('pendidikan_id')->constrained('pendidikans')->onDelete('cascade');

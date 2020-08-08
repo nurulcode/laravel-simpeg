@@ -11,9 +11,9 @@ use BenSampo\Enum\Enum;
  */
 final class GolonganDarah extends Enum
 {
-    const A     = 1;
-    const B     = 2;
-    const AB    = 3;
-    const O     = 4;
-    const Lain  = 5;
+    const A     = 'A';
+    const B     = 'B';
+    const AB    = 'AB';
+    const O     = 'O';
+    const Lain  = 'Lain';
 }

@@ -61,104 +61,16 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div class="tab-pane p-3 active" id="home-1" role="tabpanel">
-                        <div class="table-responsive ">
-                            <table class="table mb-0">
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Nip</th>
-                                        <td>: {{ $pegawai->nip }} </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Email</th>
-                                        <td>: {{ $pegawai->email }} </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Nama Lengkap</th>
-                                        <td>: {{ $pegawai->nama_lengkap }} </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Tempat, Tanggal Lahir</th>
-                                        <td>: {{ $pegawai->tempat_lahir }} - {{ $pegawai->tanggal_lahir }} </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Gol</th>
-                                        <td>: {{ Str::title($pegawai->golongan_darah) }} </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Agama</th>
-                                        <td>: {{ Str::title($pegawai->agama) }} </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Pernikahan</th>
-                                        <td>: {{ Str::title($pegawai->pernikahan) }} </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Kepegawaian</th>
-                                        <td>:
-                                            {{ $pegawai->kepegawaian == 'PTT' ? 'Pekerja Tidak Tetap' : 'Pegawai Negri Sipil' }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Jenis Kelamin</th>
-                                        <td>:
-                                            {{ $pegawai->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Telfon</th>
-                                        <td>: {{ $pegawai->telfon }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Alamat</th>
-                                        <td>: {{ $pegawai->alamat }} </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Unit Kerja</th>
-                                        <td>: {{ $pegawai->unit->nama }} </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        @include('pegawais.contents.profile', ['pegawai' => $pegawai])
                     </div>
                     <div class="tab-pane p-3" id="suami-istri-1" role="tabpanel">
-                        <div class="table-responsive ">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>NIK</th>
-                                        <th>Nama Lengkap</th>
-                                        <th>Tempat, Tgl Lahir</th>
-                                        <th>Pendidikan</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($pegawai->keluargas as $result)
-                                        @if($result->status == 2)
-                                            <tr>
-                                                <td>{{ $result->nik }}</td>
-                                                <td>{{ $result->nama_lengkap }}</td>
-                                                <td>{{ $result->tempat_lahir }}, <br> {{ $result->tanggal_lahir }}
-                                                </td>
-                                                <td>{{ $result->pendidikan->nama }}</td>
-                                                <td>{{ $result->status_string }}</td>
-                                                <td class="text-center">
-                                                    <a href="#">Edit</a>
-                                                    <a href="#">Delete</a>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        @include('pegawais.contents.suami_istri', ['pegawai' => $pegawai])
                     </div>
                     <div class="tab-pane p-3" id="anak-1" role="tabpanel">
-
+                        @include('pegawais.contents.anak', ['pegawai' => $pegawai])
                     </div>
                     <div class="tab-pane p-3" id="orang-tua-1" role="tabpanel">
-
+                        @include('pegawais.contents.orang_tua', ['pegawai' => $pegawai])
                     </div>
                     <div class="tab-pane p-3" id="pendidikan-1" role="tabpanel">
                         <p class="mb-0">Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before

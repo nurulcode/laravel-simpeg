@@ -2,6 +2,7 @@
 
 namespace App\Models\Masters;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Keluarga extends Model
@@ -26,5 +27,15 @@ class Keluarga extends Model
         } else {
             return ' Anak';
         }
+    }
+
+    public function date($value)
+    {
+        return Carbon::parse($value)->format('m/d/Y');
+    }
+
+    public function getLahirAttribute()
+    {
+        return $this->date($this->tanggal_lahir);
     }
 }

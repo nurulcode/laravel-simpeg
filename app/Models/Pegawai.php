@@ -20,14 +20,31 @@ class Pegawai extends Model
     }
 
 
-    public function setDateAttribute($value)
-    {
-        $this->attributes['tanggal_lahir'] = Carbon::createFromFormat('Y-m-d', $value)->format('m/d/Y');
-    }
+    // public function setDateAttribute($value)
+    // {
+    //     $this->attributes['tanggal_lahir'] = Carbon::createFromFormat('Y-m-d', $value)->format('m/d/Y');
+    // }
 
-    public function getDateAttribute($value)
+    public function date($value)
     {
         return Carbon::parse($value)->format('m/d/Y');
     }
+
+    public function getLahirAttribute()
+    {
+        return $this->date($this->tanggal_lahir);
+    }
+
+    public function getGajiAttribute()
+    {
+        return $this->date($this->tgl_naik_lahir);
+    }
+
+    public function getPangkatAttribute()
+    {
+        return $this->date($this->tgl_naik_pangkat);
+    }
+
+
 
 }
