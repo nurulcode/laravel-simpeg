@@ -133,7 +133,7 @@
                         <li>
                             <a href="javascript:void(0);" class="waves-effect">
                                 <i class="ti-view-list-alt"></i>
-                                <span> Riwayat Pegawai
+                                <span> History Pegawai
                                     <span class="float-right menu-arrow">
                                         <i class="mdi mdi-chevron-right"></i>
                                     </span>
@@ -142,8 +142,8 @@
                             <ul class="submenu mm-collapse">
                                 <li>
                                     <a href="{{ route('keluargas.index') }}"> <i class="ti-minus"></i> Keluarga </a>
-                                    <a href="{{ route('pendidikan.index') }}"> <i class="ti-minus"></i> Sekolah </a>
-                                    <a href="{{ route('pendidikan.index') }}"> <i class="ti-minus"></i> Bahasa </a>
+                                    <a href="{{ route('sekolah.index') }}"> <i class="ti-minus"></i> Sekolah </a>
+                                    <a href="{{ route('bahasa.index') }}"> <i class="ti-minus"></i> Bahasa </a>
                                 </li>
                             </ul>
                         </li>

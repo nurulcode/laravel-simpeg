@@ -24,8 +24,14 @@ Route::match(['get', 'post'], '/register', function () {
     return redirect('/login');
 })->name('register');
 
-Route::resource('pegawais', 'PegawaiController');
-Route::resource('keluargas', 'KeluargaController');
+
 Route::resource('pendidikan', 'PendidikanController');
 Route::resource('jabatan', 'JabatanController');
+
+Route::resource('pegawais', 'PegawaiController');
+
+Route::resource('keluargas', 'KeluargaController');
+Route::resource('sekolah', 'SekolahController');
+Route::resource('bahasa', 'BahasaController');
+
 Route::get('/home', 'HomeController@index')->name('home');
