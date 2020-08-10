@@ -12,4 +12,9 @@ class Pendidikan extends Model
     {
         return $this->hasOne('App\Models\Master\Keluarga');
     }
+
+    public function sekolah()
+    {
+        return $this->hasMany('App\Models\Sekolah');
+    }
 }

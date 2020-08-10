@@ -17,6 +17,7 @@ class CreatePendidikansTable extends Migration
             $table->id();
             $table->string('kategori')->nullable();
             $table->string('nama');
+            $table->string('tingkat')->nullable();;
             $table->tinyInteger('laki')->nullable()->default(0);
             $table->tinyInteger('perempuan')->nullable()->default(0);
             $table->timestamps();

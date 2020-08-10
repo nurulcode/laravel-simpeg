@@ -16,7 +16,7 @@ class CreateSekolahsTable extends Migration
         Schema::create('sekolahs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pegawai_id')->constrained('pegawais')->onDelete('cascade');
-            $table->string('tingakt', 100)->nullable();
+            $table->string('tingkat', 100)->nullable();
             $table->string('nama_sekolah', 100)->nullable();
             $table->string('lokasi', 100)->nullable();
             $table->foreignId('pendidikan_id')->constrained('pendidikans')->onDelete('cascade');

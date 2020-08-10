@@ -142,8 +142,59 @@
                             <ul class="submenu mm-collapse">
                                 <li>
                                     <a href="{{ route('keluargas.index') }}"> <i class="ti-minus"></i> Keluarga </a>
-                                    <a href="{{ route('sekolah.index') }}"> <i class="ti-minus"></i> Sekolah </a>
-                                    <a href="{{ route('bahasa.index') }}"> <i class="ti-minus"></i> Bahasa </a>
+                                    <a href="{{ route('sekolahs.index') }}"> <i class="ti-minus"></i> Pendidikan </a>
+                                    <a href="{{ route('bahasa.create') }}"> <i class="ti-minus"></i> Bahasa </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="ti-view-list-alt"></i>
+                                <span> Keuangan
+                                    <span class="float-right menu-arrow">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                    </span>
+                                </span>
+                            </a>
+                            <ul class="submenu mm-collapse">
+                                <li>
+                                    <a href="{{ route('keluargas.index') }}"> <i class="ti-minus"></i> Keluarga </a>
+                                    <a href="{{ route('sekolahs.index') }}"> <i class="ti-minus"></i> Pendidikan </a>
+                                    <a href="{{ route('bahasa.create') }}"> <i class="ti-minus"></i> Bahasa </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="ti-view-list-alt"></i>
+                                <span> Rekapitulasi
+                                    <span class="float-right menu-arrow">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                    </span>
+                                </span>
+                            </a>
+                            <ul class="submenu mm-collapse">
+                                <li>
+                                    <a href="{{ route('keluargas.index') }}"> <i class="ti-minus"></i> Golonagan </a>
+                                    <a href="{{ route('bahasa.create') }}"> <i class="ti-minus"></i> Pendidikan </a>
+                                    <a href="{{ route('bahasa.create') }}"> <i class="ti-minus"></i> Unit Kerja </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect">
+                                <i class="ti-view-list-alt"></i>
+                                <span> Laporan
+                                    <span class="float-right menu-arrow">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                    </span>
+                                </span>
+                            </a>
+                            <ul class="submenu mm-collapse">
+                                <li>
+                                    <a href="{{ route('keluargas.index') }}"> <i class="ti-minus"></i> Keluarga </a>
+                                    <a href="{{ route('sekolahs.index') }}"> <i class="ti-minus"></i> Pendidikan </a>
+                                    <a href="{{ route('bahasa.create') }}"> <i class="ti-minus"></i> Bahasa </a>
                                 </li>
                             </ul>
                         </li>

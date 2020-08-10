@@ -2,21 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SekolahRequest;
 use App\Models\Bahasa;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BahasaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +18,8 @@ class BahasaController extends Controller
      */
     public function create()
     {
-        //
+        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
+        return view('bahasa.create', compact('pegawais'));
     }
 
     /**
@@ -34,20 +28,17 @@ class BahasaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SekolahRequest $request)
     {
-        //
-    }
+        $bahasa = new Bahasa();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Bahasa  $bahasa
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Bahasa $bahasa)
-    {
-        //
+        $bahasa->pegawai_id = $request->pegawai_id;
+        $bahasa->jenis_bahasa = $request->jenis_bahasa;
+        $bahasa->bahasa = $request->bahasa;
+        $bahasa->kemampuan = $request->kemampuan;
+
+        $bahasa->save();
+        return back()->with('success', 'Data has been saved successfully');
     }
 
     /**
@@ -58,7 +49,8 @@ class BahasaController extends Controller
      */
     public function edit(Bahasa $bahasa)
     {
-        //
+        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
+        return view('bahasa.create', compact('pegawais'));
     }
 
     /**
@@ -68,9 +60,15 @@ class BahasaController extends Controller
      * @param  \App\Bahasa  $bahasa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bahasa $bahasa)
+    public function update(SekolahRequest $request, Bahasa $bahasa)
     {
-        //
+        $bahasa->pegawai_id = $request->pegawai_id;
+        $bahasa->jenis_bahasa = $request->jenis_bahasa;
+        $bahasa->bahasa = $request->bahasa;
+        $bahasa->kemampuan = $request->kemampuan;
+
+        $bahasa->save();
+        return back()->with('success', 'Data has been updated successfully');
     }
 
     /**
@@ -81,6 +79,7 @@ class BahasaController extends Controller
      */
     public function destroy(Bahasa $bahasa)
     {
-        //
+        $bahasa->delete();
+        return back()->with('success', 'Data has been deleted successfully');
     }
 }

@@ -31,7 +31,7 @@ Route::resource('jabatan', 'JabatanController');
 Route::resource('pegawais', 'PegawaiController');
 
 Route::resource('keluargas', 'KeluargaController');
-Route::resource('sekolah', 'SekolahController');
-Route::resource('bahasa', 'BahasaController');
+Route::resource('sekolahs', 'SekolahController')->except(['show']);
+Route::resource('bahasa', 'BahasaController')->except(['index', 'show']);
 
 Route::get('/home', 'HomeController@index')->name('home');
