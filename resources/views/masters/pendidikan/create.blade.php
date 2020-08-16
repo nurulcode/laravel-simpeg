@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('pendidikan.store') }}" enctype="multipart/form-data"
+                <form action="{{ route('pendidikan.store') }}"
                     method="post">
                     @csrf
                     <div class="form-group">

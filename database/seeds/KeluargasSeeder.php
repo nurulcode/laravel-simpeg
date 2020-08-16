@@ -25,7 +25,7 @@ class KeluargasSeeder extends Seeder
 
                 'jenis_kelamin' => 'L',
                 'pekerjaan' => 'ASN',
-                'pendidikan_id' => rand(1, 100),
+                'pendidikan_id' => 1,
                 'pegawai_id' => rand(1, 2),
                 'status' => rand(1, 3)
             ]);

@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label>Bahasa Bajasa</label>
                             <select class="form-control select2 {{ $errors->has('jenis_bahasa') ? 'is-invalid' : '' }}" name="jenis_bahasa">
                                 <option value="">--Pilih--</option>
@@ -42,7 +42,7 @@
                             </div>
                             @endif
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label>Bahasa</label>
                             <input name="bahasa" value="{{ old('bahasa') }}" type="text" class="form-control {{ $errors->has('bahasa') ? 'is-invalid' : '' }}">
                             @if($errors->has('bahasa'))

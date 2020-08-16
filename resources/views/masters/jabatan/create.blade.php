@@ -2,19 +2,9 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('jabatan.store') }}" enctype="multipart/form-data"
+                <form action="{{ route('jabatan.store') }}"
                     method="post">
                     @csrf
-                    <div class="form-group">
-                        <label>Kode</label>
-                        <input name="kode" type="text"
-                            class="form-control {{ $errors->has('kode') ? 'is-invalid' : '' }}" placeholder="Otomatis terisi" readonly>
-                        @if($errors->has('kode'))
-                            <div class="invalid-feedback">
-                                <strong>{{ $errors->first('kode') }}</strong>
-                            </div>
-                        @endif
-                    </div>
 
                     <div class="form-group">
                         <label>Nama</label>

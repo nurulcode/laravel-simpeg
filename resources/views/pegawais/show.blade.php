@@ -5,16 +5,6 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-2">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="mt-0 header-title text-center mb-3">Avatar / Foto</h4>
-                <div class=""><img src="{{ asset('storage/'.$pegawai->foto) }}"
-                        class="img-fluid" alt="Responsive image"></div>
-            </div>
-        </div>
-    </div>
-
     <div class="col-lg-10">
         <div class="card">
             <div class="card-body">
@@ -30,17 +20,15 @@
                     <li class="nav-item waves-effect waves-light">
                         <a class="nav-link" data-toggle="tab" href="#suami-istri-1" role="tab" aria-selected="false">
                             <span class="d-block d-sm-none">
-                                <i class="far fa-user"></i>
-                            </span>
-                            <span class="d-none d-sm-block">Suami Istri</span>
+                                <i class="fas fa-cog"></i>
+                            </span> <span class="d-none d-sm-block">Suami Istri</span>
                         </a>
                     </li>
                     <li class="nav-item waves-effect waves-light">
                         <a class="nav-link" data-toggle="tab" href="#anak-1" role="tab" aria-selected="false">
                             <span class="d-block d-sm-none">
-                                <i class="far fa-envelope"></i>
-                            </span>
-                            <span class="d-none d-sm-block">Anak</span>
+                                <i class="fas fa-cog"></i>
+                            </span> <span class="d-none d-sm-block">Anak</span>
                         </a>
                     </li>
                     <li class="nav-item waves-effect waves-light">
@@ -77,6 +65,19 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <a href="{{ route('pegawais.report_pegawais', $pegawai->id) }}" class="btn btn-outline-primary btn-block waves-effect waves-light block mb-5" target="_blank">Print</a>
+                <a href="" class="btn btn-outline-secondary btn-block waves-effect waves-light block">Pensiun</a>
+                <a href="" class="btn btn-outline-secondary btn-block waves-effect waves-light block">Pangkat</a>
+                <a href="" class="btn btn-outline-secondary btn-block waves-effect waves-light block">Gaji</a>
+                <a href="" class="btn btn-outline-secondary btn-block waves-effect waves-light block">Seminar</a>
+                <a href="" class="btn btn-outline-secondary btn-block waves-effect waves-light block">Berkas</a>
             </div>
         </div>
     </div>

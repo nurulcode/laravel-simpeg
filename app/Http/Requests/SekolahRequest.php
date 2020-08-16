@@ -24,10 +24,14 @@ class SekolahRequest extends FormRequest
     public function rules()
     {
         return [
-            'jenis_bahasa' => 'required',
-            'bahasa' => 'required',
-            'kemampuan' => 'required',
             'pegawai_id' => 'required',
+            'tingkat' => 'required|max:100',
+            'nama_sekolah' => 'required|max:100',
+            'lokasi' => 'required|max:100',
+            'pendidikan_id' => 'required',
+            'nomor' => 'required|max:100',
+            'tgl_ijazah' => 'required',
+            'rektor' => 'required|max:100',
         ];
     }
 }

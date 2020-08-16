@@ -47,8 +47,6 @@ class SekolahController extends Controller
      */
     public function store(SekolahRequest $request)
     {
-        return response()->json($request);
-
         $sekolah = new Sekolah();
 
         $sekolah->pegawai_id = $request->pegawai_id;

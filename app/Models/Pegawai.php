@@ -16,7 +16,7 @@ class Pegawai extends Model
 
     public function keluargas()
     {
-        return $this->hasMany('App\Models\Masters\Keluarga');
+        return $this->hasMany('App\Models\Keluarga');
     }
 
     public function sekolahs()
@@ -35,9 +35,21 @@ class Pegawai extends Model
     //     $this->attributes['tanggal_lahir'] = Carbon::createFromFormat('Y-m-d', $value)->format('m/d/Y');
     // }
 
+
+    public function getTodayAttribute($value)
+    {
+        Carbon::setLocale('id');
+        return Carbon::parse($value)->format('d F Y');
+    }
+
+    public function getLahirIndoAttribute($value)
+    {
+        return Carbon::parse($value)->format('d-m-Y');
+    }
+
     public function date($value)
     {
-        return Carbon::parse($value)->format('m/d/Y');
+        return Carbon::parse($value)->format('d-m-Y');
     }
 
     public function getLahirAttribute()

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Masters\Pendidikan;
+use App\Models\Masters\Gaji;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PendidikanController extends Controller
+class GajiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,8 @@ class PendidikanController extends Controller
      */
     public function index()
     {
-        $pendidikans = DB::table('pendidikans')->get();
-        $kategoris = DB::table('pendidikans')->select('kategori')->groupBy('kategori')->get();
-        return view('masters.pendidikan.index', compact('pendidikans', 'kategoris'));
+        $results = DB::table('gajis')->get();
+        return view('masters.gaji.index', compact('results'));
     }
 
     /**
@@ -38,24 +37,20 @@ class PendidikanController extends Controller
      */
     public function store(Request $request)
     {
-        $pendidikan = new Pendidikan();
+        $jabatan = new Gaji();
+        $jabatan->nominal = $request->nominal;
 
-        $pendidikan->kategori = $request->kategori;
-        $pendidikan->nama = $request->nama;
-        $pendidikan->laki = $request->laki;
-        $pendidikan->perempuan = $request->perempuan;
-
-        $pendidikan->save();
-        return redirect()->route('sekolahs.index')->with('success', 'Data has been saved successfully.');
+        $jabatan->save();
+        return back()->with('success', 'Data has been saved successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Pendidikan  $pendidikan
+     * @param  \App\Gaji  $gaji
      * @return \Illuminate\Http\Response
      */
-    public function show(Pendidikan $pendidikan)
+    public function show(Gaji $gaji)
     {
         //
     }
@@ -63,10 +58,10 @@ class PendidikanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Pendidikan  $pendidikan
+     * @param  \App\Gaji  $gaji
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pendidikan $pendidikan)
+    public function edit(Gaji $gaji)
     {
         //
     }
@@ -75,22 +70,26 @@ class PendidikanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pendidikan  $pendidikan
+     * @param  \App\Gaji  $gaji
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pendidikan $pendidikan)
+    public function update(Request $request, Gaji $gaji)
     {
-        //
+        $gaji->nominal = $request->nominal;
+
+        $gaji->save();
+        return back()->with('success', 'Data has been updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Pendidikan  $pendidikan
+     * @param  \App\Gaji  $gaji
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pendidikan $pendidikan)
+    public function destroy(Gaji $gaji)
     {
-        //
+        $gaji->delete();
+        return back()->with('success', 'Data has been deleted successfully');
     }
 }

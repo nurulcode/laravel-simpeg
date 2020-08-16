@@ -11,8 +11,7 @@ use BenSampo\Enum\Enum;
  */
 final class StatusKepegawaian extends Enum
 {
-    const PNS       =   'PNS';
-    const PTT       =   'PTT';
+    const ASN       =   'ASN';
     const Honorer   =   'Honorer';
     const Kontrak   =   'Kontrak';
 }

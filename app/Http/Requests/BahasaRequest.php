@@ -24,7 +24,10 @@ class BahasaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'pegawai_id' => 'required',
+            'jenis_bahasa' => 'required',
+            'bahasa' => 'required',
+            'kemampuan' => 'required',
         ];
     }
 }

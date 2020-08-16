@@ -16,19 +16,8 @@ class JabatanController extends Controller
      */
     public function index()
     {
-
         $results = DB::table('jabatans')->get();
         return view('masters.jabatan.index', compact('results'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -47,16 +36,6 @@ class JabatanController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Jabatan  $jabatan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Jabatan $jabatan)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -89,6 +68,7 @@ class JabatanController extends Controller
      */
     public function destroy(Jabatan $jabatan)
     {
-        //
+        $jabatan->delete();
+        return redirect()->route('masters.jabatan.index')->with('success', 'Data has been deleted successfully');
     }
 }

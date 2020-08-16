@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class PegawaiController extends Controller
 {
@@ -20,6 +21,19 @@ class PegawaiController extends Controller
     {
         $pegawais = Pegawai::all();
         return view('pegawais.index', compact('pegawais'));
+    }
+
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function report_pegawais(Pegawai $pegawai)
+    {
+    	$pdf = PDF::loadview('pegawais.report_pegawais',compact('pegawai'))->setPaper('A4','potrait');
+        return $pdf->stream('laporan-pegawai.pdf');
+
+        // return view('pegawais.report_pegawais', compact('pegawai'));
     }
 
     /**
@@ -143,7 +157,6 @@ class PegawaiController extends Controller
      */
     public function destroy(Pegawai $pegawai)
     {
-        // return response()->json($pegawai);
         $pegawai->delete();
         return back()->with('success', 'Data has been removed');
     }

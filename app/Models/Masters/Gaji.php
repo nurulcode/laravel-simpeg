@@ -5,8 +5,7 @@ namespace App\Models\Masters;
 use Illuminate\Database\Eloquent\Model;
 use Alfa6661\AutoNumber\AutoNumberTrait;
 
-
-class Jabatan extends Model
+class Gaji extends Model
 {
     use AutoNumberTrait;
     protected $guarded = [];
@@ -19,5 +18,4 @@ class Jabatan extends Model
             ]
         ];
     }
-
 }
