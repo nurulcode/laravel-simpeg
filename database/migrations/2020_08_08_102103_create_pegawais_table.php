@@ -33,7 +33,10 @@ class CreatePegawaisTable extends Migration
             $table->string('email', 50)->nullable();
             $table->text('alamat', 100)->nullable();
 
-            $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
+            $table->foreignId('unit_id')->constrained('units')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignId('golongan_id')->constrained('golongans')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignId('gaji_id')->constrained('gajis')->onDelete('cascade')->onUpdate('cascade');
+
 
             $table->string('foto')->nullable()->default('fotos/default.png');
             $table->timestamps();

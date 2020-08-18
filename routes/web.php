@@ -28,10 +28,12 @@ Route::prefix('masters')->group(function () {
     Route::resource('pendidikan', 'PendidikanController');
     Route::resource('jabatan', 'JabatanController');
     Route::resource('gaji', 'GajiController');
+    Route::resource('golongan', 'GolonganController');
 });
 
 Route::get('/pegawais/report_pegawais/{pegawai}', 'PegawaiController@report_pegawais')->name('pegawais.report_pegawais');
 Route::resource('pegawais', 'PegawaiController');
+Route::resource('rekapitulasis', 'RekapitulasiController');
 
 Route::resource('keluargas', 'KeluargaController');
 Route::resource('sekolahs', 'SekolahController');

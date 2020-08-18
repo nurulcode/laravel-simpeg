@@ -72,12 +72,12 @@
     <div class="col-lg-2">
         <div class="card">
             <div class="card-body">
-                <a href="{{ route('pegawais.report_pegawais', $pegawai->id) }}" class="btn btn-outline-primary btn-block waves-effect waves-light block mb-5" target="_blank">Print</a>
-                <a href="" class="btn btn-outline-secondary btn-block waves-effect waves-light block">Pensiun</a>
-                <a href="" class="btn btn-outline-secondary btn-block waves-effect waves-light block">Pangkat</a>
-                <a href="" class="btn btn-outline-secondary btn-block waves-effect waves-light block">Gaji</a>
-                <a href="" class="btn btn-outline-secondary btn-block waves-effect waves-light block">Seminar</a>
-                <a href="" class="btn btn-outline-secondary btn-block waves-effect waves-light block">Berkas</a>
+                <a href="{{ route('pegawais.report_pegawais', $pegawai->id) }}" class="btn btn-outline-primary  btn-block waves-effect waves-light block mb-5" target="_blank">Print</a>
+                <a href="" class="btn btn-outline-secondary btn-sm btn-block waves-effect waves-light block">Pensiun</a>
+                <a href="" class="btn btn-outline-secondary btn-sm btn-block waves-effect waves-light block">Pangkat</a>
+                <a href="" class="btn btn-outline-secondary btn-sm btn-block waves-effect waves-light block">Gaji</a>
+                <a href="" class="btn btn-outline-secondary btn-sm btn-block waves-effect waves-light block">Seminar</a>
+                <a href="" class="btn btn-outline-secondary btn-sm btn-block waves-effect waves-light block">Berkas</a>
             </div>
         </div>
     </div>

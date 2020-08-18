@@ -165,6 +165,8 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         Alfa6661\AutoNumber\AutoNumberServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+
 
 
         /*

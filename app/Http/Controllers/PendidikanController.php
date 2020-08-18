@@ -21,16 +21,6 @@ class PendidikanController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -46,19 +36,9 @@ class PendidikanController extends Controller
         $pendidikan->perempuan = $request->perempuan;
 
         $pendidikan->save();
-        return redirect()->route('sekolahs.index')->with('success', 'Data has been saved successfully.');
+        return redirect()->route('pendidikan.index')->with('success', 'Data has been saved successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Pendidikan  $pendidikan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pendidikan $pendidikan)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -68,7 +48,8 @@ class PendidikanController extends Controller
      */
     public function edit(Pendidikan $pendidikan)
     {
-        //
+        $kategoris = DB::table('pendidikans')->select('kategori')->groupBy('kategori')->get();
+        return view('masters.pendidikan.edit', compact('pendidikan', 'kategoris'));
     }
 
     /**
@@ -80,7 +61,13 @@ class PendidikanController extends Controller
      */
     public function update(Request $request, Pendidikan $pendidikan)
     {
-        //
+        $pendidikan->kategori =  $request->kategori;
+        $pendidikan->nama =  $request->nama;
+        $pendidikan->laki =  $request->laki;
+        $pendidikan->perempuan =  $request->perempuan;
+        $pendidikan->save();
+
+        return redirect()->route('pendidikan.index')->with('success', 'Data has been updated successfully');
     }
 
     /**
@@ -91,6 +78,7 @@ class PendidikanController extends Controller
      */
     public function destroy(Pendidikan $pendidikan)
     {
-        //
+        $pendidikan->delete();
+        return back()->with('success', 'Data has been deleted successfully');
     }
 }

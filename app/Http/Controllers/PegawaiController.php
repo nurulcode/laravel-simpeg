@@ -23,19 +23,6 @@ class PegawaiController extends Controller
         return view('pegawais.index', compact('pegawais'));
     }
 
-        /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function report_pegawais(Pegawai $pegawai)
-    {
-    	$pdf = PDF::loadview('pegawais.report_pegawais',compact('pegawai'))->setPaper('A4','potrait');
-        return $pdf->stream('laporan-pegawai.pdf');
-
-        // return view('pegawais.report_pegawais', compact('pegawai'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -159,5 +146,15 @@ class PegawaiController extends Controller
     {
         $pegawai->delete();
         return back()->with('success', 'Data has been removed');
+    }
+
+
+
+    public function report_pegawais(Pegawai $pegawai)
+    {
+        $pdf = PDF::loadview('pegawais.report_pegawais',compact('pegawai'))->setPaper('A4','potrait');
+        return $pdf->stream('laporan-pegawai.pdf');
+
+        // return view('pegawais.report_pegawais', compact('pegawai'));
     }
 }
