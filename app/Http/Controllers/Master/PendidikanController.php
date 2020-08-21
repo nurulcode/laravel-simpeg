@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Masters\Pendidikan;
 use Illuminate\Http\Request;
@@ -17,7 +19,7 @@ class PendidikanController extends Controller
     {
         $pendidikans = DB::table('pendidikans')->get();
         $kategoris = DB::table('pendidikans')->select('kategori')->groupBy('kategori')->get();
-        return view('masters.pendidikan.index', compact('pendidikans', 'kategoris'));
+        return view('master.pendidikan.index', compact('pendidikans', 'kategoris'));
     }
 
     /**
@@ -28,6 +30,14 @@ class PendidikanController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'kategori' => 'required',
+            'nama' => 'required',
+            'tingkat' => 'required',
+            'laki' => 'required|numeric',
+            'perempuan' => 'required|numeric'
+        ]);
+
         $pendidikan = new Pendidikan();
 
         $pendidikan->kategori = $request->kategori;
@@ -49,7 +59,7 @@ class PendidikanController extends Controller
     public function edit(Pendidikan $pendidikan)
     {
         $kategoris = DB::table('pendidikans')->select('kategori')->groupBy('kategori')->get();
-        return view('masters.pendidikan.edit', compact('pendidikan', 'kategoris'));
+        return view('master.pendidikan.edit', compact('pendidikan', 'kategoris'));
     }
 
     /**

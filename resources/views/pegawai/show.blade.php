@@ -49,19 +49,19 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div class="tab-pane p-3 active" id="home-1" role="tabpanel">
-                        @include('pegawais.contents.profile', ['pegawai' => $pegawai])
+                        @include('pegawai.contents.profile', ['pegawai' => $pegawai])
                     </div>
                     <div class="tab-pane p-3" id="suami-istri-1" role="tabpanel">
-                        @include('pegawais.contents.suami_istri', ['pegawai' => $pegawai])
+                        @include('pegawai.contents.suami_istri', ['pegawai' => $pegawai])
                     </div>
                     <div class="tab-pane p-3" id="anak-1" role="tabpanel">
-                        @include('pegawais.contents.anak', ['pegawai' => $pegawai])
+                        @include('pegawai.contents.anak', ['pegawai' => $pegawai])
                     </div>
                     <div class="tab-pane p-3" id="orang-tua-1" role="tabpanel">
-                        @include('pegawais.contents.orang_tua', ['pegawai' => $pegawai])
+                        @include('pegawai.contents.orang_tua', ['pegawai' => $pegawai])
                     </div>
                     <div class="tab-pane p-3" id="pendidikan-1" role="tabpanel">
-                        @include('pegawais.contents.riwayat_pendidikan', ['pegawai' => $pegawai])
+                        @include('pegawai.contents.riwayat_pendidikan', ['pegawai' => $pegawai])
 
                     </div>
                 </div>
@@ -70,16 +70,12 @@
     </div>
 
     <div class="col-lg-2">
-        <div class="card">
-            <div class="card-body">
-                <a href="{{ route('pegawais.report_pegawais', $pegawai->id) }}" class="btn btn-outline-primary  btn-block waves-effect waves-light block mb-5" target="_blank">Print</a>
-                <a href="" class="btn btn-outline-secondary btn-sm btn-block waves-effect waves-light block">Pensiun</a>
-                <a href="" class="btn btn-outline-secondary btn-sm btn-block waves-effect waves-light block">Pangkat</a>
-                <a href="" class="btn btn-outline-secondary btn-sm btn-block waves-effect waves-light block">Gaji</a>
-                <a href="" class="btn btn-outline-secondary btn-sm btn-block waves-effect waves-light block">Seminar</a>
-                <a href="" class="btn btn-outline-secondary btn-sm btn-block waves-effect waves-light block">Berkas</a>
-            </div>
-        </div>
+        <a href="{{ route('pegawais.report_pegawais', $pegawai->id) }}" class="btn btn-outline  btn-block waves-effect waves-light block mb-2 mt-1" target="_blank">Print</a>
+        <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Pensiun</a>
+        <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Pangkat</a>
+        <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Gaji</a>
+        <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Seminar</a>
+        <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Berkas</a>
     </div>
 
 </div>

@@ -28,7 +28,7 @@
 
     <div class="form-group">
         <label>Jumlah Laki</label>
-        <input name="laki" type="text" class="form-control {{ $errors->has('laki') ? 'is-invalid' : '' }}">
+        <input name="laki" type="number" class="form-control {{ $errors->has('laki') ? 'is-invalid' : '' }}">
         @if($errors->has('laki'))
         <div class="invalid-feedback">
             <strong>{{ $errors->first('laki') }}</strong>
@@ -38,7 +38,7 @@
 
     <div class="form-group">
         <label>Jumlah Perempuan</label>
-        <input name="perempuan" type="text" class="form-control {{ $errors->has('perempuan') ? 'is-invalid' : '' }}">
+        <input name="perempuan" type="number" class="form-control {{ $errors->has('perempuan') ? 'is-invalid' : '' }}">
         @if($errors->has('perempuan'))
         <div class="invalid-feedback">
             <strong>{{ $errors->first('perempuan') }}</strong>

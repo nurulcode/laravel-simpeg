@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Masters\Gaji;
 use Illuminate\Http\Request;
@@ -16,17 +18,7 @@ class GajiController extends Controller
     public function index()
     {
         $results = DB::table('gajis')->get();
-        return view('masters.gaji.index', compact('results'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('master.gaji.index', compact('results'));
     }
 
     /**
@@ -37,22 +29,15 @@ class GajiController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'nominal' => 'required|numeric|digits_between:6,7'
+        ]);
+
         $jabatan = new Gaji();
         $jabatan->nominal = $request->nominal;
 
         $jabatan->save();
         return back()->with('success', 'Data has been saved successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Gaji  $gaji
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Gaji $gaji)
-    {
-        //
     }
 
     /**
@@ -63,7 +48,7 @@ class GajiController extends Controller
      */
     public function edit(Gaji $gaji)
     {
-        //
+        return view('master.gaji.edit', compact('gaji'));
     }
 
     /**
@@ -75,10 +60,14 @@ class GajiController extends Controller
      */
     public function update(Request $request, Gaji $gaji)
     {
+        $this->validate($request, [
+            'nominal' => 'required|numeric|digits_between:6,7'
+        ]);
+
         $gaji->nominal = $request->nominal;
 
         $gaji->save();
-        return back()->with('success', 'Data has been updated successfully.');
+        return redirect()->route('gaji.index')->with('success', 'Data has been updated successfully.');
     }
 
     /**

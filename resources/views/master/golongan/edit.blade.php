@@ -6,9 +6,9 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mt-0 header-title">Edit Gologan</h4>
-                <form action="{{ route('golongan.store') }}" method="post">
+                <form action="{{ route('golongan.update', $golongan->id) }}" method="post">
+                    @method('PUT')
                     @csrf
-
                     <div class="form-group">
                         <label>Kode</label>
                         <input name="kode" value="{{ $golongan->kode }}" type="text" class="form-control {{ $errors->has('kode') ? 'is-invalid' : '' }}" readonly>
@@ -50,7 +50,7 @@
 
                     <div class="form-group mb-0">
                         <div>
-                            <button type="submit" class="btn btn-primary waves-effect waves-light mr-1">Tambah</button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light mr-1">Update</button>
                         </div>
                     </div>
                 </form>

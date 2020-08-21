@@ -20,7 +20,7 @@ class PegawaiController extends Controller
     public function index(Request $request)
     {
         $pegawais = Pegawai::all();
-        return view('pegawais.index', compact('pegawais'));
+        return view('pegawai.index', compact('pegawais'));
     }
 
     /**
@@ -31,7 +31,7 @@ class PegawaiController extends Controller
     public function create()
     {
         $units = DB::table('units')->get();
-        return view('pegawais.create', compact('units'));
+        return view('pegawai.create', compact('units'));
     }
 
     /**
@@ -70,7 +70,7 @@ class PegawaiController extends Controller
         }
 
         $pegawai->save();
-        return redirect()->route('pegawais.create')->with('status', 'Data has been saved successfully.');
+        return redirect()->route('pegawai.create')->with('status', 'Data has been saved successfully.');
     }
 
     /**
@@ -81,7 +81,8 @@ class PegawaiController extends Controller
      */
     public function show(Pegawai $pegawai)
     {
-        return view('pegawais.show', compact('pegawai'));
+        return response()->json($pegawai->tegurans);
+        return view('pegawai.show', compact('pegawai'));
     }
 
     /**
@@ -93,7 +94,7 @@ class PegawaiController extends Controller
     public function edit(Pegawai $pegawai)
     {
         $units = DB::table('units')->get();
-        return view('pegawais.edit', compact('pegawai', 'units'));
+        return view('pegawai.edit', compact('pegawai', 'units'));
     }
 
     /**
@@ -133,7 +134,7 @@ class PegawaiController extends Controller
         }
 
         $pegawai->save();
-        return redirect()->route('pegawais.index')->with('status', 'Data has been updated successfully');
+        return redirect()->route('pegawai.index')->with('status', 'Data has been updated successfully');
     }
 
     /**
@@ -152,9 +153,9 @@ class PegawaiController extends Controller
 
     public function report_pegawais(Pegawai $pegawai)
     {
-        $pdf = PDF::loadview('pegawais.report_pegawais',compact('pegawai'))->setPaper('A4','potrait');
+        $pdf = PDF::loadview('pegawai.report_pegawais',compact('pegawai'))->setPaper('A4','potrait');
         return $pdf->stream('laporan-pegawai.pdf');
 
-        // return view('pegawais.report_pegawais', compact('pegawai'));
+        // return view('pegawai.report_pegawais', compact('pegawai'));
     }
 }

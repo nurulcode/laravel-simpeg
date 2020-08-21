@@ -24,6 +24,7 @@
                         <li><a href="{{ route('pendidikan.index') }}"><i class="ti-minus"></i>Pendidikan</a></li>
                         <li><a href="{{ route('jabatan.index') }}"><i class="ti-minus"></i>Jabatan</a></li>
                         <li><a href="{{ route('golongan.index')}}"><i class="ti-minus"></i>Golongan</a></li>
+                        <li><a href="{{ route('unit.index')}}"><i class="ti-minus"></i>Unit</a></li>
                         <li><a href="{{ route('gaji.index') }}"><i class="ti-minus"></i>Gaji</a></li>
                     </ul>
                 </li>

@@ -29,6 +29,11 @@ class Pegawai extends Model
         return $this->hasMany('App\Models\Sekolah');
     }
 
+    public function tegurans()
+    {
+        return $this->hasMany('App\Models\Kepegawaian\KepTeguran');
+    }
+
 
     // public function setDateAttribute($value)
     // {

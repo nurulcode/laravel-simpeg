@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Masters\Golongan;
 use Illuminate\Http\Request;
@@ -15,17 +17,7 @@ class GolonganController extends Controller
     public function index()
     {
         $results = Golongan::all();
-        return view('masters.golongan.index', compact('results'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('masters.golongan.create');
+        return view('master.golongan.index', compact('results'));
     }
 
     /**
@@ -36,6 +28,12 @@ class GolonganController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'pangkat' => 'required|max:30',
+            'golongan' => 'required|max:2',
+            'ruang' => 'required|max:2'
+        ]);
+
         $golongan = new Golongan();
 
         $golongan->pangkat = $request->pangkat;
@@ -47,17 +45,6 @@ class GolonganController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Golongan  $golongan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Golongan $golongan)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Golongan  $golongan
@@ -65,7 +52,7 @@ class GolonganController extends Controller
      */
     public function edit(Golongan $golongan)
     {
-        //
+        return view('master.golongan.edit', compact('golongan'));
     }
 
     /**
@@ -77,7 +64,18 @@ class GolonganController extends Controller
      */
     public function update(Request $request, Golongan $golongan)
     {
-        //
+        $this->validate($request, [
+            'pangkat' => 'required|max:30',
+            'golongan' => 'required|max:2',
+            'ruang' => 'required|max:2'
+        ]);
+
+        $golongan->pangkat = $request->pangkat;
+        $golongan->golongan = $request->golongan;
+        $golongan->ruang = $request->ruang;
+
+        $golongan->save();
+        return redirect()->route('golongan.index')->with('success', 'Data has been saved successfully.');
     }
 
     /**
@@ -88,6 +86,7 @@ class GolonganController extends Controller
      */
     public function destroy(Golongan $golongan)
     {
-        //
+        $golongan->delete();
+        return back()->with('success', 'Data has been deleted successfully.');
     }
 }

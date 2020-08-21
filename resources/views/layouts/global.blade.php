@@ -29,6 +29,38 @@
     <link href="{{ asset('assets\css\metismenu.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets\css\icons.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets\css\style.css') }}" rel="stylesheet" type="text/css" />
+
+    <style>
+        .btn-outline {
+            color: #353958;
+            background-color: #f1f1f1;
+            border-color: #b8bce0;
+            border-radius: 0;
+        }
+
+        .btn-outline:hover,
+        .btn-outline:active,
+        .btn-outline:focus,
+        .btn-outline.active {
+            background: #a9afe4;
+            color: #ffffff;
+            border-color: #a9afe4;
+
+        }
+
+        /* for demo purpose only */
+
+        body {
+            padding: 20px 0;
+            font-family: Roboto, sans-serif;
+        }
+
+        h1 {
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -99,7 +131,7 @@
             <!-- Start content -->
             <div class="content">
                 <div class="container-fluid">
-                    <div class="page-title-box">
+                    {{-- <div class="page-title-box">
                         <div class="row align-items-center">
                             <div class="col-sm-6">
                                 <h4 class="page-title">@yield('page-title')</h4>
@@ -110,7 +142,7 @@
                                 </ol>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- end row -->
                     @yield('content')
                 </div>

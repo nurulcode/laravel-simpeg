@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Masters\Jabatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Laravel\Ui\Presets\Vue;
 
 class JabatanController extends Controller
 {
@@ -17,7 +19,7 @@ class JabatanController extends Controller
     public function index()
     {
         $results = DB::table('jabatans')->get();
-        return view('masters.jabatan.index', compact('results'));
+        return view('master.jabatan.index', compact('results'));
     }
 
     /**
@@ -28,12 +30,15 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'nama' => 'required'
+        ]);
+
         $jabatan = new Jabatan();
         $jabatan->nama = $request->nama;
 
         $jabatan->save();
         return back()->with('success', 'Data has been saved successfully.');
-
     }
 
 
@@ -45,7 +50,7 @@ class JabatanController extends Controller
      */
     public function edit(Jabatan $jabatan)
     {
-        //
+        return view('master.jabatan.index', compact('jabatan'));
     }
 
     /**
@@ -57,7 +62,15 @@ class JabatanController extends Controller
      */
     public function update(Request $request, Jabatan $jabatan)
     {
-        //
+        $this->validate($request, [
+            'nama' => 'required'
+        ]);
+
+        $jabatan = new Jabatan();
+        $jabatan->nama = $request->nama;
+
+        $jabatan->save();
+        return back()->with('success', 'Data has been updated successfully.');
     }
 
     /**
@@ -69,6 +82,6 @@ class JabatanController extends Controller
     public function destroy(Jabatan $jabatan)
     {
         $jabatan->delete();
-        return redirect()->route('masters.jabatan.index')->with('success', 'Data has been deleted successfully');
+        return back()->with('success', 'Data has been deleted successfully');
     }
 }

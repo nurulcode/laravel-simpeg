@@ -1,4 +1,7 @@
 @extends('layouts.global')
+@section('title')
+    Edit Pendidikan
+@endsection
 
 @section('content')
 <div class="row justify-content-center ">

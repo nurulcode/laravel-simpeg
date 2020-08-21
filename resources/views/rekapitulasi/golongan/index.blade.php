@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mt-0 header-title">Validation type</h4>
-                @include('masters.jabatan.create')
+                @include('master.jabatan.create')
             </div>
         </div>
     </div><!-- end col -->

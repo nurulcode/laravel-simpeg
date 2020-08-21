@@ -25,10 +25,11 @@ Route::match(['get', 'post'], '/register', function () {
 })->name('register');
 
 Route::prefix('masters')->group(function () {
-    Route::resource('pendidikan', 'PendidikanController');
-    Route::resource('jabatan', 'JabatanController');
-    Route::resource('gaji', 'GajiController');
-    Route::resource('golongan', 'GolonganController');
+    Route::resource('pendidikan', 'Master\PendidikanController');
+    Route::resource('jabatan', 'Master\JabatanController');
+    Route::resource('gaji', 'Master\GajiController');
+    Route::resource('golongan', 'Master\GolonganController');
+    Route::resource('unit', 'Master\UnitController');
 });
 
 Route::get('/pegawais/report_pegawais/{pegawai}', 'PegawaiController@report_pegawais')->name('pegawais.report_pegawais');
