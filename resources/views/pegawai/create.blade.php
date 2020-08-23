@@ -8,7 +8,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('pegawais.store') }}" enctype="multipart/form-data" method="post">
+                <form action="{{ route('pegawai.store') }}" enctype="multipart/form-data" method="post">
                     @csrf
 
                     <div class="form-row">
@@ -210,10 +210,10 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label>Avatar / Foto</label>
-                            <input type="file" name="foto" class="filestyle {{ $errors->has('foto') ? 'is-invalid' : '' }}" data-buttonname="btn-secondary">
+                            <input type="file" value="{{ old('foto') }}" name="foto" class="filestyle {{ $errors->has('foto') ? 'is-invalid' : '' }}" data-buttonname="btn-secondary">
                             @if($errors->has('foto'))
-                                <div class="invalid-feedback">
-                                    <strong>{{ $errors->first('foto') }}</strong>
+                                <div>
+                                    <small class="text-danger">{{ $errors->first('foto') }}</small>
                                 </div>
                             @endif
                         </div>
@@ -222,7 +222,7 @@
 
                     <div class="form-group">
                         <label>Alamat</label>
-                        <textarea name="alamat" class="form-control {{ $errors->has('alamat') ? 'is-invalid' : '' }}" rows="5">{{ old('alamat') }}</textarea>
+                        <textarea name="alamat" class="form-control {{ $errors->has('alamat') ? 'is-invalid' : '' }}" rows="5"></textarea>
                         @if($errors->has('alamat'))
                             <div class="invalid-feedback">
                                 <strong>{{ $errors->first('alamat') }}</strong>

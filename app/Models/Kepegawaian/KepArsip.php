@@ -4,12 +4,12 @@ namespace App\Models\Kepegawaian;
 
 use Illuminate\Database\Eloquent\Model;
 
-class KepTeguran extends Model
+class KepArsip extends Model
 {
     protected $guarded = [];
 
     public function pegawai()
     {
-        return $this->belongsTo('App\Pegawai');
+        return $this->belongsTo('App\Models\Pegawai');
     }
 }

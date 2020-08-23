@@ -19,7 +19,7 @@ class PegawaiController extends Controller
      */
     public function index(Request $request)
     {
-        $pegawais = Pegawai::all();
+        $pegawais = Pegawai::get();
         return view('pegawai.index', compact('pegawais'));
     }
 
@@ -42,6 +42,8 @@ class PegawaiController extends Controller
      */
     public function store(PegawaiRequest $request)
     {
+        // return $request;
+
         $pegawai = new Pegawai();
 
         $pegawai->nip = $request->get('nip');
@@ -55,8 +57,13 @@ class PegawaiController extends Controller
         $pegawai->pernikahan = $request->get('pernikahan');
         $pegawai->kepegawaian = $request->get('kepegawaian');
 
-        $pegawai->tgl_naik_pangkat = Carbon::createFromFormat('m/d/Y', $request->get('tgl_naik_pangkat'))->format('Y-m-d');
-        $pegawai->tgl_naik_gaji = Carbon::createFromFormat('m/d/Y', $request->get('tgl_naik_gaji'))->format('Y-m-d');
+        if ($request->tgl_naik_pangkat) {
+            $pegawai->tgl_naik_pangkat = Carbon::createFromFormat('m/d/Y', $request->tgl_naik_pangkat)->format('Y-m-d');
+        }
+
+        if ($request->tgl_naik_gaji) {
+            $pegawai->tgl_naik_gaji = Carbon::createFromFormat('m/d/Y', $request->tgl_naik_gaji)->format('Y-m-d');
+        }
 
         $pegawai->telfon = $request->get('telfon') ;
         $pegawai->email = $request->get('email') ;
@@ -69,6 +76,8 @@ class PegawaiController extends Controller
             $pegawai->foto = $foto;
         }
 
+
+
         $pegawai->save();
         return redirect()->route('pegawai.create')->with('status', 'Data has been saved successfully.');
     }
@@ -76,19 +85,19 @@ class PegawaiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Pegawai  $pegawai
+     * @param  \App\Models\Pegawai  $pegawai
      * @return \Illuminate\Http\Response
      */
     public function show(Pegawai $pegawai)
     {
-        return response()->json($pegawai->tegurans);
+        // return response()->json($pegawai->tegurans);
         return view('pegawai.show', compact('pegawai'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Pegawai  $pegawai
+     * @param  \App\Models\Pegawai  $pegawai
      * @return \Illuminate\Http\Response
      */
     public function edit(Pegawai $pegawai)
@@ -101,14 +110,15 @@ class PegawaiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pegawai  $pegawai
+     * @param  \App\Models\Pegawai  $pegawai
      * @return \Illuminate\Http\Response
      */
     public function update(PegawaiRequest $request, Pegawai $pegawai)
     {
-
+        $pegawai->nip = $request->get('nip');
         $pegawai->nama_lengkap = $request->get('nama_lengkap');
         $pegawai->tempat_lahir = $request->get('tempat_lahir');
+
         $pegawai->tanggal_lahir = Carbon::createFromFormat('m/d/Y', $request->get('tanggal_lahir'))->format('Y-m-d');
 
         $pegawai->jenis_kelamin = $request->get('jenis_kelamin');
@@ -117,8 +127,13 @@ class PegawaiController extends Controller
         $pegawai->pernikahan = $request->get('pernikahan');
         $pegawai->kepegawaian = $request->get('kepegawaian');
 
-        $pegawai->tgl_naik_pangkat = Carbon::createFromFormat('m/d/Y', $request->get('tgl_naik_pangkat'))->format('Y-m-d');
-        $pegawai->tgl_naik_gaji = Carbon::createFromFormat('m/d/Y', $request->get('tgl_naik_pangkat'))->format('Y-m-d');
+        if ($request->tgl_naik_pangkat) {
+            $pegawai->tgl_naik_pangkat = Carbon::createFromFormat('m/d/Y', $request->tgl_naik_pangkat)->format('Y-m-d');
+        }
+
+        if ($request->tgl_naik_gaji) {
+            $pegawai->tgl_naik_gaji = Carbon::createFromFormat('m/d/Y', $request->tgl_naik_gaji)->format('Y-m-d');
+        }
 
         $pegawai->telfon = $request->get('telfon') ;
         $pegawai->email = $request->get('email') ;
@@ -140,7 +155,7 @@ class PegawaiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Pegawai  $pegawai
+     * @param  \App\Models\Pegawai  $pegawai
      * @return \Illuminate\Http\Response
      */
     public function destroy(Pegawai $pegawai)

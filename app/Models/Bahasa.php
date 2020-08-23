@@ -10,6 +10,6 @@ class Bahasa extends Model
 
     public function pegawai()
     {
-        return $this->belongsTo('App\Pegawai');
+        return $this->belongsTo('App\Models\Pegawai');
     }
 }

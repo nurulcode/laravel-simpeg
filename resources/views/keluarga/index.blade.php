@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="text-right">
-                    <a href="{{ route('keluargas.create') }}" class="btn btn-primary waves-light mb-3">
+                    <a href="{{ route('keluarga.create') }}" class="btn btn-primary waves-light mb-3">
                         Tambah Data
                     </a>
                 </div>
@@ -25,7 +25,7 @@
                             <tr>
 
                                 <td>
-                                    <a class="" href="{{ route('keluargas.show', $result->id) }}">{{ $result->nik }}</a>
+                                    <a class="" href="{{ route('keluarga.show', $result->id) }}">{{ $result->nik }}</a>
                                 </td>
                                 <td>{{ $result->nama_lengkap }}</td>
                                 <td>{{ $result->tempat_lahir }}, <br> {{ $result->tanggal_lahir }}</td>
@@ -36,9 +36,9 @@
                                             Actions
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{ route('keluargas.edit', $result->id) }}">Edit</a>
-                                            <a class="dropdown-item" href="{{ route('keluargas.show', $result->id) }}">Detail Action</a>
-                                            <form action="{{ route('keluargas.destroy', $result->id) }}" method="post">
+                                            <a class="dropdown-item" href="{{ route('keluarga.edit', $result->id) }}">Edit</a>
+                                            <a class="dropdown-item" href="{{ route('keluarga.show', $result->id) }}">Detail Action</a>
+                                            <form action="{{ route('keluarga.destroy', $result->id) }}" method="post">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="dropdown-item" onclick="return confirm('Are you sure?')">

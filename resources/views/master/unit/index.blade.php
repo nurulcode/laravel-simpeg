@@ -53,7 +53,7 @@
                     </tbody>
                 </table>
             </div>
-            {{-- @include('pegawais.edit') --}}
+            {{-- @include('pegawai.edit') --}}
         </div>
     </div><!-- end col -->
 </div>

@@ -31,13 +31,18 @@ class Pegawai extends Model
 
     public function tegurans()
     {
-        return $this->hasMany('App\Models\Kepegawaian\KepTeguran');
+        return $this->hasMany('App\Models\Kepegawaian\Teguran');
+    }
+
+    public function arsips()
+    {
+        return $this->hasMany('App\Models\Kepegawaian\KepArsip');
     }
 
 
-    // public function setDateAttribute($value)
+    // public function setTanggalLahirAttribute($value)
     // {
-    //     $this->attributes['tanggal_lahir'] = Carbon::createFromFormat('Y-m-d', $value)->format('m/d/Y');
+    //     $this->attributes['tanggal_lahir'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
     // }
 
 
@@ -47,14 +52,10 @@ class Pegawai extends Model
         return Carbon::parse($value)->format('d F Y');
     }
 
-    public function getLahirIndoAttribute($value)
-    {
-        return Carbon::parse($value)->format('d-m-Y');
-    }
 
     public function date($value)
     {
-        return Carbon::parse($value)->format('d-m-Y');
+        return Carbon::parse($value)->format('m/d/Y');
     }
 
     public function getLahirAttribute()

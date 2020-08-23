@@ -33,7 +33,6 @@ class PendidikanController extends Controller
         $this->validate($request, [
             'kategori' => 'required',
             'nama' => 'required',
-            'tingkat' => 'required',
             'laki' => 'required|numeric',
             'perempuan' => 'required|numeric'
         ]);
@@ -71,6 +70,13 @@ class PendidikanController extends Controller
      */
     public function update(Request $request, Pendidikan $pendidikan)
     {
+        $this->validate($request, [
+            'kategori' => 'required',
+            'nama' => 'required',
+            'laki' => 'required|numeric',
+            'perempuan' => 'required|numeric'
+        ]);
+
         $pendidikan->kategori =  $request->kategori;
         $pendidikan->nama =  $request->nama;
         $pendidikan->laki =  $request->laki;

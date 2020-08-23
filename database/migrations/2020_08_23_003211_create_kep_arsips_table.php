@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKepTeguransTable extends Migration
+class CreateKepArsipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateKepTeguransTable extends Migration
      */
     public function up()
     {
-        Schema::create('kep_tegurans', function (Blueprint $table) {
+        Schema::create('kep_arsips', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pegawai_id')->constrained('pegawais')->onDelete('cascade');
-            $table->string('jenis');
-            $table->string('nomor');
-            $table->date('tgl_surat');
-            $table->string('file_surat');
+            $table->foreignId('pegawai_id')->constrained('pegawais');
+            $table->string('name')->nullable();
+            $table->string('jenis')->nullable();
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateKepTeguransTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kep_tegurans');
+        Schema::dropIfExists('kep_arsips');
     }
 }

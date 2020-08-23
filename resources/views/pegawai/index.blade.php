@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="text-right">
-                    <a href="{{ route('pegawais.create') }}" class="btn btn-primary waves-light mb-3">
+                    <a href="{{ route('pegawai.create') }}" class="btn btn-primary waves-light mb-3">
                         Tambah Data
                     </a>
                 </div>
@@ -28,7 +28,7 @@
                                     <img src="{{ asset('storage/'.$pegawai->foto) }}" class="img-fluid" width="50px">
                                 </td>
                                 <td>
-                                    <a class="" href="{{ route('pegawais.show', $pegawai->id) }}">{{ $pegawai->nip }}</a>
+                                    <a class="" href="{{ route('pegawai.show', $pegawai->id) }}">{{ $pegawai->nip }}</a>
                                 </td>
                                 <td>{{ $pegawai->nama_lengkap }}</td>
                                 <td>{{ $pegawai->tempat_lahir }}, <br> {{ $pegawai->tanggal_lahir }}</td>
@@ -42,10 +42,10 @@
                                             Actions
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{ route('pegawais.edit', $pegawai->id) }}">Edit</a>
-                                            <a class="dropdown-item" href="{{ route('pegawais.show', $pegawai->id) }}">Detail Action</a>
+                                            <a class="dropdown-item" href="{{ route('pegawai.edit', $pegawai->id) }}">Edit</a>
+                                            <a class="dropdown-item" href="{{ route('pegawai.show', $pegawai->id) }}">Detail Action</a>
                                             <div class="dropdown-divider"> </div>
-                                            <form action="{{ route('pegawais.destroy', $pegawai->id) }}" method="post">
+                                            <form action="{{ route('pegawai.destroy', $pegawai->id) }}" method="post">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="dropdown-item" onclick="return confirm('Are you sure?')">
@@ -61,7 +61,7 @@
                     </tbody>
                 </table>
             </div>
-            {{-- @include('pegawais.edit') --}}
+            {{-- @include('pegawai.edit') --}}
         </div>
     </div>
 </div>

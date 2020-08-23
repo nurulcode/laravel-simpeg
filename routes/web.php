@@ -32,12 +32,19 @@ Route::prefix('masters')->group(function () {
     Route::resource('unit', 'Master\UnitController');
 });
 
-Route::get('/pegawais/report_pegawais/{pegawai}', 'PegawaiController@report_pegawais')->name('pegawais.report_pegawais');
-Route::resource('pegawais', 'PegawaiController');
-Route::resource('rekapitulasis', 'RekapitulasiController');
+Route::prefix('kepegawaians')->group(function () {
+    // Route::get('teguran/{id}', 'Kepegawaian\TeguranController@show')->name('teguran.show');
+    Route::resource('teguran', 'Kepegawaian\TeguranController');
+    Route::resource('arsip', 'Kepegawaian\ArsipController');
 
-Route::resource('keluargas', 'KeluargaController');
-Route::resource('sekolahs', 'SekolahController');
+});
+
+Route::get('/pegawais/report_pegawais/{pegawai}', 'PegawaiController@report_pegawais')->name('pegawais.report_pegawais');
+Route::resource('pegawai', 'PegawaiController');
+Route::resource('rekapitulasi', 'RekapitulasiController');
+
+Route::resource('keluarga', 'KeluargaController');
+Route::resource('sekolah', 'SekolahController');
 Route::resource('bahasa', 'BahasaController');
 
 Route::get('/home', 'HomeController@index')->name('home');

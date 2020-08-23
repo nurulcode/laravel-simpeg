@@ -26,7 +26,7 @@ class KeluargaController extends Controller
 
                     // ->get();
                 // return response()->json($pegawais);
-        return view('keluargas.index', compact('keluargas'));
+        return view('keluarga.index', compact('keluargas'));
     }
 
     /**
@@ -38,7 +38,7 @@ class KeluargaController extends Controller
     {
         $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
         $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
-        return view('keluargas.create', compact('pendidikans', 'pegawais'));
+        return view('keluarga.create', compact('pendidikans', 'pegawais'));
     }
 
     /**
@@ -77,7 +77,7 @@ class KeluargaController extends Controller
      */
     public function show(Keluarga $keluarga)
     {
-        return view('keluargas.show', compact('keluarga'));
+        return view('keluarga.show', compact('keluarga'));
     }
 
     /**
@@ -90,7 +90,7 @@ class KeluargaController extends Controller
     {
         $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
         $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
-        return view('keluargas.edit', compact('pendidikans', 'pegawais', 'keluarga'));
+        return view('keluarga.edit', compact('pendidikans', 'pegawais', 'keluarga'));
     }
 
     /**
@@ -116,7 +116,7 @@ class KeluargaController extends Controller
         $keluarga->status = $request->status;
 
         $keluarga->save();
-        return redirect()->route('keluargas.index')->with('success', 'Data has been saved successfully.');
+        return redirect()->route('keluarga.index')->with('success', 'Data has been saved successfully.');
     }
 
     /**

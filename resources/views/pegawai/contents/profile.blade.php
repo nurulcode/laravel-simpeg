@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive ">
-                    <table class="table mb-0">
+                    <table class="table table-striped mb-0">
                         <tbody>
                             <tr>
                                 <th scope="row">Nip</th>

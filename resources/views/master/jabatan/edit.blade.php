@@ -5,8 +5,8 @@ Edit Jabatan
 
 
 @section('content')
-<div class="row">
-    <div class="col-lg-4">
+<div class="row justify-content-center">
+    <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
                 <h4 class="mt-0 header-title">Edit Jabatan</h4>

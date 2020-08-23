@@ -46,7 +46,7 @@
                         </a>
                     </li>
                 </ul>
-                <!-- Tab panes -->
+                <!--  Contents -->
                 <div class="tab-content">
                     <div class="tab-pane p-3 active" id="home-1" role="tabpanel">
                         @include('pegawai.contents.profile', ['pegawai' => $pegawai])
@@ -62,9 +62,9 @@
                     </div>
                     <div class="tab-pane p-3" id="pendidikan-1" role="tabpanel">
                         @include('pegawai.contents.riwayat_pendidikan', ['pegawai' => $pegawai])
-
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -75,8 +75,12 @@
         <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Pangkat</a>
         <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Gaji</a>
         <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Seminar</a>
-        <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Berkas</a>
+        <a href="#" class="btn btn-outline btn-block waves-effect waves-light block p-1" data-toggle="modal" data-target=".teguran">Teguran</a>
     </div>
+
+    {{-- Models --}}
+
+    @include('pegawai.modals.teguran', ['pegawai' => $pegawai])
 
 </div>
 @endsection

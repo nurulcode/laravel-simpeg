@@ -8,7 +8,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('sekolahs.update', $sekolah->id) }}" method="post">
+                <form action="{{ route('sekolah.update', $sekolah->id) }}" method="post">
                     @method('PUT')
                     @csrf
 

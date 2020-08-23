@@ -8,7 +8,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('keluargas.store') }}" method="post">
+                <form action="{{ route('keluarga.store') }}" method="post">
                     @csrf
 
                     <div class="form-group ">

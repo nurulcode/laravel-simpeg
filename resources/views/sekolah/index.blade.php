@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="text-right">
-                    <a href="{{ route('sekolahs.create') }}" class="btn btn-primary waves-light mb-3">
+                    <a href="{{ route('sekolah.create') }}" class="btn btn-primary waves-light mb-3">
                         Tambah Data
                     </a>
                 </div>
@@ -33,10 +33,10 @@
                                             Actions
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{ route('sekolahs.edit', $result->id) }}">Edit</a>
-                                            <a class="dropdown-item" href="{{ route('sekolahs.show', $result->id) }}">Detail Action</a>
+                                            <a class="dropdown-item" href="{{ route('sekolah.edit', $result->id) }}">Edit</a>
+                                            <a class="dropdown-item" href="{{ route('sekolah.show', $result->id) }}">Detail Action</a>
                                             <div class="dropdown-divider"> </div>
-                                            <form action="{{ route('sekolahs.destroy', $result->id) }}" method="post">
+                                            <form action="{{ route('sekolah.destroy', $result->id) }}" method="post">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="dropdown-item" onclick="return confirm('Are you sure?')">

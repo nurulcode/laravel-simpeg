@@ -36,7 +36,7 @@ class PegawaiRequest extends FormRequest
             'unit_id' => 'required',
             'agama' => 'required',
             'telfon' => 'required|digits_between:10,15',
-            'alamat' => 'required|min:20|max:200',
+            'alamat' => 'required|max:200',
         ];
     }
 }

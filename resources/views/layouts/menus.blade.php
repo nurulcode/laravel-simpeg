@@ -38,7 +38,7 @@
                         </span>
                     </a>
                     <ul class="submenu mm-collapse">
-                        <li><a href="{{ route('pegawais.index') }}"><i class="ti-minus"></i>Pegawai</a></li>
+                        <li><a href="{{ route('pegawai.index') }}"><i class="ti-minus"></i>Pegawai</a></li>
                     </ul>
                 </li>
                 <li>
@@ -51,8 +51,8 @@
                         </span>
                     </a>
                     <ul class="submenu mm-collapse">
-                        <li><a href="{{ route('keluargas.index') }}"> <i class="ti-minus"></i> Keluarga </a></li>
-                        <li><a href="{{ route('sekolahs.index') }}"> <i class="ti-minus"></i> Pendidikan </a></li>
+                        <li><a href="{{ route('keluarga.index') }}"> <i class="ti-minus"></i> Keluarga </a></li>
+                        <li><a href="{{ route('sekolah.index') }}"> <i class="ti-minus"></i> Pendidikan </a></li>
                         <li><a href="{{ route('bahasa.index') }}"> <i class="ti-minus"></i> Bahasa </a></li>
                     </ul>
                 </li>
@@ -68,11 +68,11 @@
                     </a>
                     <ul class="submenu mm-collapse">
                         <li>
-                            <a href="#"> <i class="ti-minus"></i> Hukum </a>
+                            <a href="{{ route('teguran.index') }}"> <i class="ti-minus"></i> Teguran </a>
                             <a href="#"> <i class="ti-minus"></i> Diklat </a>
                             <a href="#"> <i class="ti-minus"></i> Seminar </a>
                             <a href="#"> <i class="ti-minus"></i> Tunjangan </a>
-                            <a href="#"> <i class="ti-minus"></i> Berkas </a>
+                            <a href="#"> <i class="ti-minus"></i> Arsip </a>
                         </li>
                     </ul>
                 </li>
@@ -87,7 +87,7 @@
                     </a>
                     <ul class="submenu mm-collapse">
                         <li>
-                            <a href="{{ route('rekapitulasis.index') }}"> <i class="ti-minus"></i> Golonagan </a>
+                            <a href="{{ route('rekapitulasi.index') }}"> <i class="ti-minus"></i> Golonagan </a>
                             <a href="#"> <i class="ti-minus"></i> Pendidikan </a>
                             <a href="#"> <i class="ti-minus"></i> Unit Kerja </a>
                         </li>

@@ -24,7 +24,7 @@ class SekolahController extends Controller
         ->get();
         // return response()->json($sekolahs);
 
-        return view('sekolahs.index', compact('sekolahs'));
+        return view('sekolah.index', compact('sekolahs'));
     }
 
     /**
@@ -36,7 +36,7 @@ class SekolahController extends Controller
     {
         $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
         $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
-        return view('sekolahs.create', compact('pendidikans', 'pegawais'));
+        return view('sekolah.create', compact('pendidikans', 'pegawais'));
     }
 
     /**
@@ -59,7 +59,7 @@ class SekolahController extends Controller
         $sekolah->rektor = $request->rektor;
 
         $sekolah->save();
-        return redirect()->route('sekolahs.index')->with('success', 'Data has been saved successfully.');
+        return redirect()->route('sekolah.index')->with('success', 'Data has been saved successfully.');
     }
 
     /**
@@ -83,7 +83,7 @@ class SekolahController extends Controller
     {
         $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
         $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
-        return view('sekolahs.edit', compact('pendidikans', 'pegawais', 'sekolah'));
+        return view('sekolah.edit', compact('pendidikans', 'pegawais', 'sekolah'));
     }
 
     /**
@@ -107,7 +107,7 @@ class SekolahController extends Controller
         $sekolah->rektor = $request->rektor;
 
         $sekolah->save();
-        return redirect()->route('sekolahs.index')->with('success', 'Data has been saved successfully.');
+        return redirect()->route('sekolah.index')->with('success', 'Data has been saved successfully.');
     }
 
     /**

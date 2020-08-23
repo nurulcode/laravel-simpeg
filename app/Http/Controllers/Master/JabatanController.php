@@ -50,7 +50,7 @@ class JabatanController extends Controller
      */
     public function edit(Jabatan $jabatan)
     {
-        return view('master.jabatan.index', compact('jabatan'));
+        return view('master.jabatan.edit', compact('jabatan'));
     }
 
     /**
@@ -66,11 +66,10 @@ class JabatanController extends Controller
             'nama' => 'required'
         ]);
 
-        $jabatan = new Jabatan();
         $jabatan->nama = $request->nama;
 
         $jabatan->save();
-        return back()->with('success', 'Data has been updated successfully.');
+        return redirect()->route('jabatan.index')->with('success', 'Data has been updated successfully.');
     }
 
     /**

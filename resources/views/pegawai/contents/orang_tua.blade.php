@@ -1,6 +1,6 @@
 <div class="table-responsive ">
-    <table class="table mb-0">
-        <thead>
+    <table class="table table-striped table-bordered mb-0">
+        <thead class="thead-light text-center">
             <tr>
                 <th>NIK</th>
                 <th>Nama Lengkap</th>
@@ -21,23 +21,17 @@
                         <td>{{ $result->pendidikan->nama }}</td>
                         <td>{{ $result->status_string }}</td>
                         <td class="text-center">
-                            <div class="dropdown">
-                                <button class="btn btn-primary btn-sm dropdown-toggle arrow-none waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Actions
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="{{ route('keluargas.edit', $result->id) }}">Edit</a>
-                                    <a class="dropdown-item" href="{{ route('keluargas.show', $result->id) }}">Detail Action</a>
-                                    <form action="{{ route('keluargas.destroy', $result->id) }}" method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button class="dropdown-item" onclick="return confirm('Are you sure?')">
-                                            Delete Action
-                                        </button>
-                                    </form>
-                                </div>
+                            <div class="button-items">
+                                <a class="btn btn-primary btn-sm waves-effect waves-light" href="{{ route('keluarga.edit', $result->id) }}"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-info btn-sm waves-effect waves-light" href="{{ route('keluarga.show', $result->id) }}"><i class="fas fa-eye"></i></a>
+                                <form action="{{ route('keluarga.destroy', $result->id) }}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm waves-effect waves-light" onclick="return confirm('Are you sure?')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
                             </div>
-
                         </td>
                     </tr>
                 @endif
