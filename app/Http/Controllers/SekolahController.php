@@ -35,7 +35,7 @@ class SekolahController extends Controller
     public function create()
     {
         $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
-        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
         return view('sekolah.create', compact('pendidikans', 'pegawais'));
     }
 
@@ -82,7 +82,7 @@ class SekolahController extends Controller
     public function edit(Sekolah $sekolah)
     {
         $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
-        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
         return view('sekolah.edit', compact('pendidikans', 'pegawais', 'sekolah'));
     }
 

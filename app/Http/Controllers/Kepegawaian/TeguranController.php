@@ -30,7 +30,7 @@ class TeguranController extends Controller
      */
     public function create()
     {
-        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
         return view('kepegawaian.teguran.create', compact('pegawais'));
     }
 
@@ -90,8 +90,9 @@ class TeguranController extends Controller
      */
     public function edit(Teguran $teguran)
     {
-        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
-        return view('kepegawaian.teguran.edit', compact('teguran','pegawais'));    }
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
+        return view('kepegawaian.teguran.edit', compact('teguran','pegawais'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -109,16 +110,22 @@ class TeguranController extends Controller
             'tgl_surat' => 'required'
         ]);
 
-        $teguran->pegawai_id = $request->pegawai_id;
+        $id = $request->pegawai_id;
+
+        $teguran->pegawai_id = $id;
         $teguran->jenis = $request->jenis;
         $teguran->nomor = $request->nomor;
         $teguran->tgl_surat = Carbon::createFromFormat('m/d/Y', $request->tgl_surat)->format('Y-m-d');
 
-        if ( $request->file('file_surat')) {
-            if ( $teguran->file_surat && file_exists(storage_path('app/public/' . $teguran->file_surat ))) {
+        $file = $request->file('file_arsip');
+        if ( $file ) {
+
+            if ( $file && file_exists(storage_path('app/public/' . $teguran->file_surat ))) {
                 Storage::delete('public/'. $teguran->file_surat);
             }
-            $file = $request->file('file_surat')->store('tegurans', 'public');
+
+            $filename =  $id. '-' . time() . '.' . $file->getClientOriginalExtension();
+            $file = $request->file('file_surat')->storeAs('tegurans' , $filename,  'public');
             $teguran->file_surat = $file;
         }
 

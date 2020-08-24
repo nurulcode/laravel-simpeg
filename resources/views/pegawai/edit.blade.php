@@ -8,7 +8,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('pegawais.update', $pegawai->id) }}" enctype="multipart/form-data" method="post">
+                <form action="{{ route('pegawai.update', $pegawai->id) }}" enctype="multipart/form-data" method="post">
                     @method('PUT')
                     @csrf
                     <div class="form-row">

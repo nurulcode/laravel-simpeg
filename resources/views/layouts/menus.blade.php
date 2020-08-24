@@ -69,10 +69,7 @@
                     <ul class="submenu mm-collapse">
                         <li>
                             <a href="{{ route('teguran.index') }}"> <i class="ti-minus"></i> Teguran </a>
-                            <a href="#"> <i class="ti-minus"></i> Diklat </a>
-                            <a href="#"> <i class="ti-minus"></i> Seminar </a>
-                            <a href="#"> <i class="ti-minus"></i> Tunjangan </a>
-                            <a href="#"> <i class="ti-minus"></i> Arsip </a>
+                            <a href="{{ route('arsip.index') }}"> <i class="ti-minus"></i> Arsip </a>
                         </li>
                     </ul>
                 </li>

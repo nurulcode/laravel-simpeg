@@ -37,7 +37,7 @@ class KeluargaController extends Controller
     public function create()
     {
         $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
-        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
         return view('keluarga.create', compact('pendidikans', 'pegawais'));
     }
 
@@ -89,7 +89,7 @@ class KeluargaController extends Controller
     public function edit(Keluarga $keluarga)
     {
         $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
-        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
         return view('keluarga.edit', compact('pendidikans', 'pegawais', 'keluarga'));
     }
 

@@ -33,7 +33,7 @@ class BahasaController extends Controller
      */
     public function create()
     {
-        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
         return view('bahasa.create', compact('pegawais'));
     }
 
@@ -64,7 +64,7 @@ class BahasaController extends Controller
      */
     public function edit(Bahasa $bahasa)
     {
-        $pegawais = DB::table('pegawais')->select('id', 'nip', 'nama_lengkap')->get();
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
         return view('bahasa.edit', compact('pegawais', 'bahasa'));
     }
 

@@ -33,13 +33,12 @@ Route::prefix('masters')->group(function () {
 });
 
 Route::prefix('kepegawaians')->group(function () {
-    // Route::get('teguran/{id}', 'Kepegawaian\TeguranController@show')->name('teguran.show');
     Route::resource('teguran', 'Kepegawaian\TeguranController');
     Route::resource('arsip', 'Kepegawaian\ArsipController');
 
 });
 
-Route::get('/pegawais/report_pegawais/{pegawai}', 'PegawaiController@report_pegawais')->name('pegawais.report_pegawais');
+Route::get('/pegawai/report_pegawais/{pegawai}', 'PegawaiController@report_pegawais')->name('pegawais.report_pegawais');
 Route::resource('pegawai', 'PegawaiController');
 Route::resource('rekapitulasi', 'RekapitulasiController');
 

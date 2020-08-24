@@ -66,7 +66,7 @@
                     {{-- <h4 class="card-title">DATA PRIBADI</h4> --}}
                 </center>
                 <p>
-                    <img style="float: right; padding: 0.5em;" height="180" src="{{ public_path('storage/'.$pegawai->foto) }}" class="img-fluid" alt="Responsive image">
+                    <img style="float: right; padding: 0.5em;" width="140px" height="200px"  src="{{ public_path('storage/'.$pegawai->foto) }}" class="img-fluid" alt="Responsive image">
                     <table class="table">
                         <tbody>
                             <tr>

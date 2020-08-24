@@ -19,7 +19,7 @@ class PegawaiController extends Controller
      */
     public function index(Request $request)
     {
-        $pegawais = Pegawai::get();
+        $pegawais = Pegawai::with('unit:id,nama')->get();
         return view('pegawai.index', compact('pegawais'));
     }
 

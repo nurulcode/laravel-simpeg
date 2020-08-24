@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Kepegawaian;
 
 use App\Http\Controllers\Controller;
-use App\Models\Kepegawaian\KepArsip;
+use App\Models\Kepegawaian\Arsip;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArsipController extends Controller
 {
@@ -15,7 +17,8 @@ class ArsipController extends Controller
      */
     public function index()
     {
-        //
+        $pegawais = Pegawai::with('unit:id,nama')->get();
+        return view('kepegawaian.arsip.index', compact('pegawais'));
     }
 
     /**
@@ -25,7 +28,8 @@ class ArsipController extends Controller
      */
     public function create()
     {
-        //
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
+        return view('kepegawaian.arsip.create', compact('pegawais'));
     }
 
     /**
@@ -36,51 +40,101 @@ class ArsipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'pegawai_id' => 'required',
+            'nama' => 'required',
+            'jenis' => 'required',
+            'file_arsip' => 'required'
+        ]);
+
+        $arsip = new Arsip();
+        $id = $request->pegawai_id;
+
+        $arsip->pegawai_id = $id;
+        $arsip->nama = $request->nama;
+        $arsip->jenis = $request->jenis;
+
+        $file = $request->file('file_arsip');
+        if ( $file ) {
+            $filename =  $id. '-' . time() . '.' . $file->getClientOriginalExtension();
+            $file = $request->file('file_arsip')->storeAs('arsips' , $filename,  'public');
+            $arsip->file_arsip = $file;
+        }
+
+        $arsip->save();
+        return redirect()->route('arsip.index')->with('success', 'Data has been created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\KepArsip  $kepArsip
+     * @param  \App\Models\Kepegawaian\Arsip  $arsip
      * @return \Illuminate\Http\Response
      */
-    public function show(KepArsip $kepArsip)
+    public function show($arsip)
     {
-        //
+        $arsips =  Arsip::where('pegawai_id', $arsip)->get();
+        return view('kepegawaian.arsip.show', compact('arsips'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\KepArsip  $kepArsip
+     * @param  \App\Models\Kepegawaian\Arsip  $arsip
      * @return \Illuminate\Http\Response
      */
-    public function edit(KepArsip $kepArsip)
+    public function edit(Arsip $arsip)
     {
-        //
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
+        return view('kepegawaian.arsip.edit', compact('arsip','pegawais'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\KepArsip  $kepArsip
+     * @param  \App\Models\Kepegawaian\Arsip  $arsip
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KepArsip $kepArsip)
+    public function update(Request $request, Arsip $arsip)
     {
-        //
+        $this->validate($request, [
+            'pegawai_id' => 'required',
+            'nama' => 'required',
+            'jenis' => 'required',
+        ]);
+
+        $id = $request->pegawai_id;
+
+        $arsip->pegawai_id = $id;
+        $arsip->nama = $request->nama;
+        $arsip->jenis = $request->jenis;
+
+        $file = $request->file('file_arsip');
+        if ( $file ) {
+
+            if ( $file && file_exists(storage_path('app/public/' . $arsip->file_arsip ))) {
+                Storage::delete('public/'. $arsip->file_arsip);
+            }
+
+            $filename =  $id. '-' . time() . '.' . $file->getClientOriginalExtension();
+            $file = $request->file('file_arsip')->storeAs('arsips' , $filename,  'public');
+            $arsip->file_arsip = $file;
+        }
+
+        $arsip->save();
+        return redirect()->route('arsip.index')->with('success', 'Data has been updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\KepArsip  $kepArsip
+     * @param  \App\Models\Kepegawaian\Arsip  $arsip
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KepArsip $kepArsip)
+    public function destroy(Arsip $arsip)
     {
-        //
+        $arsip->delete();
+        return back()->with('success', 'Data has been deleted successfully');
     }
 }

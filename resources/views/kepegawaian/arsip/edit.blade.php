@@ -10,7 +10,8 @@
             <div class="card-body">
                 <h4 class="mt-0 header-title">Kepegawaian Arsip</h4>
                 <br>
-                <form action="{{ route('arsip.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('arsip.update', $arsip->id) }}" method="post" enctype="multipart/form-data">
+                    @method('PUT')
                     @csrf
                     <div>
                         <div class="form-group row">
@@ -19,7 +20,7 @@
                                 <select id="pegawai" class="form-control select2 {{ $errors->has('pegawai_id') ? 'is-invalid' : '' }}" name="pegawai_id">
                                     <option value="">--Pilih--</option>
                                     @foreach($pegawais as $item)
-                                    <option value="{{ $item->id }}" {{ $item->id == old('pegawai_id') ? 'selected' : '' }}>{{ $item->nip }} - {{ $item->nama_lengkap }}
+                                    <option value="{{ $item->id }}" {{ $item->id == old('pegawai_id', $arsip->pegawai_id) ? 'selected' : '' }}>{{ $item->nip }} - {{ $item->nama_lengkap }}
                                     </option>
                                     @endforeach
                                 </select>
@@ -34,7 +35,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Nama Arsip</label>
                             <div class="col-sm-10">
-                                <input name="nama" value="{{ old('nama') }}" type="text" class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}">
+                                <input name="nama" value="{{ old('nama', $arsip->nama) }}" type="text" class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}">
                                 <small class="text-danger">*. Ijazah SD, Ijazah SMP, Ijazah SMA, Dll</small>
                                 @if($errors->has('nama'))
                                 <div class="invalid-feedback">
@@ -47,8 +48,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Jenis</label>
                             <div class="col-sm-10">
-                                <input name="jenis" value="{{ old('jenis') }}" type="text" class="form-control {{ $errors->has('jenis') ? 'is-invalid' : '' }}">
-                                <small class="text-danger">*. KTP, KK, SIM, Ijazah Dll</small>
+                                <input name="jenis" value="{{ old('jenis', $arsip->jenis) }}" type="text" class="form-control {{ $errors->has('jenis') ? 'is-invalid' : '' }}">
+                                <small class="text-danger">*. Ktp, KK, SIM, Ijazah Dll</small>
                                 @if($errors->has('jenis'))
                                 <div class="invalid-feedback">
                                     <strong>{{ $errors->first('jenis') }}</strong>

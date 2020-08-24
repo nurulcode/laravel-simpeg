@@ -71,16 +71,15 @@
 
     <div class="col-lg-2">
         <a href="{{ route('pegawais.report_pegawais', $pegawai->id) }}" class="btn btn-outline  btn-block waves-effect waves-light block mb-2 mt-1" target="_blank">Print</a>
-        <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Pensiun</a>
-        <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Pangkat</a>
-        <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Gaji</a>
-        <a href="" class="btn btn-outline btn-block waves-effect waves-light block p-1">Seminar</a>
+
+        <a href="#" class="btn btn-outline btn-block waves-effect waves-light block p-1" data-toggle="modal" data-target=".arsip">Arsip</a>
         <a href="#" class="btn btn-outline btn-block waves-effect waves-light block p-1" data-toggle="modal" data-target=".teguran">Teguran</a>
     </div>
 
     {{-- Models --}}
 
     @include('pegawai.modals.teguran', ['pegawai' => $pegawai])
+    @include('pegawai.modals.arsip', ['pegawai' => $pegawai])
 
 </div>
 @endsection

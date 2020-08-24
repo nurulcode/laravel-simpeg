@@ -16,9 +16,9 @@ class CreateKepArsipsTable extends Migration
         Schema::create('kep_arsips', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pegawai_id')->constrained('pegawais');
-            $table->string('name')->nullable();
+            $table->string('nama')->nullable();
             $table->string('jenis')->nullable();
-            $table->string('file')->nullable();
+            $table->string('file_arsip')->nullable();
             $table->timestamps();
         });
     }

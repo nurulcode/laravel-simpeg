@@ -36,7 +36,7 @@ class Pegawai extends Model
 
     public function arsips()
     {
-        return $this->hasMany('App\Models\Kepegawaian\KepArsip');
+        return $this->hasMany('App\Models\Kepegawaian\Arsip');
     }
 
 
