@@ -37,6 +37,16 @@
                     @endif
                 </div>
 
+                <div class="form-group">
+                    <label>Tingkat</label>
+                    <input name="tingkat" value="{{ $pendidikan->tingkat }}" type="text" class="form-control {{ $errors->has('tingkat') ? 'is-invalid' : '' }}">
+                    @if($errors->has('tingkat'))
+                    <div class="invalid-feedback">
+                        <strong>{{ $errors->first('tingkat') }}</strong>
+                    </div>
+                    @endif
+                </div>
+
 
                 <div class="form-group">
                     <label>Jumlah Laki</label>

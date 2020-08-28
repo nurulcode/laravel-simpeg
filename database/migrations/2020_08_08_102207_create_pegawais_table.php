@@ -33,10 +33,16 @@ class CreatePegawaisTable extends Migration
             $table->string('email', 50)->nullable();
             $table->text('alamat', 100)->nullable();
 
-            $table->foreignId('unit_id')->constrained('units')->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreignId('golongan_id')->constrained('golongans')->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreignId('gaji_id')->constrained('gajis')->onDelete('cascade')->onUpdate('cascade');
-
+            // $table->foreignId('unit_id')->constrained('units')->onDelete('cascade')->nullable();
+            // $table->foreignId('golongan_id')->constrained('golongans')->onDelete('cascade')->nullable();
+            // $table->foreignId('jabatan_id')->constrained('jabatans')->onDelete('cascade')->nullable();
+            // $table->foreignId('pendidikan_id')->constrained('pendidikans')->onDelete('cascade')->nullable();
+            // $table->foreignId('gaji_id')->constrained('gajis')->onDelete('cascade')->nullable();
+            $table->bigInteger('unit_id')->nullable();
+            $table->bigInteger('golongan_id')->nullable();
+            $table->bigInteger('jabatan_id')->nullable();
+            $table->bigInteger('pendidikan_id')->nullable();
+            $table->bigInteger('gaji_id')->nullable();
 
             $table->string('foto')->nullable()->default('fotos/default.png');
             $table->timestamps();

@@ -166,6 +166,8 @@ return [
         Alfa6661\AutoNumber\AutoNumberServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+
 
 
 

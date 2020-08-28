@@ -10,7 +10,7 @@
                         Tambah Data
                     </a>
                 </div>
-                <table id="datatable" class="table table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="table_pegawai" class="table table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
                             <th>Foto</th>
@@ -21,48 +21,80 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach($pegawais as $pegawai)
-                            <tr>
-                                <td class="text-center">
-                                    <img src="{{ asset('storage/'.$pegawai->foto) }}" class="img-fluid" width="50px">
-                                </td>
-                                <td>
-                                    <a class="" href="{{ route('pegawai.show', $pegawai->id) }}">{{ $pegawai->nip }}</a>
-                                </td>
-                                <td>{{ $pegawai->nama_lengkap }}</td>
-                                <td>{{ $pegawai->tempat_lahir }}, <br> {{ $pegawai->tanggal_lahir }}</td>
-                                {{-- <td class="text-center">
-                                    {{ $pegawai->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}
-                                </td> --}}
-                                <td>{{ $pegawai->unit->nama }}</td>
-                                <td class="text-center">
-                                    <div class="dropdown">
-                                        <button class="btn btn-primary btn-sm dropdown-toggle arrow-none waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Actions
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{ route('pegawai.edit', $pegawai->id) }}">Edit</a>
-                                            <a class="dropdown-item" href="{{ route('pegawai.show', $pegawai->id) }}">Detail Action</a>
-                                            <div class="dropdown-divider"> </div>
-                                            <form action="{{ route('pegawai.destroy', $pegawai->id) }}" method="post">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button class="dropdown-item" onclick="return confirm('Are you sure?')">
-                                                    Delete Action
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
 
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
-            {{-- @include('pegawai.edit') --}}
+            @include('pegawai.modals.delete')
         </div>
     </div>
 </div>
+@endsection
+
+
+@section('javascript')
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+
+    // Get Data
+    $(document).ready(function () {
+        $('#table_pegawai').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('pegawai.index') }}",
+                type: 'GET'
+            },
+            columns: [{
+                    data: 'foto',
+                }, {
+                    data: 'nip',
+                }, {
+                    data: 'nama_lengkap',
+                }, {
+                    data: 'ttl',
+                }, {
+                    data: 'unit.nama',
+                }, {
+                    data: 'action',
+                }
+            ],
+            order: [
+                [0, 'asc']
+            ]
+        });
+    });
+
+    $(document).on('click', '.delete', function () {
+        dataId = $(this).attr('id');
+        $('#delete-pegawai-modal').modal('show');
+    });
+
+    //Delete Data
+    $('#delete-pegawai-button').click(function () {
+        $.ajax({
+
+            url: "pegawai/" + dataId,
+            type: 'delete',
+            beforeSend: function () {
+                $('#delete-pegawai-button').text('Loading ...');
+            },
+            success: function (data) {
+                setTimeout(function () {
+                    $('#delete-pegawai-modal').modal('hide');
+                    $('#delete-pegawai-button').text('Hapus');
+                     // Reset Datatable
+                    let oTable = $('#table_pegawai').dataTable();
+                    oTable.fnDraw(false);
+                });
+            }
+        })
+    });
+
+</script>
 @endsection

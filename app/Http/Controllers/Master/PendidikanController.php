@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Masters\Pendidikan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 
 class PendidikanController extends Controller
 {
@@ -33,6 +35,7 @@ class PendidikanController extends Controller
         $this->validate($request, [
             'kategori' => 'required',
             'nama' => 'required',
+            'tingkat' => 'required',
             'laki' => 'required|numeric',
             'perempuan' => 'required|numeric'
         ]);
@@ -41,6 +44,7 @@ class PendidikanController extends Controller
 
         $pendidikan->kategori = $request->kategori;
         $pendidikan->nama = $request->nama;
+        $pendidikan->tingkat = Str::upper($request->tingkat);
         $pendidikan->laki = $request->laki;
         $pendidikan->perempuan = $request->perempuan;
 
@@ -73,12 +77,14 @@ class PendidikanController extends Controller
         $this->validate($request, [
             'kategori' => 'required',
             'nama' => 'required',
+            'tingkat' => 'required',
             'laki' => 'required|numeric',
             'perempuan' => 'required|numeric'
         ]);
 
         $pendidikan->kategori =  $request->kategori;
         $pendidikan->nama =  $request->nama;
+        $pendidikan->tingkat = Str::upper($request->tingkat);
         $pendidikan->laki =  $request->laki;
         $pendidikan->perempuan =  $request->perempuan;
         $pendidikan->save();

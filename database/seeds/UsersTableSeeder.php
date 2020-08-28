@@ -2,6 +2,8 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,11 +14,19 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::updateOrCreate(['id' => 1], [
+        $user = User::updateOrCreate(['id' => 1], [
             'name'              => 'Nurul Hidayat',
             'email'             => 'superadmin@mail.com',
             'username'          => 'superadmin',
             'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
+
+        $role = Role::create(['name' => 'Admin']);
+
+        $permissions = Permission::pluck('id','id')->all();
+
+        $role->syncPermissions($permissions);
+
+        $user->assignRole([$role->id]);
     }
 }

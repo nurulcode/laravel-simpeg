@@ -1,0 +1,126 @@
+id,kategori,nama,tingkat,laki,perempuan
+1,TENAGA MEDIS,Dokter Umum,S1,0,0
+2,TENAGA MEDIS,Dokter Spes Bedah,S2,0,0
+3,TENAGA MEDIS,Dokter Spes Penyakit Dalam,S2,0,0
+4,TENAGA MEDIS,Dokter Spes Kes. Anak,S2,0,0
+5,TENAGA MEDIS,Dokter Spes Obgin,S2,0,0
+6,TENAGA MEDIS,Dokter Spes Radiologi,S2,0,0
+7,TENAGA MEDIS,Dokter Spes Onkologi Radiasi,S2,0,0
+8,TENAGA MEDIS,Dokter Spes Kedokteran Nuklir,S2,0,0
+9,TENAGA MEDIS,Dokter Spes Anesthesi,S2,0,0
+10,TENAGA MEDIS,Dokter Spes Patologi Klinik,S2,0,0
+11,TENAGA MEDIS,Dokter Spes Jiwa,S2,0,0
+12,TENAGA MEDIS,Dokter Spes Mata,S2,0,0
+13,TENAGA MEDIS,Dokter Spes THT,S2,0,0
+14,TENAGA MEDIS,Dokter Spes Kulit & Kelamin,S2,0,0
+15,TENAGA MEDIS,Dokter Spes Kardiologi,S2,0,0
+16,TENAGA MEDIS,Dokter Spes Paru,S2,0,0
+17,TENAGA MEDIS,Dokter Spes Saraf,S2,0,0
+18,TENAGA MEDIS,Dokter Spes Bedah Saraf,S2,0,0
+19,TENAGA MEDIS,Dokter Spes Bedah Orthopedi,S2,0,0
+20,TENAGA MEDIS,Dokter Spes Urologi,S2,0,0
+21,TENAGA MEDIS,Dokter Spes Patologi Anatomi,S2,0,0
+22,TENAGA MEDIS,Dokter Spes Patologi Forensik,S2,0,0
+23,TENAGA MEDIS,Dokter Spes Rehabilitasi Medik,S2,0,0
+24,TENAGA MEDIS,Dokter Spes Bedah Plastik,S2,0,0
+25,TENAGA MEDIS,Dokter Spes Ked. Olah Raga,S2,0,0
+26,TENAGA MEDIS,Dokter Spes Mikrobiologi Klinik,S2,0,0
+27,TENAGA MEDIS,Dokter Spes Parasitologi Klinik,S2,0,0
+28,TENAGA MEDIS,Dokter Spes Gizi Medik,S2,0,0
+29,TENAGA MEDIS,Dokter Spes Farma Klinik,S2,0,0
+30,TENAGA MEDIS,Dokter Gigi,S1,0,0
+31,TENAGA MEDIS,Dokter Gigi Spesialis,S2,0,0
+32,TENAGA KEPERAWATAN,S3 Keperawatan,S3,0,0
+33,TENAGA KEPERAWATAN,S2 Keperawatan,S2,0,0
+34,TENAGA KEPERAWATAN,S1 Keperawatan,S1,0,0
+35,TENAGA KEPERAWATAN,D4 Keperawatan,D4,0,0
+36,TENAGA KEPERAWATAN,S3 Kebidanan,S3,0,0
+37,TENAGA KEPERAWATAN,S2 Kebidanan,S2,0,0
+38,TENAGA KEPERAWATAN,S1 Kebidanan,S1,0,0
+39,TENAGA KEPERAWATAN,D3 Kebidanan,D3,0,0
+40,KEFARMASIAN,S3 Farmasi / Apoteker,S3,0,0
+41,KEFARMASIAN,S2 Farmasi / Apoteker,S2,0,0
+42,KEFARMASIAN,S1 Farmasi / Farmakologi Kimia,S1,0,0
+43,KESEHATAN MASYARAKAT,S3 Kesehatan Masyarakat,S3,0,0
+44,KESEHATAN MASYARAKAT,S3 Epidemiologi,S3,0,0
+45,KESEHATAN MASYARAKAT,S3  Psikologi,S3,0,0
+46,KESEHATAN MASYARAKAT,S2  Kesehatan Masyarakat,S2,0,0
+47,KESEHATAN MASYARAKAT,S2  Epidemiologi,S2,0,0
+48,KESEHATAN MASYARAKAT,S2  Biomedik,S2,0,0
+49,KESEHATAN MASYARAKAT,S2  Psikologi,S2,0,0
+50,KESEHATAN MASYARAKAT,S1  Kesehatan Masyarakat,S1,0,0
+51,KESEHATAN MASYARAKAT,S1  Psikologi,S1,0,0
+52,KESEHATAN MASYARAKAT,D3  Kesehatan Masyarakat,D3,0,0
+53,KESEHATAN MASYARAKAT,D3  Sanitarian,D3,0,0
+54,KESEHATAN MASYARAKAT,D1  Sanitarian,D1,0,0
+55,GIZI,S3  Gizi / Dietisien,S3,0,0
+56,GIZI,S2  Gizi / Dietisien,S2,0,0
+57,GIZI,S1  Gizi / Dietisien,S1,0,0
+58,GIZI,D4  Gizi / Dietisien,D4,0,0
+59,GIZI,D1  Gizi / Dietisien,D1,0,0
+60,KETEKNISIAN MEDIS,S3 Opto Elektronika & Apl Laser,S3,0,0
+61,KETEKNISIAN MEDIS,S2 Opto Elektronika & Apl Laser,S2,0,0
+62,TENAGA MEDIS,S3 (Dokter Konsultan),S3,0,0
+63,KETERAPIAN FISIK,S1 Fisio Terapis,S1,0,0
+64,KETERAPIAN FISIK,D3 Fisio Terapis,D3,0,0
+65,KETERAPIAN FISIK,D3 Okupasi Terapis,D3,0,0
+66,KETERAPIAN FISIK,D3 Terapi wicara,D3,0,0
+67,KETERAPIAN FISIK,D3 Orthopedi,D3,0,0
+68,KETERAPIAN FISIK,D3 Akupuntur,D3,0,0
+69,KETEKNISIAN MEDIS,S3 Opto Elektronika & Apl Laser,S3,0,0
+70,KETEKNISIAN MEDIS,S2 Opto Elektronika & Apl Laser,S2,0,0
+71,KETEKNISIAN MEDIS,D4 Fisika Medik,D4,0,0
+72,KETEKNISIAN MEDIS,D3 Teknik Gigi,D3,0,0
+73,KETEKNISIAN MEDIS,D3 Teknik Radiologi & Radioterapi,D3,0,0
+74,KETEKNISIAN MEDIS,D3 Refraksionis Optisien,D3,0,0
+75,KETEKNISIAN MEDIS,D3 Perekam Medis,D3,0,0
+76,KETEKNISIAN MEDIS,D3 Teknik Elektromedik,D3,0,0
+77,KETEKNISIAN MEDIS,D3 Analis Kesehatan,D3,0,0
+78,KETEKNISIAN MEDIS,D3 Informasi Kesehatan,D3,0,0
+79,KETEKNISIAN MEDIS,D3 Kardiovaskular,D3,0,0
+80,KETEKNISIAN MEDIS,D3 Orthotik Prostetik,D3,0,0
+81,KETEKNISIAN MEDIS,D1 Teknik Tranfusi,D1,0,0
+82,DOKTORAL,S3 Biologi,S3,0,0
+83,DOKTORAL,S3 Kimia,S3,0,0
+84,DOKTORAL,S3 Ekonomi / Akuntansi,S3,0,0
+85,DOKTORAL,S3 Administrasi,S3,0,0
+86,DOKTORAL,S3 Hukum,S3,0,0
+87,DOKTORAL,S3 Tehnik,S3,0,0
+88,DOKTORAL,S3 Kes. Sosial,S3,0,0
+89,DOKTORAL,S3 Fisika,S3,0,0
+90,DOKTORAL,S3 Komputer,S3,0,0
+91,DOKTORAL,S3 Statistik,S3,0,0
+92,PASCA SARJANA,S2 Biologi,S2,0,0
+93,PASCA SARJANA,S2 Kimia,S2,0,0
+94,PASCA SARJANA,S2 Ekonomi / Akuntansi,S2,0,0
+95,PASCA SARJANA,S2 Administrasi,S2,0,0
+96,PASCA SARJANA,S2 Hukum,S2,0,0
+97,PASCA SARJANA,S2 Tehnik,S2,0,0
+98,PASCA SARJANA,S2 Kesejahteraan Sosial,S2,0,0
+99,PASCA SARJANA,S2 Fisika,S2,0,0
+100,PASCA SARJANA,S2 Komputer,S2,0,0
+101,PASCA SARJANA,S2 Statistik,S2,0,0
+102,PASCA SARJANA,S2 Administrasi Kes. Masy,S2,0,0
+103,SARJANA,Sarjana Biologi,S1,0,0
+104,SARJANA,Sarjana Kimia,S1,0,0
+105,SARJANA,Sarjana Ekonomi / Akuntansi,S1,0,0
+106,SARJANA,Sarjana Administrasi,S1,0,0
+107,SARJANA,Sarjana Hukum,S1,0,0
+108,SARJANA,Sarjana Tehnik,S1,0,0
+109,SARJANA,Sarjana Kes. Sosial,S1,0,0
+110,SARJANA,Sarjana Fisika,S1,0,0
+111,SARJANA,Sarjana Komputer,S1,0,0
+112,SARJANA,Sarjana Statistik,S1,0,0
+113,SARJANA,Sarjana Lainnya (S1),S1,0,0
+114,SARJANA MUDA,Sarjana Muda Biologi,S1,0,0
+115,SARJANA MUDA,Sarjana Muda Kimia,S1,0,0
+116,SARJANA MUDA,Sarjana Muda Ekonomi / Akuntansi,S1,0,0
+117,SARJANA MUDA,Sarjana Muda Administrasi,S1,0,0
+118,SARJANA MUDA,Sarjana Muda Hukum,S1,0,0
+119,SARJANA MUDA,Sarjana Muda Tehnik,S1,0,0
+120,SARJANA MUDA,Sarjana Muda Kes. Sosial,S1,0,0
+121,SARJANA MUDA,Sarjana Muda Statistik,S1,0,0
+122,SARJANA MUDA,Sarjana Muda Komputer,S1,0,0
+123,SARJANA MUDA,Sarjana Muda Sekretaris,S1,0,0
+124,SARJANA MUDA,Sarjana Muda / D3 Lainnya,S1,0,0
+125,SMU SEDERAJAT DAN DIBAWAHNYA,SMA / SMU,SMU,0,0

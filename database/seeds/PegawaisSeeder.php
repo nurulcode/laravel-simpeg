@@ -13,9 +13,12 @@ class PegawaisSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('pegawais')->truncate();
+		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $faker = Faker::create('id_ID');
 
-        for($i = 1; $i <= 2; $i++){
+        for($i = 1; $i <= 1000; $i++){
 
           DB::table('pegawais')->insert([
               'nip' =>  $faker->ean13,
@@ -34,7 +37,7 @@ class PegawaisSeeder extends Seeder
 
               'telfon' => $faker->PhoneNumber,
               'email' => $faker->email,
-              'unit_id' => rand(1, 3),
+              'unit_id' => 1,
               'alamat' => $faker->address
           ]);
 

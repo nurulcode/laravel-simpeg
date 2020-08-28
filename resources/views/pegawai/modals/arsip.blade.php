@@ -11,7 +11,7 @@
                         <thead class="thead-light text-center">
                             <tr>
                                 <th>Nama Berkas</th>
-                                <th>Jenis Berkas</th>
+                                <th>Keterangan</th>
                                 <th>File</th>
                                 <th>Actions</th>
                             </tr>

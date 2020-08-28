@@ -7,7 +7,6 @@ use App\Models\Kepegawaian\Teguran;
 use App\Models\Pegawai;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class TeguranController extends Controller
@@ -17,10 +16,24 @@ class TeguranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $pegawais = Pegawai::with('unit:id,nama')->get();
-        return view('kepegawaian.teguran.index', compact('pegawais'));
+
+        if($request->ajax()){
+            return datatables()->of($pegawais)
+                        ->addColumn('action', function($data){
+                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light text-center" href="'.route("teguran.show", $data->id).'" ><i class="fas fa-eye"></i></a>';
+                            return $action;
+                        })->addColumn('ttl', function($data){
+                            $ttl =  $data->tempat_lahir.', <br> '. Carbon::parse($data->tanggal_lahir)->format('d-m-Y');
+                            return $ttl;
+                        })
+                        ->rawColumns(['action', 'foto', 'ttl'])
+                        ->addIndexColumn()
+                        ->make(true);
+        }
+        return view('kepegawaian.teguran.index');
     }
 
     /**

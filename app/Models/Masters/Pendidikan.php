@@ -17,4 +17,9 @@ class Pendidikan extends Model
     {
         return $this->hasMany('App\Models\Sekolah');
     }
+
+    public function pegawai()
+    {
+        return $this->hasOne('App\Models\Pegawai');
+    }
 }

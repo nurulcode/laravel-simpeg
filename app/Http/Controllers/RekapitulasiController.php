@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Masters\Pendidikan;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 
 class RekapitulasiController extends Controller
@@ -13,7 +15,16 @@ class RekapitulasiController extends Controller
      */
     public function index()
     {
-        return view('rekapitulasis.golongan.index');
+        // return Pendidikan::get();
+        // name: "S1",
+        // y: 40,
+        // drilldown: "S1"
+
+        $results = Pegawai::with('pendidikan')->get();
+        return $results;
+
+
+        return view('rekapitulasi.pendidikan.index');
     }
 
     /**

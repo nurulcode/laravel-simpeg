@@ -17,10 +17,45 @@ class PegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // function __construct()
+    // {
+    //      $this->middleware('permission:pegawai-list|pegawai-create|pegawai-edit|pegawai-delete', ['only' => ['index','show']]);
+    //      $this->middleware('permission:pegawai-create', ['only' => ['create','store']]);
+    //      $this->middleware('permission:pegawai-edit', ['only' => ['edit','update']]);
+    //      $this->middleware('permission:pegawai-delete', ['only' => ['destroy']]);
+    // }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $pegawais = Pegawai::with('unit:id,nama')->get();
-        return view('pegawai.index', compact('pegawais'));
+
+        if($request->ajax()){
+            return datatables()->of($pegawais)
+                        ->addColumn('action', function($data){
+                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light" href="'.route("pegawai.show", $data->id).'" ><i class="fas fa-eye"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<a class="btn btn-primary btn-sm waves-effect waves-light" href="'.route("pegawai.edit", $data->id).'"><i class="fas fa-edit"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+                            return $action;
+                        })->addColumn('foto', function($data){
+                            $url_foto = asset("storage/".$data->foto);
+                            $foto = '<img src="'.$url_foto.'" class="img-fluid" width="50px">';
+                            return $foto;
+                        })->addColumn('ttl', function($data){
+                            $ttl =  $data->tempat_lahir.', <br> '. Carbon::parse($data->tanggal_lahir)->format('d-m-Y');
+                            return $ttl;
+                        })
+                        ->rawColumns(['action', 'foto', 'ttl'])
+                        ->addIndexColumn()
+                        ->make(true);
+        }
+
+        return view('pegawai.index');
     }
 
     /**
@@ -161,7 +196,8 @@ class PegawaiController extends Controller
     public function destroy(Pegawai $pegawai)
     {
         $pegawai->delete();
-        return back()->with('success', 'Data has been removed');
+        return response()->json($pegawai);
+        // return back()->with('success', 'Data has been removed');
     }
 
 

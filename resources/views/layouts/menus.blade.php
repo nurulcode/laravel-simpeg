@@ -84,8 +84,8 @@
                     </a>
                     <ul class="submenu mm-collapse">
                         <li>
-                            <a href="{{ route('rekapitulasi.index') }}"> <i class="ti-minus"></i> Golonagan </a>
-                            <a href="#"> <i class="ti-minus"></i> Pendidikan </a>
+                            <a href="#"> <i class="ti-minus"></i> Golonagan </a>
+                            <a href="{{ route('rekapitulasi.index') }}"> <i class="ti-minus"></i> Pendidikan </a>
                             <a href="#"> <i class="ti-minus"></i> Unit Kerja </a>
                         </li>
                     </ul>
@@ -103,6 +103,22 @@
                         <li>
                             <a href="#"> <i class="ti-minus"></i> Biodata Pegawai </a>
                             <a href="#"> <i class="ti-minus"></i> Pensiun </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="waves-effect">
+                        <i class="ti-view-list-alt"></i>
+                        <span> Manage System
+                            <span class="float-right menu-arrow">
+                                <i class="mdi mdi-chevron-right"></i>
+                            </span>
+                        </span>
+                    </a>
+                    <ul class="submenu mm-collapse">
+                        <li>
+                            <a href="{{ route('roles.index') }}"> <i class="ti-minus"></i> Manage Role </a>
+                            <a href="{{ route('users.index') }}"> <i class="ti-minus"></i> Manage User </a>
                         </li>
                     </ul>
                 </li>

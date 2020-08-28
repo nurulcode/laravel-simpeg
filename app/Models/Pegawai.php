@@ -14,6 +14,12 @@ class Pegawai extends Model
         return $this->belongsTo('App\Models\Masters\Unit');
     }
 
+    public function pendidikan()
+    {
+        return $this->belongsTo('App\Models\Masters\Pendidikan');
+    }
+
+
     public function keluargas()
     {
         return $this->hasMany('App\Models\Keluarga');

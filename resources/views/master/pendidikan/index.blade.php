@@ -23,7 +23,8 @@
                     <thead class="text-center text-bold">
                         <tr>
                             <th>Kategori</th>
-                            <th>Nama</th>
+                            <th>Sub</th>
+                            <th>Tingkat</th>
                             <th>L</th>
                             <th>P</th>
                             <th>Action</th>
@@ -34,26 +35,18 @@
                         <tr>
                             <td>{{ $result->kategori }}</td>
                             <td>{{ $result->nama }}</td>
+                            <td>{{ $result->tingkat }}</td>
                             <td>{{ $result->laki }}</td>
                             <td>{{ $result->perempuan }}</td>
                             <td class="text-center">
-                                <div class="dropdown">
-                                    <button class="btn btn-primary btn-sm dropdown-toggle arrow-none waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Actions
+                                <a class="btn btn-primary btn-sm waves-effect waves-light" href="{{ route('pendidikan.edit', $result->id) }}"><i class="fas fa-edit"></i></a>
+                                <form class="d-inline" action="{{ route('pendidikan.destroy', $result->id) }}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm waves-effect waves-light" onclick="return confirm('Are you sure?')">
+                                        <i class="fas fa-trash-alt"></i>
                                     </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="{{ route('pendidikan.edit', $result->id) }}">Edit
-                                            Action
-                                        </a>
-                                        <form action="{{ route('pendidikan.destroy', $result->id) }}" method="post">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button class="dropdown-item text-danger" onclick="return confirm('Are you sure?')">
-                                                Delete Action
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

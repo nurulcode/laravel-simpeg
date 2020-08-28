@@ -2,10 +2,16 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker;
+use Flynsarmy\CsvSeeder\CsvSeeder;
 
-class PendidikansSeeder extends Seeder
+class PendidikansSeeder extends CsvSeeder
 {
+    public function __construct()
+    {
+        $this->table = 'pendidikans';
+        $this->filename = base_path().'/database/seeds/csvs/pendidikans.csv';
+    }
+
     /**
      * Run the database seeds.
      *
@@ -13,13 +19,14 @@ class PendidikansSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create('id_ID');
+        // Recommended when importing larger CSVs
+        DB::disableQueryLog();
 
-        DB::table('pendidikans')->insert([
-            'kategori' =>  'TENAGA MEDIS',
-            'nama' => 'Dokter Umum',
-            'laki' => 15,
-            'perempuan' => 11,
-        ]);
+        // Uncomment the below to wipe the table clean before populating
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table($this->table)->truncate();
+		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        parent::run();
     }
 }

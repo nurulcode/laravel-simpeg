@@ -24,26 +24,35 @@ Route::match(['get', 'post'], '/register', function () {
     return redirect('/login');
 })->name('register');
 
-Route::prefix('masters')->group(function () {
-    Route::resource('pendidikan', 'Master\PendidikanController');
-    Route::resource('jabatan', 'Master\JabatanController');
-    Route::resource('gaji', 'Master\GajiController');
-    Route::resource('golongan', 'Master\GolonganController');
-    Route::resource('unit', 'Master\UnitController');
+
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles','RoleController');
+    Route::resource('users','UserController');
+
+    Route::prefix('masters')->group(function () {
+        Route::resource('pendidikan', 'Master\PendidikanController');
+        Route::resource('jabatan', 'Master\JabatanController');
+        Route::resource('gaji', 'Master\GajiController');
+        Route::resource('golongan', 'Master\GolonganController');
+        Route::resource('unit', 'Master\UnitController');
+    });
+
+    Route::prefix('kepegawaians')->group(function () {
+        Route::resource('teguran', 'Kepegawaian\TeguranController');
+        Route::resource('arsip', 'Kepegawaian\ArsipController');
+
+    });
+
+    Route::get('/pegawai/report_pegawais/{pegawai}', 'PegawaiController@report_pegawais')->name('pegawais.report_pegawais');
+    Route::resource('pegawai', 'PegawaiController');
+
+    Route::resource('rekapitulasi', 'RekapitulasiController');
+
+    Route::resource('keluarga', 'KeluargaController');
+    Route::resource('sekolah', 'SekolahController');
+    Route::resource('bahasa', 'BahasaController');
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
 });
-
-Route::prefix('kepegawaians')->group(function () {
-    Route::resource('teguran', 'Kepegawaian\TeguranController');
-    Route::resource('arsip', 'Kepegawaian\ArsipController');
-
-});
-
-Route::get('/pegawai/report_pegawais/{pegawai}', 'PegawaiController@report_pegawais')->name('pegawais.report_pegawais');
-Route::resource('pegawai', 'PegawaiController');
-Route::resource('rekapitulasi', 'RekapitulasiController');
-
-Route::resource('keluarga', 'KeluargaController');
-Route::resource('sekolah', 'SekolahController');
-Route::resource('bahasa', 'BahasaController');
-
-Route::get('/home', 'HomeController@index')->name('home');
