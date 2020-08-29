@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\History;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

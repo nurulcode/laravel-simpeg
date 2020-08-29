@@ -9,6 +9,11 @@ class Pegawai extends Model
 {
     protected $guarded = [];
 
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
+
     public function unit()
     {
         return $this->belongsTo('App\Models\Masters\Unit');
@@ -22,17 +27,17 @@ class Pegawai extends Model
 
     public function keluargas()
     {
-        return $this->hasMany('App\Models\Keluarga');
+        return $this->hasMany('App\Models\History\Keluarga');
     }
 
     public function sekolahs()
     {
-        return $this->hasMany('App\Models\Sekolah');
+        return $this->hasMany('App\Models\History\Sekolah');
     }
 
     public function bahasas()
     {
-        return $this->hasMany('App\Models\Sekolah');
+        return $this->hasMany('App\Models\History\Sekolah');
     }
 
     public function tegurans()

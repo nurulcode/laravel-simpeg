@@ -18,15 +18,17 @@
                                 <small class="text-danger">{{ $errors->first('role') ? $errors->first('role') : '*. superuser, user, manage-pegawai'}}</small>
                             </div>
                             <div class="col-md-2 col-4">
-                                <input type="button" class="btn btn-primary btn-block inner" value="Tambah Role">
+                                <input type="submit" class="btn btn-primary btn-block inner" value="Update Role">
                             </div>
                         </div>
                     </div>
 
                     <div class="form-check">
-                        @foreach ($permissions as $result)
-                        <input type="checkbox" name="permission[]" id="{{ $result->id }}" value="{{ $result->id }}" {{ $result->id == $rolePermissions ? 'checked' : '' }}>
-                        <label for="{{ $result->id }}">{{ $result->name }}</label>
+                        @php $no = 1; @endphp
+
+                        @foreach ($permission as $result)
+                        <input type="checkbox" name="permission[]" id="{{ $result }}" value="{{ $result->id }}" {{ in_array($result->id, $rolePermissions) ? 'checked' : '' }}>
+                        <label for="{{ $result }}">{{ $result->name }}</label>
                             @if ($no++%4 == 0)
                                <br>
                             @endif

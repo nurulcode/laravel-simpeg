@@ -117,8 +117,10 @@
                     </a>
                     <ul class="submenu mm-collapse">
                         <li>
-                            <a href="{{ route('roles.index') }}"> <i class="ti-minus"></i> Manage Role </a>
                             <a href="{{ route('users.index') }}"> <i class="ti-minus"></i> Manage User </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('roles.index') }}"> <i class="ti-minus"></i> Manage Role </a>
                         </li>
                     </ul>
                 </li>

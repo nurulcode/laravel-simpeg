@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Permission;
 
+use App\Http\Controllers\Controller;
+use App\Models\Pegawai;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id','DESC')->paginate(10);
+        $users = User::with('pegawai:id,nama_lengkap')->orderBy('id','DESC')->paginate(10);
         return view('users.index',compact('users'))->with('i');
     }
 
@@ -30,8 +32,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
         $roles = Role::pluck('name','name')->all();
-        return view('users.create',compact('roles'));
+        return view('users.create',compact('roles', 'pegawais'));
     }
 
     /**
@@ -43,14 +46,17 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'username' => 'required|unique:users,username',
+            'pegawai_id' => 'required',
             'password' => 'required|same:confirm-password',
+            'confirm-password' => 'required',
             'roles' => 'required'
         ]);
 
         $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
+        $input['role'] = 'user';
+        $input['pegawai_id'] = (int) $request->pegawai_id;
+        $input['pegawai'] = $request->input('pegawai_id');
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
@@ -77,10 +83,13 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
+        // $roles = Role::pluck('name','name')->all();
+        // $userRole = $user->roles->pluck('name','name')->all();
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
+        $roles = Role::pluck('name')->all();
+        $userRole = $user->roles->pluck('name')->all();
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('users.edit',compact('user','roles','userRole', 'pegawais'));
     }
 
     /**

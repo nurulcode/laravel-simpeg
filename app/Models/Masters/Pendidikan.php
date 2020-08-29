@@ -15,7 +15,7 @@ class Pendidikan extends Model
 
     public function sekolah()
     {
-        return $this->hasMany('App\Models\Sekolah');
+        return $this->hasMany('App\Models\History\Sekolah');
     }
 
     public function pegawai()

@@ -25,23 +25,26 @@ Route::match(['get', 'post'], '/register', function () {
 })->name('register');
 
 
-
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('roles','RoleController');
-    Route::resource('users','UserController');
 
-    Route::prefix('masters')->group(function () {
-        Route::resource('pendidikan', 'Master\PendidikanController');
-        Route::resource('jabatan', 'Master\JabatanController');
-        Route::resource('gaji', 'Master\GajiController');
-        Route::resource('golongan', 'Master\GolonganController');
-        Route::resource('unit', 'Master\UnitController');
+    Route::prefix('masters')->namespace('Master')->group(function () {
+        Route::resource('pendidikan', 'PendidikanController');
+        Route::resource('jabatan', 'JabatanController');
+        Route::resource('gaji', 'GajiController');
+        Route::resource('golongan', 'GolonganController');
+        Route::resource('unit', 'UnitController');
     });
 
-    Route::prefix('kepegawaians')->group(function () {
-        Route::resource('teguran', 'Kepegawaian\TeguranController');
-        Route::resource('arsip', 'Kepegawaian\ArsipController');
+    Route::prefix('kepegawaians')->namespace('Kepegawaian')->group(function () {
+        Route::resource('teguran', 'TeguranController');
+        Route::resource('arsip', 'ArsipController');
 
+    });
+
+    Route::prefix('histories')->namespace('History')->group(function () {
+        Route::resource('keluarga', 'KeluargaController');
+        Route::resource('sekolah', 'SekolahController');
+        Route::resource('bahasa', 'BahasaController');
     });
 
     Route::get('/pegawai/report_pegawais/{pegawai}', 'PegawaiController@report_pegawais')->name('pegawais.report_pegawais');
@@ -49,10 +52,13 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('rekapitulasi', 'RekapitulasiController');
 
-    Route::resource('keluarga', 'KeluargaController');
-    Route::resource('sekolah', 'SekolahController');
-    Route::resource('bahasa', 'BahasaController');
-
     Route::get('/home', 'HomeController@index')->name('home');
+
+
+    Route::namespace('Permission')->group(function () {
+        Route::resource('roles','RoleController');
+        Route::resource('users','UserController');
+        Route::resource('permissions','PermissionController');
+    });
 
 });

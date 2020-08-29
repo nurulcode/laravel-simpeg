@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PDF;
+use Auth;
 
 class PegawaiController extends Controller
 {
@@ -17,13 +18,14 @@ class PegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // function __construct()
-    // {
-    //      $this->middleware('permission:pegawai-list|pegawai-create|pegawai-edit|pegawai-delete', ['only' => ['index','show']]);
-    //      $this->middleware('permission:pegawai-create', ['only' => ['create','store']]);
-    //      $this->middleware('permission:pegawai-edit', ['only' => ['edit','update']]);
-    //      $this->middleware('permission:pegawai-delete', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+         $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:role-create', ['only' => ['create','store']]);
+         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,6 +33,7 @@ class PegawaiController extends Controller
      */
     public function index(Request $request)
     {
+
         $pegawais = Pegawai::with('unit:id,nama')->get();
 
         if($request->ajax()){

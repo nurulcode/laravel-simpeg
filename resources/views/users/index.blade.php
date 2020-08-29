@@ -15,36 +15,38 @@
                         <tr>
                             <td>No</td>
                             <th>Nama</th>
-                            <th>Email</th>
-                            <th>Roles</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Access</th>
                             <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($users as $result)
-                            <tr>
-                                <td class="text-center" >{{ ++$i }}</td>
-                                <td>{{ $result->name }}</td>
-                                <td>{{ $result->email }}</td>
-                                <td>
-                                  @if( !empty($result->getRoleNames()) )
-                                    @foreach($result->getRoleNames() as $v )
-                                       <label class="badge badge-success">{{ $v }}</label>
-                                    @endforeach
-                                  @endif
-                                </td>
-                                <td class="text-center">
-                                    <a class="btn btn-info btn-sm waves-effect waves-light" href="{{ route('users.show', $result->id) }}"><i class="fas fa-eye"></i></a>
-                                    <a class="btn btn-primary btn-sm waves-effect waves-light" href="{{ route('users.edit', $result->id) }}"><i class="fas fa-edit"></i></a>
-                                    <form class="d-inline" action="{{ route('users.destroy', $result->id) }}" method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button class="btn btn-danger btn-sm waves-effect waves-light" onclick="return confirm('Are you sure?')">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td class="text-center">{{ ++$i }}</td>
+                            <td>{{ $result->pegawai == null ? '' : $result->pegawai->nama_lengkap  }}</td>
+                            <td>{{ $result->username }}</td>
+                            <td>{{ $result->role }}</td>
+                            <td>
+                                @if( !empty($result->getRoleNames()) )
+                                @foreach($result->getRoleNames() as $v )
+                                <label class="badge badge-primary">{{ $v }}</label>
+                                @endforeach
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-info btn-sm waves-effect waves-light" href="{{ route('users.show', $result->id) }}"><i class="fas fa-eye"></i></a>
+                                <a class="btn btn-primary btn-sm waves-effect waves-light" href="{{ route('users.edit', $result->id) }}"><i class="fas fa-edit"></i></a>
+                                <form class="d-inline" action="{{ route('users.destroy', $result->id) }}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm waves-effect waves-light" onclick="return confirm('Are you sure?')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>

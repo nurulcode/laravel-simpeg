@@ -17,7 +17,7 @@
                                 <small class="text-danger">{{ $errors->first('role') ? $errors->first('role') : '*. superuser, user, manage-pegawai'}}</small>
                             </div>
                             <div class="col-md-2 col-4">
-                                <input type="button" class="btn btn-primary btn-block inner" value="Tambah Role">
+                                <input type="submit" class="btn btn-primary btn-block inner" value="Tambah Role">
                             </div>
                         </div>
                     </div>
@@ -25,12 +25,12 @@
                     <div class="form-check">
                         @php $no = 1; @endphp
                         @foreach ($permission as $result)
-                        <br>
+                        @if ( Str::of($result->name)->contains('list') )
+                        <h5>{{ Str::title(Str::of($result->name)->before('-')) }}</h5>
+                        @endif
                         <input type="checkbox" name="permission[]" id="{{ $result->id }}" value="{{ $result->id }}">
                         <label for="{{ $result->id }}">{{ $result->name }}</label>
-                        @if ($no++%4 == 0)
-                        <br>
-                        @endif
+
                         @endforeach
                         <small class="text-danger">{{ $errors->first('role') }}</small>
                     </div>

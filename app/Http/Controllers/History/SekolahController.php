@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\History;
+
+use App\Http\Controllers\Controller;
 
 use App\Http\Requests\SekolahRequest;
-use App\Models\Sekolah;
+use App\Models\History\Sekolah;
+use App\Models\Pegawai;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

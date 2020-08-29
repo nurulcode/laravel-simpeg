@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\History;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\BahasaRequest;
-use App\Models\Bahasa;
-
+use App\Models\History\Bahasa;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

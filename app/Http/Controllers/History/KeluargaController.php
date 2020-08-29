@@ -1,10 +1,11 @@
 <?php
+namespace App\Http\Controllers\History;
 
-namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use App\Http\Requests\KeluargaRequest;
-use App\Models\Keluarga;
+use App\Models\History\Keluarga;
 use Carbon\Carbon;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;

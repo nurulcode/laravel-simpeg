@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-12">
+    <div class="col-10">
         <div class="card">
             <div class="card-body">
                 <h4 class="mt-0 header-title">Tambah User</h4>
@@ -15,24 +15,44 @@
                     <div>
 
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Nama Lengkap</label>
+                            <label for="pegawai" class="col-sm-3 col-form-label">Pegawai</label>
                             <div class="col-sm-9">
-                                <input name="name" value="{{ old('name') }}" type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}">
-                                @if($errors->has('name'))
+                                <select id="pegawai" class="form-control select2 {{ $errors->has('pegawai_id') ? 'is-invalid' : '' }}" name="pegawai_id">
+                                    <option value="">--Pilih--</option>
+                                    @foreach($pegawais as $item)
+                                    <option value="{{ $item->id }}" {{ $item->id == old('pegawai_id') ? 'selected' : '' }}>{{ $item->nip }} - {{ $item->nama_lengkap }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @if($errors->has('pegawai_id'))
                                 <div class="invalid-feedback">
-                                    <strong>{{ $errors->first('name') }}</strong>
+                                    <strong>{{ $errors->first('pegawai_id') }}</strong>
                                 </div>
                                 @endif
                             </div>
                         </div>
 
+
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">E-Mail</label>
+                            <label class="col-sm-3 col-form-label">username</label>
                             <div class="col-sm-9">
-                                <input name="email" value="{{ old('email') }}" type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}">
-                                @if($errors->has('email'))
+                                <input name="username" value="{{ old('username') }}" type="text" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}">
+                                @if($errors->has('username'))
                                 <div class="invalid-feedback">
-                                    <strong>{{ $errors->first('email') }}</strong>
+                                    <strong>{{ $errors->first('username') }}</strong>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-9">
+                                <input name="password" value="{{ old('password') }}" type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}">
+                                @if($errors->has('password'))
+                                <div class="invalid-feedback">
+                                    <strong>{{ $errors->first('password') }}</strong>
                                 </div>
                                 @endif
                             </div>
@@ -41,22 +61,10 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Confirm Password</label>
                             <div class="col-sm-9">
-                                <input name="confirm-password" value="{{ old('confirm-password') }}" type="text" class="form-control {{ $errors->has('confirm-password') ? 'is-invalid' : '' }}">
+                                <input name="confirm-password" value="{{ old('confirm-password') }}" type="password" class="form-control {{ $errors->has('confirm-password') ? 'is-invalid' : '' }}">
                                 @if($errors->has('confirm-password'))
                                 <div class="invalid-feedback">
                                     <strong>{{ $errors->first('confirm-password') }}</strong>
-                                </div>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Password</label>
-                            <div class="col-sm-9">
-                                <input name="password" value="{{ old('password') }}" type="text" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}">
-                                @if($errors->has('password'))
-                                <div class="invalid-feedback">
-                                    <strong>{{ $errors->first('password') }}</strong>
                                 </div>
                                 @endif
                             </div>
@@ -69,7 +77,9 @@
                                 <input type="checkbox" name="roles[]" id="{{ $result }}" value="{{ $result }}">
                                 <label for="{{ $result }}">{{ $result }}</label>
                                 @endforeach
+                                <br>
                             </div>
+
                         </div>
 
                         <div class="form-group row mt-5 text-right">
