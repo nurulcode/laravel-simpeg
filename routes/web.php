@@ -27,6 +27,10 @@ Route::match(['get', 'post'], '/register', function () {
 
 Route::group(['middleware' => ['auth']], function() {
 
+    Route::post('/autocomplete/fetch', 'AutocompleteController@fetch')->name('autocomplete.fetch');
+    Route::post('/autocomplete/fetch_categories', 'AutocompleteController@fetchCategories')->name('autocomplete.fetch_categories');
+
+
     Route::prefix('masters')->namespace('Master')->group(function () {
         Route::resource('pendidikan', 'PendidikanController');
         Route::resource('jabatan', 'JabatanController');
@@ -48,6 +52,7 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
     Route::get('/pegawai/report_pegawais/{pegawai}', 'PegawaiController@report_pegawais')->name('pegawais.report_pegawais');
+    Route::get('/pegawais/pegawais_excel', 'PegawaiController@pegawais_excel')->name('pegawais.pegawais_excel');
     Route::resource('pegawai', 'PegawaiController');
 
     Route::resource('rekapitulasi', 'RekapitulasiController');
@@ -58,7 +63,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::namespace('Permission')->group(function () {
         Route::resource('roles','RoleController');
         Route::resource('users','UserController');
-        Route::resource('permissions','PermissionController');
     });
 
 });

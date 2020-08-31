@@ -12,7 +12,6 @@ class Keluarga extends Model
         return $this->belongsTo('App\Models\Pegawai');
     }
 
-
     public function pendidikan()
     {
         return $this->belongsTo('App\Models\Masters\Pendidikan');

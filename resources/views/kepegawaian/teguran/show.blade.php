@@ -5,12 +5,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="text-right">
-                    <a href="{{ route('teguran.create') }}" class="btn btn-primary waves-light mb-3">
-                        Tambah Data
-                    </a>
-                </div>
-                <table id="datatable" class="table table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                @include('kepegawaian.teguran.create')
+                <hr>
+                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr class="text-center">
                             <th>Jenis</th>

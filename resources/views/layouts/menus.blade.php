@@ -73,7 +73,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="javascript:void(0);" class="waves-effect">
                         <i class="ti-view-list-alt"></i>
                         <span> Rekapitulasi
@@ -89,7 +89,7 @@
                             <a href="#"> <i class="ti-minus"></i> Unit Kerja </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li>
                     <a href="javascript:void(0);" class="waves-effect">
                         <i class="ti-view-list-alt"></i>
@@ -102,7 +102,6 @@
                     <ul class="submenu mm-collapse">
                         <li>
                             <a href="#"> <i class="ti-minus"></i> Biodata Pegawai </a>
-                            <a href="#"> <i class="ti-minus"></i> Pensiun </a>
                         </li>
                     </ul>
                 </li>

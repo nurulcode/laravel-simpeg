@@ -18,12 +18,12 @@ class ArsipController extends Controller
      */
     public function index(Request $request)
     {
-        $pegawais = Pegawai::with('unit:id,nama')->get();
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap', 'tempat_lahir', 'tanggal_lahir')->get();
 
         if($request->ajax()){
             return datatables()->of($pegawais)
                         ->addColumn('action', function($data){
-                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light text-center" href="'.route("teguran.show", $data->id).'" ><i class="fas fa-eye"></i></a>';
+                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light text-center" href="'.route("arsip.show", $data->id).'" ><i class="fas fa-eye"></i></a>';
                             return $action;
                         })->addColumn('ttl', function($data){
                             $ttl =  $data->tempat_lahir.', <br> '. Carbon::parse($data->tanggal_lahir)->format('d-m-Y');
@@ -78,7 +78,7 @@ class ArsipController extends Controller
         }
 
         $arsip->save();
-        return redirect()->route('arsip.index')->with('success', 'Data has been created successfully.');
+        return back()->with('success', 'Data has been created successfully.');
     }
 
     /**
@@ -89,8 +89,9 @@ class ArsipController extends Controller
      */
     public function show($arsip)
     {
+        $pegawai = Pegawai::where('id', $arsip)->select('nip', 'nama_lengkap')->get();
         $arsips =  Arsip::where('pegawai_id', $arsip)->get();
-        return view('kepegawaian.arsip.show', compact('arsips'));
+        return view('kepegawaian.arsip.show', compact('arsips', 'arsip', 'pegawai'));
     }
 
     /**

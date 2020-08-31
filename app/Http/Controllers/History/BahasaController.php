@@ -17,14 +17,23 @@ class BahasaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $results = DB::table('pegawais')
-                    ->join('bahasas', 'pegawais.id', '=', 'bahasas.pegawai_id')
-                    ->select('pegawais.nama_lengkap as nama_pegawai', 'bahasas.*')
-                    ->get();
+        $results = Bahasa::with('pegawai:id,nama_lengkap as nama_pegawai')->get();
+        if($request->ajax()){
+            return datatables()->of($results)
+                        ->addColumn('action', function($data){
+                            $action  = '<a class="btn btn-primary btn-sm waves-effect waves-light" href="'.route("bahasa.edit", $data->id).'"><i class="fas fa-edit"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+                            return $action;
+                        })
+                        ->rawColumns(['action', 'ttl'])
+                        ->addIndexColumn()
+                        ->make(true);
+        }
 
-        return view('bahasa.index', compact('results'));
+        return view('bahasa.index');
     }
 
     /**
@@ -96,6 +105,7 @@ class BahasaController extends Controller
     public function destroy(Bahasa $bahasa)
     {
         $bahasa->delete();
-        return back()->with('success', 'Data has been deleted successfully');
+        return response()->json($bahasa);
+        // return back()->with('success', 'Data has been deleted successfully');
     }
 }

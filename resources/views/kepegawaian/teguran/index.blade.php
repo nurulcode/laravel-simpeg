@@ -10,13 +10,12 @@
                         Tambah Data
                     </a>
                 </div>
-                <table id="table_teguran" class="table table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="table_teguran" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
                             <th>NIP</th>
                             <th>Nama Lengkap</th>
                             <th>Tempat, Tgl Lahir</th>
-                            <th>Unit Kerja</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -54,9 +53,7 @@
                     data: 'nama_lengkap',
                 }, {
                     data: 'ttl',
-                }, {
-                    data: 'unit.nama',
-                }, {
+                },  {
                     data: 'action',
                 }
             ],

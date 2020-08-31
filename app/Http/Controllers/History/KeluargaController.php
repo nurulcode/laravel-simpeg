@@ -4,6 +4,7 @@ namespace App\Http\Controllers\History;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KeluargaRequest;
 use App\Models\History\Keluarga;
+use App\Models\Masters\Pendidikan;
 use Carbon\Carbon;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
@@ -18,16 +19,27 @@ class KeluargaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $keluargas = DB::table('pegawais')
-                    ->join('keluargas', 'pegawais.id', '=', 'keluargas.pegawai_id')
-                    ->select('pegawais.nama_lengkap as nama_pegawai', 'keluargas.*')
-                    ->get();
-
-                    // ->get();
-                // return response()->json($pegawais);
-        return view('keluarga.index', compact('keluargas'));
+        $results = Keluarga::with('pegawai:id,nama_lengkap as nama_pegawai')->get();
+            if($request->ajax()){
+                return datatables()->of($results)
+                            ->addColumn('action', function($data){
+                                $action  = '<a class="btn btn-primary btn-sm waves-effect waves-light" href="'.route("keluarga.edit", $data->id).'"><i class="fas fa-edit"></i></a>';
+                                $action .= '&nbsp;';
+                                $action  .= '<a class="btn btn-info btn-sm waves-effect waves-light" href="'.route("keluarga.show", $data->id).'"><i class="fas fa-eye"></i></a>';
+                                $action .= '&nbsp;';
+                                $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+                                return $action;
+                            })->addColumn('ttl', function($data){
+                                $ttl =  $data->tempat_lahir.', <br> '. Carbon::parse($data->tanggal_lahir)->format('d-m-Y');
+                                return $ttl;
+                            })
+                            ->rawColumns(['action', 'ttl'])
+                            ->addIndexColumn()
+                            ->make(true);
+            }
+        return view('keluarga.index');
     }
 
     /**
@@ -37,7 +49,7 @@ class KeluargaController extends Controller
      */
     public function create()
     {
-        $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
+        $pendidikans = Pendidikan::select('id', 'kategori', 'nama')->get();
         $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
         return view('keluarga.create', compact('pendidikans', 'pegawais'));
     }
@@ -50,6 +62,7 @@ class KeluargaController extends Controller
      */
     public function store(KeluargaRequest $request)
     {
+        // return $request;
         $keluarga = new Keluarga();
 
         $keluarga->nik = $request->nik;
@@ -67,7 +80,7 @@ class KeluargaController extends Controller
 
         // return response()->json($keluarga);
         $keluarga->save();
-        return back()->with('success', 'Data has been saved successfully.');
+        return redirect()->route('keluarga.index')->with('success', 'Data has been saved successfully.');
     }
 
     /**
@@ -89,7 +102,7 @@ class KeluargaController extends Controller
      */
     public function edit(Keluarga $keluarga)
     {
-        $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
+        $pendidikans = Pendidikan::select('id', 'kategori', 'nama')->get();
         $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
         return view('keluarga.edit', compact('pendidikans', 'pegawais', 'keluarga'));
     }
@@ -129,6 +142,7 @@ class KeluargaController extends Controller
     public function destroy(Keluarga $keluarga)
     {
         $keluarga->delete();
-        return back()->with('success', 'Data has been removed');
+        return response()->json($keluarga);
+        // return back()->with('success', 'Data has been removed');
     }
 }

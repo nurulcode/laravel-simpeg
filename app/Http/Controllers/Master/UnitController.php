@@ -13,10 +13,24 @@ class UnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $results = Unit::all();
-        return view('master.unit.index', compact('results'));
+        $results = Unit::get();
+
+        if($request->ajax()){
+            return datatables()->of($results)
+                        ->addColumn('action', function($data){
+                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light" href="'.route("unit.edit", $data->id).'" ><i class="fas fa-edit"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+                            return $action;
+                        })
+                        ->rawColumns(['action'])
+                        ->addIndexColumn()
+                        ->make(true);
+        }
+
+        return view('master.unit.index');
     }
 
 
@@ -81,6 +95,7 @@ class UnitController extends Controller
     public function destroy(Unit $unit)
     {
         $unit->delete();
-        return back()->with('success', 'Data has been saved successfully.');
+        return response()->json($unit);
+        // return back()->with('success', 'Data has been saved successfully.');
     }
 }

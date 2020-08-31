@@ -18,7 +18,7 @@ class TeguranController extends Controller
      */
     public function index(Request $request)
     {
-        $pegawais = Pegawai::with('unit:id,nama')->get();
+        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap', 'tempat_lahir', 'tanggal_lahir')->get();
 
         if($request->ajax()){
             return datatables()->of($pegawais)
@@ -80,7 +80,7 @@ class TeguranController extends Controller
         }
 
         $teguran->save();
-        return redirect()->route('teguran.index')->with('status', 'Data has been saved successfully.');
+        return back()->with('status', 'Data has been saved successfully.');
     }
 
         /**
@@ -92,7 +92,7 @@ class TeguranController extends Controller
     public function show($teguran)
     {
         $tegurans =  Teguran::where('pegawai_id', $teguran)->get();
-        return view('kepegawaian.teguran.show', compact('tegurans'));
+        return view('kepegawaian.teguran.show', compact('tegurans', 'teguran'));
     }
 
     /**

@@ -18,7 +18,7 @@ class PegawaisSeeder extends Seeder
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $faker = Faker::create('id_ID');
 
-        for($i = 1; $i <= 25; $i++){
+        for($i = 1; $i <= 100; $i++){
 
           DB::table('pegawais')->insert([
               'nip' =>  $faker->ean13,

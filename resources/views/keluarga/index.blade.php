@@ -10,7 +10,7 @@
                         Tambah Data
                     </a>
                 </div>
-                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="table_keluarga" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
                             <th>NIK</th>
@@ -20,41 +20,75 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach($keluargas as $result)
-                            <tr>
-
-                                <td>
-                                    <a class="" href="{{ route('keluarga.show', $result->id) }}">{{ $result->nik }}</a>
-                                </td>
-                                <td>{{ $result->nama_lengkap }}</td>
-                                <td>{{ $result->tempat_lahir }}, <br> {{ $result->tanggal_lahir }}</td>
-                                <td>{{ $result->nama_pegawai }}</td>
-                                <td class="text-center">
-                                    <div class="dropdown">
-                                        <button class="btn btn-primary btn-sm dropdown-toggle arrow-none waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Actions
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{ route('keluarga.edit', $result->id) }}">Edit</a>
-                                            <a class="dropdown-item" href="{{ route('keluarga.show', $result->id) }}">Detail Action</a>
-                                            <form action="{{ route('keluarga.destroy', $result->id) }}" method="post">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button class="dropdown-item" onclick="return confirm('Are you sure?')">
-                                                    Delete Action
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
     </div>
+    @include('keluarga.delete')
 </div>
+@endsection
+
+@section('javascript')
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+
+    // Get Data
+    $(document).ready(function () {
+        $('#table_keluarga').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('keluarga.index') }}",
+                type: 'GET'
+            },
+            columns: [{
+                data: 'nik',
+            }, {
+                data: 'nama_lengkap',
+            }, {
+                data: 'ttl',
+            }, {
+                data: 'pegawai.nama_pegawai',
+            }, {
+                data: 'action',
+            }],
+            order: [
+                [0, 'asc']
+            ]
+        });
+    });
+
+    //Delete Data
+    $(document).on('click', '.delete', function () {
+        dataId = $(this).attr('id');
+        $('#delete-keluarga-modal').modal('show');
+    });
+
+    $('#delete-keluarga-button').click(function () {
+        $.ajax({
+
+            url: "keluarga/" + dataId,
+            type: 'delete',
+            beforeSend: function () {
+                $('#delete-keluarga-button').text('Loading ...');
+            },
+            success: function (data) {
+                setTimeout(function () {
+                    $('#delete-keluarga-modal').modal('hide');
+                    $('#delete-keluarga-button').text('Hapus');
+                    // Reset Datatable
+                    let oTable = $('#table_keluarga').dataTable();
+                    oTable.fnDraw(false);
+                });
+            }
+        })
+    });
+
+</script>
 @endsection

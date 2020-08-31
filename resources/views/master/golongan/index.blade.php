@@ -1,6 +1,6 @@
 @extends('layouts.global')
 @section('title')
-    Golongan
+Golongan
 @endsection
 
 @section('content')
@@ -12,11 +12,11 @@
                 @include('master.golongan.create')
             </div>
         </div>
-    </div><!-- end col -->
+    </div>
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="table_golongan" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
                             <th>Kode</th>
@@ -26,39 +26,75 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach($results as $result)
-                        <tr>
-                            <td>{{ $result->kode }}</td>
-                            <td>{{ $result->pangkat }}</td>
-                            <td>{{ $result->golongan }}</td>
-                            <td>{{ $result->ruang }}</td>
-                            <td class="text-center">
-                                <div class="dropdown">
-                                    <button class="btn btn-primary btn-sm dropdown-toggle arrow-none waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Actions
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="{{ route('golongan.edit', $result->id) }}">Edit
-                                            Action
-                                        </a>
-                                        <form action="{{ route('golongan.destroy', $result->id) }}" method="post">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button class="dropdown-item text-danger" onclick="return confirm('Are you sure?')">
-                                                Delete Action
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
-            {{-- @include('pegawai.edit') --}}
         </div>
-    </div><!-- end col -->
+    </div>
+    @include('master.golongan.delete')
 </div>
+@endsection
+
+@section('javascript')
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+
+    // Get Data
+    $(document).ready(function () {
+        $('#table_golongan').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('golongan.index') }}",
+                type: 'GET'
+            },
+            columns: [{
+                data: 'kode',
+            }, {
+                data: 'pangkat',
+            }, {
+                data: 'golongan',
+            }, {
+                data: 'ruang',
+            }, {
+                data: 'action',
+            }],
+            order: [
+                [0, 'asc']
+            ]
+        });
+    });
+
+    //Delete Data
+    $(document).on('click', '.delete', function () {
+        dataId = $(this).attr('id');
+        $('#delete-golongan-modal').modal('show');
+    });
+
+    $('#delete-golongan-button').click(function () {
+        $.ajax({
+
+            url: "golongan/" + dataId,
+            type: 'delete',
+            beforeSend: function () {
+                $('#delete-golongan-button').text('Loading ...');
+            },
+            success: function (data) {
+                setTimeout(function () {
+                    $('#delete-golongan-modal').modal('hide');
+                    $('#delete-golongan-button').text('Hapus');
+                    // Reset Datatable
+                    let oTable = $('#table_golongan').dataTable();
+                    oTable.fnDraw(false);
+                });
+            }
+        })
+    });
+
+</script>
 @endsection

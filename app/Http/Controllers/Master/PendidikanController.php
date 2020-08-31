@@ -17,11 +17,25 @@ class PendidikanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pendidikans = DB::table('pendidikans')->get();
-        $kategoris = DB::table('pendidikans')->select('kategori')->groupBy('kategori')->get();
-        return view('master.pendidikan.index', compact('pendidikans', 'kategoris'));
+        $pendidikans = Pendidikan::get();
+        $kategoris = Pendidikan::select('kategori')->groupBy('kategori')->get();
+
+        if($request->ajax()){
+            return datatables()->of($pendidikans)
+                        ->addColumn('action', function($data){
+                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light" href="'.route("pendidikan.edit", $data->id).'" ><i class="fas fa-edit"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+                            return $action;
+                        })
+                        ->rawColumns(['action'])
+                        ->addIndexColumn()
+                        ->make(true);
+        }
+
+       return view('master.pendidikan.index', compact('kategoris', 'pendidikans'));
     }
 
     /**
@@ -61,7 +75,7 @@ class PendidikanController extends Controller
      */
     public function edit(Pendidikan $pendidikan)
     {
-        $kategoris = DB::table('pendidikans')->select('kategori')->groupBy('kategori')->get();
+        $kategoris = Pendidikan::select('kategori')->groupBy('kategori')->get();
         return view('master.pendidikan.edit', compact('pendidikan', 'kategoris'));
     }
 
@@ -101,6 +115,7 @@ class PendidikanController extends Controller
     public function destroy(Pendidikan $pendidikan)
     {
         $pendidikan->delete();
-        return back()->with('success', 'Data has been deleted successfully');
+        return response()->json($pendidikan);
+        // return back()->with('success', 'Data has been deleted successfully');
     }
 }

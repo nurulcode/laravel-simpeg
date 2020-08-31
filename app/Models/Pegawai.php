@@ -37,7 +37,7 @@ class Pegawai extends Model
 
     public function bahasas()
     {
-        return $this->hasMany('App\Models\History\Sekolah');
+        return $this->hasMany('App\Models\History\Bahasa');
     }
 
     public function tegurans()

@@ -15,9 +15,26 @@ class GajiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $results = DB::table('gajis')->get();
+        $results = Gaji::get();
+
+        if($request->ajax()){
+            return datatables()->of($results)
+                        ->addColumn('action', function($data){
+                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light" href="'.route("gaji.edit", $data->id).'" ><i class="fas fa-edit"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+                            return $action;
+                        })->addColumn('nominal', function($data){
+                            $nominal ="Rp. " . number_format( $data->nominal, 0, ".", ".");
+                            return $nominal;
+                        })
+                        ->rawColumns(['action', 'nominal'])
+                        ->addIndexColumn()
+                        ->make(true);
+        }
+
         return view('master.gaji.index', compact('results'));
     }
 
@@ -79,6 +96,7 @@ class GajiController extends Controller
     public function destroy(Gaji $gaji)
     {
         $gaji->delete();
-        return back()->with('success', 'Data has been deleted successfully');
+        return response()->json($gaji);
+        // return back()->with('success', 'Data has been deleted successfully');
     }
 }

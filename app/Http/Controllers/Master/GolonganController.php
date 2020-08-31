@@ -14,10 +14,24 @@ class GolonganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $results = Golongan::all();
-        return view('master.golongan.index', compact('results'));
+        $results = Golongan::get();
+
+        if($request->ajax()){
+            return datatables()->of($results)
+                        ->addColumn('action', function($data){
+                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light" href="'.route("golongan.edit", $data->id).'" ><i class="fas fa-edit"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+                            return $action;
+                        })
+                        ->rawColumns(['action'])
+                        ->addIndexColumn()
+                        ->make(true);
+        }
+
+        return view('master.golongan.index');
     }
 
     /**
@@ -87,6 +101,7 @@ class GolonganController extends Controller
     public function destroy(Golongan $golongan)
     {
         $golongan->delete();
-        return back()->with('success', 'Data has been deleted successfully.');
+        return response()->json($golongan);
+        // return back()->with('success', 'Data has been deleted successfully.');
     }
 }

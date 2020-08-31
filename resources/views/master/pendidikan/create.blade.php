@@ -2,7 +2,7 @@
     @csrf
     <div class="form-group">
         <label class="control-label">Kategori</label>
-        <select class="form-control select2 {{ $errors->has('kategori') ? 'is-invalid' : '' }}" name="kategori">
+        <select class="form-control select2 {{ $errors->has('kategori') ? 'is-invalid' : '' }}" name="kategori" id="kategori">
             <option value="">--Pilih--</option>
             @foreach($kategoris as $item)
             <option value="{{ $item->kategori }}">{{ $item->kategori }}</option>
@@ -17,7 +17,7 @@
 
     <div class="form-group">
         <label>Nama</label>
-        <input name="nama" type="text" class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}">
+        <input name="nama" id="nama" type="text" class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}">
         @if($errors->has('nama'))
         <div class="invalid-feedback">
             <strong>{{ $errors->first('nama') }}</strong>
@@ -25,10 +25,21 @@
         @endif
     </div>
 
+    <div class="form-group">
+        <label>Tingkat</label>
+        <input name="tingkat" id="tingkat" type="text" class="form-control {{ $errors->has('tingkat') ? 'is-invalid' : '' }}">
+        <small class="text-danger">*. SD, SMP, SMA, S1, S2, S3</small>
+        @if($errors->has('tingkat'))
+        <div class="invalid-feedback">
+            <strong>{{ $errors->first('tingkat') }}</strong>
+        </div>
+        @endif
+    </div>
+
 
     <div class="form-group">
         <label>Jumlah Laki</label>
-        <input name="laki" type="number" class="form-control {{ $errors->has('laki') ? 'is-invalid' : '' }}">
+        <input name="laki" id="laki" type="number" class="form-control {{ $errors->has('laki') ? 'is-invalid' : '' }}">
         @if($errors->has('laki'))
         <div class="invalid-feedback">
             <strong>{{ $errors->first('laki') }}</strong>
@@ -38,7 +49,7 @@
 
     <div class="form-group">
         <label>Jumlah Perempuan</label>
-        <input name="perempuan" type="number" class="form-control {{ $errors->has('perempuan') ? 'is-invalid' : '' }}">
+        <input name="perempuan" id="perempuan" type="number" class="form-control {{ $errors->has('perempuan') ? 'is-invalid' : '' }}">
         @if($errors->has('perempuan'))
         <div class="invalid-feedback">
             <strong>{{ $errors->first('perempuan') }}</strong>
@@ -48,7 +59,7 @@
 
     <div class="form-group mb-0">
         <div>
-            <button type="submit" class="btn btn-primary waves-effect waves-light mr-1">Submit</button>
+            <button type="submit" value="create" class="btn btn-primary waves-effect waves-light mr-1">Submit</button>
         </div>
     </div>
 </form>

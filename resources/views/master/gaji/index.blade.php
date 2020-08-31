@@ -12,11 +12,11 @@
                 @include('master.gaji.create')
             </div>
         </div>
-    </div><!-- end col -->
+    </div>
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="table_gaji" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
                             <th>Kode</th>
@@ -24,35 +24,72 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach($results as $result)
-                        <tr>
-                            <td>{{ $result->kode }}</td>
-                            <td>@currency($result->nominal)</td>
-                            <td class="text-center">
-                                <div class="dropdown">
-                                    <button class="btn btn-primary btn-sm dropdown-toggle arrow-none waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Actions
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="{{ route('gaji.edit', $result->id) }}">Edit Action</a>
-                                        <form action="{{ route('gaji.destroy', $result->id) }}" method="post">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button class="dropdown-item text-danger" onclick="return confirm('Are you sure?')">
-                                                Delete Action
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
-            {{-- @include('pegawai.edit') --}}
         </div>
-    </div><!-- end col -->
+    </div>
+     @include('master.gaji.delete')
 </div>
+@endsection
+
+
+@section('javascript')
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+
+    // Get Data
+    $(document).ready(function () {
+        $('#table_gaji').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('gaji.index') }}",
+                type: 'GET'
+            },
+            columns: [{
+                data: 'kode',
+            }, {
+                data: 'nominal',
+            }, {
+                data: 'action',
+            }],
+            order: [
+                [0, 'asc']
+            ]
+        });
+    });
+
+    //Delete Data
+    $(document).on('click', '.delete', function () {
+        dataId = $(this).attr('id');
+        $('#delete-gaji-modal').modal('show');
+    });
+
+    $('#delete-gaji-button').click(function () {
+        $.ajax({
+
+            url: "gaji/" + dataId,
+            type: 'delete',
+            beforeSend: function () {
+                $('#delete-gaji-button').text('Loading ...');
+            },
+            success: function (data) {
+                setTimeout(function () {
+                    $('#delete-gaji-modal').modal('hide');
+                    $('#delete-gaji-button').text('Hapus');
+                    // Reset Datatable
+                    let oTable = $('#table_gaji').dataTable();
+                    oTable.fnDraw(false);
+                });
+            }
+        })
+    });
+
+</script>
 @endsection

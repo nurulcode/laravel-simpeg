@@ -10,45 +10,85 @@
                         Tambah Data
                     </a>
                 </div>
-                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="table_bahasa" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
                             <th>Jenis Bahasa</th>
                             <th>Bahasa</th>
-                            <th>Nama Pegawai</th>
+                            <th>Kemampuan</th>
+                            <th>Kemampuan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach($results as $result)
-                            <tr>
-                                <td>{{ $result->jenis_bahasa }}</td>
-                                <td>{{ $result->bahasa }}</td>
-                                <td>{{ $result->nama_pegawai }}</td>
-                                <td class="text-center">
-                                    <div class="dropdown">
-                                        <button class="btn btn-primary btn-sm dropdown-toggle arrow-none waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Actions
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{ route('bahasa.edit', $result->id) }}">Edit</a>
-                                            <form action="{{ route('bahasa.destroy', $result->id) }}" method="post">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button class="dropdown-item" onclick="return confirm('Are you sure?')">
-                                                    Delete Action
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
     </div>
+    @include('bahasa.delete')
 </div>
+@endsection
+
+@section('javascript')
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+
+    // Get Data
+    $(document).ready(function () {
+        $('#table_bahasa').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('bahasa.index') }}",
+                type: 'GET'
+            },
+            columns: [{
+                data: 'jenis_bahasa',
+            }, {
+                data: 'bahasa',
+            }, {
+                data: 'kemampuan',
+            }, {
+                data: 'pegawai.nama_pegawai',
+            }, {
+                data: 'action',
+            }],
+            order: [
+                [0, 'asc']
+            ]
+        });
+    });
+
+    //Delete Data
+    $(document).on('click', '.delete', function () {
+        dataId = $(this).attr('id');
+        $('#delete-bahasa-modal').modal('show');
+    });
+
+    $('#delete-bahasa-button').click(function () {
+        $.ajax({
+
+            url: "bahasa/" + dataId,
+            type: 'delete',
+            beforeSend: function () {
+                $('#delete-bahasa-button').text('Loading ...');
+            },
+            success: function (data) {
+                setTimeout(function () {
+                    $('#delete-bahasa-modal').modal('hide');
+                    $('#delete-bahasa-button').text('Hapus');
+                    // Reset Datatable
+                    let oTable = $('#table_bahasa').dataTable();
+                    oTable.fnDraw(false);
+                });
+            }
+        })
+    });
+
+</script>
 @endsection

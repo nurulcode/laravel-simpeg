@@ -2,7 +2,7 @@
     @csrf
     <div class="form-group">
         <label>Nominal</label>
-        <input name="nominal" type="number" class="form-control {{ $errors->has('nominal') ? 'is-invalid' : '' }}">
+        <input name="nominal" id="masking1" type="number" class="form-control {{ $errors->has('nominal') ? 'is-invalid' : '' }}">
         @if($errors->has('nominal'))
         <div class="invalid-feedback">
             <strong>{{ $errors->first('nominal') }}</strong>
