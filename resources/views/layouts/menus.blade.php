@@ -11,6 +11,8 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+
+                @can('master-list')
                 <li>
                     <a href="javascript:void(0);" class="waves-effect">
                         <i class="ti-view-list-alt"></i>
@@ -28,6 +30,9 @@
                         <li><a href="{{ route('gaji.index') }}"><i class="ti-minus"></i>Gaji</a></li>
                     </ul>
                 </li>
+                @endcan
+
+                @can('pegawai-list')
                 <li>
                     <a href="javascript:void(0);" class="waves-effect">
                         <i class="ti-view-list-alt"></i>
@@ -41,6 +46,9 @@
                         <li><a href="{{ route('pegawai.index') }}"><i class="ti-minus"></i>Pegawai</a></li>
                     </ul>
                 </li>
+                @endcan
+
+                @can('history-list')
                 <li>
                     <a href="javascript:void(0);" class="waves-effect">
                         <i class="ti-view-list-alt"></i>
@@ -56,7 +64,9 @@
                         <li><a href="{{ route('bahasa.index') }}"> <i class="ti-minus"></i> Bahasa </a></li>
                     </ul>
                 </li>
+                @endcan
 
+                @can('kepegawaian-list')
                 <li>
                     <a href="javascript:void(0);" class="waves-effect">
                         <i class="ti-view-list-alt"></i>
@@ -73,23 +83,9 @@
                         </li>
                     </ul>
                 </li>
-                {{-- <li>
-                    <a href="javascript:void(0);" class="waves-effect">
-                        <i class="ti-view-list-alt"></i>
-                        <span> Rekapitulasi
-                            <span class="float-right menu-arrow">
-                                <i class="mdi mdi-chevron-right"></i>
-                            </span>
-                        </span>
-                    </a>
-                    <ul class="submenu mm-collapse">
-                        <li>
-                            <a href="#"> <i class="ti-minus"></i> Golonagan </a>
-                            <a href="{{ route('rekapitulasi.index') }}"> <i class="ti-minus"></i> Pendidikan </a>
-                            <a href="#"> <i class="ti-minus"></i> Unit Kerja </a>
-                        </li>
-                    </ul>
-                </li> --}}
+                @endcan
+
+                @can('laporan-list')
                 <li>
                     <a href="javascript:void(0);" class="waves-effect">
                         <i class="ti-view-list-alt"></i>
@@ -105,7 +101,10 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                @endcan
+
+               @if (Auth::user()->role == 'superuser')
+                   <li>
                     <a href="javascript:void(0);" class="waves-effect">
                         <i class="ti-view-list-alt"></i>
                         <span> Manage System
@@ -123,6 +122,7 @@
                         </li>
                     </ul>
                 </li>
+               @endif
             </ul>
         </div>
         <!-- Sidebar -->

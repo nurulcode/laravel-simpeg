@@ -26,7 +26,7 @@
                         @php $no = 1; @endphp
                         @foreach ($permission as $result)
                         @if ( Str::of($result->name)->contains('list') )
-                        <h5>{{ Str::title(Str::of($result->name)->before('-')) }}</h5>
+                            <h5>{{ Str::title(Str::of($result->name)->before('-')) }}</h5>
                         @endif
                         <input type="checkbox" name="permission[]" id="{{ $result->id }}" value="{{ $result->id }}">
                         <label for="{{ $result->id }}">{{ $result->name }}</label>

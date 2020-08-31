@@ -11,6 +11,7 @@
                 <h4 class="mt-0 header-title">Tambah User</h4>
                 <br>
                 <form action="{{ route('users.update', $user->id) }}" method="post" enctype="multipart/form-data">
+                    @method('PUT')
                     @csrf
                     <div>
 

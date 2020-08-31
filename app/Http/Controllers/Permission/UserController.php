@@ -56,7 +56,7 @@ class UserController extends Controller
         $input = $request->all();
         $input['role'] = 'user';
         $input['pegawai_id'] = (int) $request->pegawai_id;
-        $input['pegawai'] = $request->input('pegawai_id');
+        $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
@@ -104,7 +104,6 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$user->id,
-            'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
 
@@ -120,6 +119,7 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id',$user->id)->delete();
 
         $user->assignRole($request->input('roles'));
+
 
         return redirect()->route('users.index')->with('success','User updated successfully');
     }

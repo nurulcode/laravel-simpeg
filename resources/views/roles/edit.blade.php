@@ -25,13 +25,13 @@
 
                     <div class="form-check">
                         @php $no = 1; @endphp
-
                         @foreach ($permission as $result)
-                        <input type="checkbox" name="permission[]" id="{{ $result }}" value="{{ $result->id }}" {{ in_array($result->id, $rolePermissions) ? 'checked' : '' }}>
-                        <label for="{{ $result }}">{{ $result->name }}</label>
-                            @if ($no++%4 == 0)
-                               <br>
-                            @endif
+                        @if ( Str::of($result->name)->contains('list') )
+                            <h5>{{ Str::title(Str::of($result->name)->before('-')) }}</h5>
+                        @endif
+                        <input type="checkbox" name="permission[]" id="{{ $result->id }}" value="{{ $result->id }}" {{ in_array($result->id, $rolePermissions) ? 'checked' : '' }}>
+                        <label for="{{ $result->id }}">{{ $result->name }}</label>
+
                         @endforeach
                         <small class="text-danger">{{ $errors->first('role') }}</small>
                     </div>

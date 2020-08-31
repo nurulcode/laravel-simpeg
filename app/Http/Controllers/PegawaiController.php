@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use PDF;
 use Auth;
 use App\Exports\PegawaisExport;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
@@ -20,13 +21,13 @@ class PegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // function __construct()
-    // {
-    //      $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','show']]);
-    //      $this->middleware('permission:role-create', ['only' => ['create','store']]);
-    //      $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-    //      $this->middleware('permission:role-delete', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:pegawai-list|pegawai-create|pegawai-edit|pegawai-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:pegawai-create', ['only' => ['create','store']]);
+        $this->middleware('permission:pegawai-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:pegawai-delete', ['only' => ['destroy']]);
+    }
 
 
 
@@ -37,8 +38,12 @@ class PegawaiController extends Controller
      */
     public function index(Request $request)
     {
+        if (Auth::user()->role !== 'superuser') {
+            $pegawais = Pegawai::where('id', Auth::user()->pegawai_id );
+        } else {
+            $pegawais = Pegawai::all();
+        }
 
-        $pegawais = Pegawai::all();
         if($request->ajax()){
             return datatables()->of($pegawais)
                         ->addColumn('action', function($data){
