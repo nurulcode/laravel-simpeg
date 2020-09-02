@@ -10,7 +10,7 @@
                         Tambah Data
                     </a>
                 </div>
-                <table id="table_keluarga" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="table_keluarga" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
                             <th>NIK</th>
@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    @include('keluarga.delete')
+    @include('history.keluarga.delete')
 </div>
 @endsection
 
@@ -47,6 +47,11 @@
                 url: "{{ route('keluarga.index') }}",
                 type: 'GET'
             },
+            columnDefs: [{
+                orderable: true,
+                className: 'text-center',
+                targets: [0, 4]
+            }],
             columns: [{
                 data: 'nik',
             }, {

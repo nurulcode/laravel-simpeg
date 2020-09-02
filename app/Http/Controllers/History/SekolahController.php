@@ -6,28 +6,59 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\SekolahRequest;
 use App\Models\History\Sekolah;
+use App\Models\Masters\Pendidikan;
 use App\Models\Pegawai;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Auth;
+use Illuminate\Validation\Rule;
 
 class SekolahController extends Controller
 {
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+        $this->middleware('permission:history-list|history-create|history-edit|history-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:history-create', ['only' => ['create','store']]);
+        $this->middleware('permission:history-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:history-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sekolahs = DB::table('sekolahs')
-        ->join('pegawais', 'sekolahs.pegawai_id' , '=', 'pegawais.id')
-        ->join('pendidikans', 'sekolahs.pendidikan_id' , '=', 'pendidikans.id')
-        ->select('sekolahs.*', 'pegawais.nama_lengkap', 'pendidikans.nama as nama_pendidikan')
-        ->get();
-        // return response()->json($sekolahs);
+        if (auth()->user()->role != 'superuser') {
+            $results = Sekolah::where('pegawai_id', auth()->user()->pegawai_id)->with('pegawai:id,nama_lengkap as nama_pegawai')->get();
+        } else {
+            $results = Sekolah::with('pegawai:id,nama_lengkap as nama_pegawai')->get();
+        }
 
-        return view('sekolah.index', compact('sekolahs'));
+            if($request->ajax()){
+                return datatables()->of($results)
+                            ->addColumn('action', function($data){
+                                $action  = '<a class="btn btn-primary btn-sm waves-effect waves-light" href="'.route("sekolah.edit", $data->id).'"><i class="fas fa-edit"></i></a>';
+                                $action .= '&nbsp;';
+                                $action  .= '<a class="btn btn-info btn-sm waves-effect waves-light" href="'.route("sekolah.show", $data->id).'"><i class="fas fa-eye"></i></a>';
+                                $action .= '&nbsp;';
+                                $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+                                return $action;
+                            })->addColumn('nti', function($data){
+                                $nti =  $data->nomor.', <br> '. Carbon::parse($data->tgl_ijazah)->format('d-m-Y');
+                                return $nti;
+                            })
+                            ->rawColumns(['action', 'nti'])
+                            ->addIndexColumn()
+                            ->make(true);
+            }
+
+        return view('history.sekolah.index');
     }
 
     /**
@@ -37,9 +68,9 @@ class SekolahController extends Controller
      */
     public function create()
     {
-        $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
+        $pendidikans = Pendidikan::select('id', 'kategori', 'nama')->get();
         $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
-        return view('sekolah.create', compact('pendidikans', 'pegawais'));
+        return view('history.sekolah.create', compact('pendidikans', 'pegawais'));
     }
 
     /**
@@ -50,9 +81,15 @@ class SekolahController extends Controller
      */
     public function store(SekolahRequest $request)
     {
+
+        $this->validate($request, [
+            'pendidikan_id' => 'required|unique:sekolahs,pendidikan_id',
+            'nomor' => 'required|max:100|unique:sekolahs,nomor',
+        ]);
+
         $sekolah = new Sekolah();
 
-        $sekolah->pegawai_id = $request->pegawai_id;
+        $sekolah->pegawai_id = auth()->user()->role == 'superuser' ? $request->pegawai_id : auth()->user()->pegawai_id;
         $sekolah->tingkat = $request->tingkat;
         $sekolah->nama_sekolah = $request->nama_sekolah;
         $sekolah->lokasi = $request->lokasi;
@@ -84,9 +121,8 @@ class SekolahController extends Controller
      */
     public function edit(Sekolah $sekolah)
     {
-        $pendidikans = DB::table('pendidikans')->select('id', 'kategori', 'nama')->get();
-        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
-        return view('sekolah.edit', compact('pendidikans', 'pegawais', 'sekolah'));
+        $pendidikans = Pendidikan::select('id', 'kategori', 'nama')->get();
+        return view('history.sekolah.edit', compact('pendidikans', 'sekolah'));
     }
 
     /**
@@ -99,8 +135,18 @@ class SekolahController extends Controller
     public function update(SekolahRequest $request, Sekolah $sekolah)
     {
 
+        $this->validate($request, [
+            'pendidikan_id' => [
+                'required',
+                Rule::unique("sekolahs")->ignore($sekolah->pendidikan_id, "pendidikan_id")
+            ],
+            'nomor' => [
+                'required',
+                Rule::unique("sekolahs")->ignore($sekolah->nomor, "nomor")
+            ]
+        ]);
 
-        $sekolah->pegawai_id = $request->pegawai_id;
+        $sekolah->pegawai_id = auth()->user()->role == 'superuser' ? $request->pegawai_id : auth()->user()->pegawai_id;
         $sekolah->tingkat = $request->tingkat;
         $sekolah->nama_sekolah = $request->nama_sekolah;
         $sekolah->lokasi = $request->lokasi;
@@ -119,9 +165,13 @@ class SekolahController extends Controller
      * @param  \App\Sekolah  $sekolah
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sekolah $sekolah)
+    public function destroy(Request $request,Sekolah $sekolah)
     {
         $sekolah->delete();
+        if($request->ajax()){
+            return response()->json($sekolah);
+
+        }
         return back()->with('success', 'Data has been removed');
     }
 }

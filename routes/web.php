@@ -51,8 +51,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('bahasa', 'BahasaController');
     });
 
-    Route::get('/pegawai/report_pegawais/{pegawai}', 'PegawaiController@report_pegawais')->name('pegawais.report_pegawais');
-    Route::get('/pegawais/pegawais_excel', 'PegawaiController@pegawais_excel')->name('pegawais.pegawais_excel');
+    Route::get('/pegawai/report_pegawai/{pegawai}', 'PegawaiController@report_pegawai')->name('pegawai.report_pegawai');
+    Route::get('/pegawai/pegawais_excel', 'PegawaiController@pegawais_excel')->name('pegawai.pegawais_excel');
     Route::resource('pegawai', 'PegawaiController');
 
     Route::resource('rekapitulasi', 'RekapitulasiController');

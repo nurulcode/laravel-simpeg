@@ -38,8 +38,8 @@ class PegawaiController extends Controller
      */
     public function index(Request $request)
     {
-        if (Auth::user()->role !== 'superuser') {
-            $pegawais = Pegawai::where('id', Auth::user()->pegawai_id );
+        if (auth()->user()->role !== 'superuser') {
+            $pegawais = Pegawai::where('id', auth()->user()->pegawai_id );
         } else {
             $pegawais = Pegawai::all();
         }
@@ -211,9 +211,9 @@ class PegawaiController extends Controller
         // return back()->with('success', 'Data has been removed');
     }
 
-    public function report_pegawais(Pegawai $pegawai)
+    public function report_pegawai(Pegawai $pegawai)
     {
-        $pdf = PDF::loadview('pegawai.report_pegawais',compact('pegawai'))->setPaper('A4','potrait');
+        $pdf = PDF::loadview('pegawai.report_pegawai',compact('pegawai'))->setPaper('A4','potrait');
         return $pdf->stream('laporan-pegawai.pdf');
     }
 

@@ -6,14 +6,25 @@ use App\Http\Requests\KeluargaRequest;
 use App\Models\History\Keluarga;
 use App\Models\Masters\Pendidikan;
 use Carbon\Carbon;
-use App\Models\Pegawai;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
+use Auth;
+use Illuminate\Validation\Rule;
 
 class KeluargaController extends Controller
 {
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+        $this->middleware('permission:history-list|history-create|history-edit|history-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:history-create', ['only' => ['create','store']]);
+        $this->middleware('permission:history-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:history-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +32,12 @@ class KeluargaController extends Controller
      */
     public function index(Request $request)
     {
-        $results = Keluarga::with('pegawai:id,nama_lengkap as nama_pegawai')->get();
+        if (auth()->user()->role != 'superuser') {
+            $results = Keluarga::where('pegawai_id', auth()->user()->pegawai_id)->with('pegawai:id,nama_lengkap as nama_pegawai')->get();
+        } else {
+            $results = Keluarga::with('pegawai:id,nama_lengkap as nama_pegawai')->get();
+        }
+
             if($request->ajax()){
                 return datatables()->of($results)
                             ->addColumn('action', function($data){
@@ -39,7 +55,7 @@ class KeluargaController extends Controller
                             ->addIndexColumn()
                             ->make(true);
             }
-        return view('keluarga.index');
+        return view('history.keluarga.index');
     }
 
     /**
@@ -50,8 +66,7 @@ class KeluargaController extends Controller
     public function create()
     {
         $pendidikans = Pendidikan::select('id', 'kategori', 'nama')->get();
-        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
-        return view('keluarga.create', compact('pendidikans', 'pegawais'));
+        return view('history.keluarga.create', compact('pendidikans'));
     }
 
     /**
@@ -62,7 +77,10 @@ class KeluargaController extends Controller
      */
     public function store(KeluargaRequest $request)
     {
-        // return $request;
+        $this->validate($request, [
+            'nik' => 'required|unique:keluargas,nik',
+        ]);
+
         $keluarga = new Keluarga();
 
         $keluarga->nik = $request->nik;
@@ -74,7 +92,7 @@ class KeluargaController extends Controller
         $keluarga->pekerjaan = Str::upper($request->pekerjaan);
 
         $keluarga->pendidikan_id = $request->pendidikan_id;
-        $keluarga->pegawai_id = $request->pegawai_id;
+        $keluarga->pegawai_id = auth()->user()->role == 'superuser' ? $request->pegawai_id : auth()->user()->pegawai_id;
 
         $keluarga->status = $request->status;
 
@@ -91,7 +109,7 @@ class KeluargaController extends Controller
      */
     public function show(Keluarga $keluarga)
     {
-        return view('keluarga.show', compact('keluarga'));
+        return view('history.keluarga.show', compact('keluarga'));
     }
 
     /**
@@ -103,8 +121,7 @@ class KeluargaController extends Controller
     public function edit(Keluarga $keluarga)
     {
         $pendidikans = Pendidikan::select('id', 'kategori', 'nama')->get();
-        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
-        return view('keluarga.edit', compact('pendidikans', 'pegawais', 'keluarga'));
+        return view('history.keluarga.edit', compact('pendidikans', 'keluarga'));
     }
 
     /**
@@ -116,6 +133,13 @@ class KeluargaController extends Controller
      */
     public function update(KeluargaRequest $request, Keluarga $keluarga)
     {
+        $this->validate($request, [
+            'nik' => [
+                'required',
+                Rule::unique('keluargas')->ignore($keluarga->nik, 'nik')
+            ]
+        ]);
+
         $keluarga->nik = $request->nik;
         $keluarga->nama_lengkap = Str::title($request->nama_lengkap);
         $keluarga->tempat_lahir = $request->tempat_lahir;
@@ -125,7 +149,7 @@ class KeluargaController extends Controller
         $keluarga->pekerjaan = Str::upper($request->pekerjaan);
 
         $keluarga->pendidikan_id = $request->pendidikan_id;
-        $keluarga->pegawai_id = $request->pegawai_id;
+        $keluarga->pegawai_id = auth()->user()->role == 'superuser' ? $request->pegawai_id : auth()->user()->pegawai_id;
 
         $keluarga->status = $request->status;
 
@@ -139,10 +163,13 @@ class KeluargaController extends Controller
      * @param  \App\Keluarga  $keluarga
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Keluarga $keluarga)
+    public function destroy(Request $request, Keluarga $keluarga)
     {
         $keluarga->delete();
-        return response()->json($keluarga);
-        // return back()->with('success', 'Data has been removed');
+
+        if ($request->ajax()) {
+            return response()->json($keluarga);
+        }
+        return back()->with('success', 'Data has been removed');
     }
 }

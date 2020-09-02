@@ -103,7 +103,7 @@
                 </li>
                 @endcan
 
-               @if (Auth::user()->role == 'superuser')
+               @if (auth()->user()->role == 'superuser')
                    <li>
                     <a href="javascript:void(0);" class="waves-effect">
                         <i class="ti-view-list-alt"></i>

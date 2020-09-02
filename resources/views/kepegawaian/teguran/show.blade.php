@@ -7,7 +7,7 @@
             <div class="card-body">
                 @include('kepegawaian.teguran.create')
                 <hr>
-                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr class="text-center">
                             <th>Jenis</th>

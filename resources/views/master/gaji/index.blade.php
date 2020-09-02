@@ -16,7 +16,7 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <table id="table_gaji" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="table_gaji" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
                             <th>Kode</th>

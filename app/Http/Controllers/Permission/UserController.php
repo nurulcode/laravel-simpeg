@@ -50,7 +50,6 @@ class UserController extends Controller
             'pegawai_id' => 'required',
             'password' => 'required|same:confirm-password',
             'confirm-password' => 'required',
-            'roles' => 'required'
         ]);
 
         $input = $request->all();
@@ -102,9 +101,8 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$user->id,
-            'roles' => 'required'
+            'username' => 'required|unique:users,username,'.$user->id,
+            'pegawai_id' => 'required|unique:users,pegawai_id,'.$user->id,
         ]);
 
         $input = $request->all();

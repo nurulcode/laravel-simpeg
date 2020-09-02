@@ -28,8 +28,6 @@ class SekolahRequest extends FormRequest
             'tingkat' => 'required|max:100',
             'nama_sekolah' => 'required|max:100',
             'lokasi' => 'required|max:100',
-            'pendidikan_id' => 'required',
-            'nomor' => 'required|max:100',
             'tgl_ijazah' => 'required',
             'rektor' => 'required|max:100',
         ];

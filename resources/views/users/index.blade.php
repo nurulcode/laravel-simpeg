@@ -10,7 +10,7 @@
                         Tambah Data
                     </a>
                 </div>
-                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
                             <td>No</td>

@@ -118,7 +118,7 @@
                             </tr>
                             <tr>
                                 <td scope="row">Unit Kerja</td>
-                                <td>: {{  }} </td>
+                                <td>: {{ $pegawai->unit->nama }} </td>
                             </tr>
                         </tbody>
                     </table>

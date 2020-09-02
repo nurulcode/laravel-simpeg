@@ -10,7 +10,7 @@
                         Tambah Data
                     </a>
                 </div>
-                <table id="table_teguran" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="table_teguran" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
                             <th>NIP</th>
@@ -47,6 +47,11 @@
                 url: "{{ route('teguran.index') }}",
                 type: 'GET'
             },
+            columnDefs: [{
+                orderable: true,
+                className: 'text-center',
+                targets: [0, 3]
+            }],
             columns: [ {
                     data: 'nip',
                 }, {

@@ -7,10 +7,23 @@ use App\Http\Requests\BahasaRequest;
 use App\Models\History\Bahasa;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Auth;
+use Illuminate\Validation\Rule;
 
 class BahasaController extends Controller
 {
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+        $this->middleware('permission:history-list|history-create|history-edit|history-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:history-create', ['only' => ['create','store']]);
+        $this->middleware('permission:history-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:history-delete', ['only' => ['destroy']]);
+    }
 
         /**
      * Display a listing of the resource.
@@ -19,7 +32,12 @@ class BahasaController extends Controller
      */
     public function index(Request $request)
     {
-        $results = Bahasa::with('pegawai:id,nama_lengkap as nama_pegawai')->get();
+        if (auth()->user()->role != 'superuser') {
+            $results = Bahasa::where('pegawai_id', auth()->user()->pegawai_id)->with('pegawai:id,nama_lengkap as nama_pegawai')->get();
+        } else {
+            $results = Bahasa::with('pegawai:id,nama_lengkap as nama_pegawai')->get();
+        }
+
         if($request->ajax()){
             return datatables()->of($results)
                         ->addColumn('action', function($data){
@@ -33,7 +51,7 @@ class BahasaController extends Controller
                         ->make(true);
         }
 
-        return view('bahasa.index');
+        return view('history.bahasa.index');
     }
 
     /**
@@ -44,7 +62,7 @@ class BahasaController extends Controller
     public function create()
     {
         $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
-        return view('bahasa.create', compact('pegawais'));
+        return view('history.bahasa.create', compact('pegawais'));
     }
 
     /**
@@ -55,9 +73,15 @@ class BahasaController extends Controller
      */
     public function store(BahasaRequest $request)
     {
+        $id = auth()->user()->role == 'superuser' ? $request->pegawai_id : auth()->user()->pegawai_id;
+
+        $this->validate($request, [
+            'bahasa' => 'required|unique:bahasas,bahasa,NULL,id,pegawai_id,'.$id
+        ]);
+
         $bahasa = new Bahasa();
 
-        $bahasa->pegawai_id = $request->pegawai_id;
+        $bahasa->pegawai_id = $id;
         $bahasa->jenis_bahasa = $request->jenis_bahasa;
         $bahasa->bahasa = $request->bahasa;
         $bahasa->kemampuan = $request->kemampuan;
@@ -74,8 +98,7 @@ class BahasaController extends Controller
      */
     public function edit(Bahasa $bahasa)
     {
-        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap')->get();
-        return view('bahasa.edit', compact('pegawais', 'bahasa'));
+        return view('history.bahasa.edit', compact('bahasa'));
     }
 
     /**
@@ -87,7 +110,16 @@ class BahasaController extends Controller
      */
     public function update(BahasaRequest $request, Bahasa $bahasa)
     {
-        $bahasa->pegawai_id = $request->pegawai_id;
+        $id = auth()->user()->role == 'superuser' ? $request->pegawai_id : auth()->user()->pegawai_id;
+
+        $this->validate($request, [
+            'bahasa' => [
+                'required',
+                Rule::unique('bahasas')->ignore($bahasa->bahasa, 'bahasa')
+            ]
+        ]);
+
+        $bahasa->pegawai_id = $id;
         $bahasa->jenis_bahasa = $request->jenis_bahasa;
         $bahasa->bahasa = $request->bahasa;
         $bahasa->kemampuan = $request->kemampuan;
@@ -102,10 +134,13 @@ class BahasaController extends Controller
      * @param  \App\Bahasa  $bahasa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bahasa $bahasa)
+    public function destroy(Request $request,Bahasa $bahasa)
     {
         $bahasa->delete();
-        return response()->json($bahasa);
-        // return back()->with('success', 'Data has been deleted successfully');
+
+        if ($request->ajax()) {
+            return response()->json($bahasa);
+        }
+        return back()->with('success', 'Data has been deleted successfully');
     }
 }

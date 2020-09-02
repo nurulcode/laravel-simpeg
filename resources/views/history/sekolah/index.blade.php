@@ -1,28 +1,22 @@
 @extends('layouts.global')
-@section('title')
-Golongan
-@endsection
 
 @section('content')
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="mt-0 header-title">Tambah Data Golongan</h4>
-                @include('master.golongan.create')
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-8">
-        <div class="card">
-            <div class="card-body">
-                <table id="table_golongan" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <div class="text-right">
+                    <a href="{{ route('sekolah.create') }}" class="btn btn-primary waves-light mb-3">
+                        Tambah Data
+                    </a>
+                </div>
+                <table id="table_sekolah" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
-                            <th>Kode</th>
-                            <th>Pangkat</th>
-                            <th>Golongan</th>
-                            <th>Ruang</th>
+                            <th>Nama Sekolah</th>
+                            <th>tingkat</th>
+                            <th>Nomor, Tgl Ijazah</th>
+                            <th>Nama Pegawai</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -30,8 +24,9 @@ Golongan
             </div>
         </div>
     </div>
-    @include('master.golongan.delete')
+    @include('history.sekolah.delete')
 </div>
+@endsect
 @endsection
 
 @section('javascript')
@@ -46,21 +41,26 @@ Golongan
 
     // Get Data
     $(document).ready(function () {
-        $('#table_golongan').DataTable({
+        $('#table_sekolah').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('golongan.index') }}",
+                url: "{{ route('sekolah.index') }}",
                 type: 'GET'
             },
+            columnDefs: [{
+                orderable: true,
+                className: 'text-center',
+                targets: [0, 4]
+            }],
             columns: [{
-                data: 'kode',
+                data: 'nama_sekolah',
             }, {
-                data: 'pangkat',
+                data: 'tingkat',
             }, {
-                data: 'golongan',
+                data: 'nti',
             }, {
-                data: 'ruang',
+                data: 'pegawai.nama_pegawai',
             }, {
                 data: 'action',
             }],
@@ -73,23 +73,23 @@ Golongan
     //Delete Data
     $(document).on('click', '.delete', function () {
         dataId = $(this).attr('id');
-        $('#delete-golongan-modal').modal('show');
+        $('#delete-sekolah-modal').modal('show');
     });
 
-    $('#delete-golongan-button').click(function () {
+    $('#delete-sekolah-button').click(function () {
         $.ajax({
 
-            url: "golongan/" + dataId,
+            url: "sekolah/" + dataId,
             type: 'delete',
             beforeSend: function () {
-                $('#delete-golongan-button').text('Loading ...');
+                $('#delete-sekolah-button').text('Loading ...');
             },
             success: function (data) {
                 setTimeout(function () {
-                    $('#delete-golongan-modal').modal('hide');
-                    $('#delete-golongan-button').text('Hapus');
+                    $('#delete-sekolah-modal').modal('hide');
+                    $('#delete-sekolah-button').text('Hapus');
                     // Reset Datatable
-                    let oTable = $('#table_golongan').dataTable();
+                    let oTable = $('#table_sekolah').dataTable();
                     oTable.fnDraw(false);
                 });
             }

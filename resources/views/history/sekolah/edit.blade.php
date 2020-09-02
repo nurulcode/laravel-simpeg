@@ -12,21 +12,24 @@
                     @method('PUT')
                     @csrf
 
-                    <div class="form-group ">
-                        <label class="control-label">Pilih Pegawai</label>
-                        <select class="form-control select2 {{ $errors->has('pegawai_id') ? 'is-invalid' : '' }}" name="pegawai_id">
-                            <option value="">--Pilih--</option>
-                            @foreach($pegawais as $item)
-                                <option value="{{ $item->id }}" {{ $item->id == $sekolah->pegawai_id ? 'selected' : '' }}>{{ $item->nip }} - {{ $item->nama_lengkap }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @if($errors->has('pegawai_id'))
-                            <div class="invalid-feedback">
-                                <strong>{{ $errors->first('pegawai_id') }}</strong>
-                            </div>
-                        @endif
+                    @if (auth()->user()->role == 'superuser')
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Search</label>
+                            <input type="text" id="pegawai_id" value="{{ $sekolah->pegawai->nama_lengkap }}"class="form-control input-lg" placeholder="Pilih Pegawai" autocomplete="off" />
+                            <small class="text-danger">{{ $errors->first('pegawai_id') }}</small>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label class="control-label">Pilih Pegawai</label>
+                            <div id="pegawaiList"></div>
+                        </div>
                     </div>
+                    @else
+                        <input type="hidden" name="pegawai_id" value="{{ auth()->user()->pegawai_id }}">
+                    @endif
+
+
+
 
                     <div class="form-row">
                         <div class="form-group col-md-4">
@@ -129,4 +132,47 @@
     </div>
 </div>
 
+@endsection
+@section('javascript')
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('#pegawai_id').keyup(function () {
+            let query = $(this).val();
+            if (query != '') {
+                let _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{ route('autocomplete.fetch') }}",
+                    method: "POST",
+                    data: {
+                        query: query,
+                        _token: _token
+                    },
+                    success: function (data) {
+                        $('#pegawaiList').fadeIn();
+                        $('#pegawaiList').html(data);
+                    }
+                });
+            } else {
+                $('#pegawaiList').fadeOut();
+                $('#pegawaiList').html('');
+            }
+        });
+
+        // $(document).on('click', 'option', function () {
+        //     $('#nama_lengkap').val($(this).text());
+        //     $('#pegawaiList').fadeOut();
+        // });
+
+    });
+
+</script>
 @endsection

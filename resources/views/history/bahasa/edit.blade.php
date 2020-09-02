@@ -1,20 +1,22 @@
 @extends("layouts.global")
 
-@section("title") Tambah Data @endsection
-@section("page-title") Tambah Data Riwayat Bahasa @endsection
+@section("title") Edit Data @endsection
+@section("page-title") Tambah Edit Riwayat Bahasa @endsection
 
 @section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('bahasa.store') }}" method="post">
+                <form action="{{ route('bahasa.update', $bahasa->id) }}" method="post">
+                    @method('PUT')
                     @csrf
 
+                    @if (auth()->user()->role == 'superuser')
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label class="control-label">Search</label>
-                            <input type="text" id="pegawai_id" class="form-control input-lg" placeholder="Pilih Pegawai" autocomplete="off" />
+                            <input type="text" id="pegawai_id" value="{{ $bahasa->pegawai->nama_lengkap }}"class="form-control input-lg" placeholder="Pilih Pegawai" autocomplete="off" />
                             <small class="text-danger">{{ $errors->first('pegawai_id') }}</small>
                         </div>
                         <div class="form-group col-md-8">
@@ -22,6 +24,9 @@
                             <div id="pegawaiList"></div>
                         </div>
                     </div>
+                    @else
+                    <input type="hidden" name="pegawai_id" value="{{ auth()->user()->pegawai_id }}">
+                    @endif
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -29,7 +34,7 @@
                             <select class="form-control select2 {{ $errors->has('jenis_bahasa') ? 'is-invalid' : '' }}" name="jenis_bahasa">
                                 <option value="">--Pilih--</option>
                                 @foreach(App\Enums\JenisBahasa::toArray() as $item)
-                                <option value="{{ $item }}" {{ $item == old('jenis_bahasa') ? 'selected' : '' }}>{{ $item }} </option>
+                                <option value="{{ $item }}" {{ $item == $bahasa->jenis_bahasa ? 'selected' : '' }}>{{ $item }} </option>
                                 @endforeach
                             </select>
                             @if($errors->has('jenis_bahasa'))
@@ -40,7 +45,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Bahasa</label>
-                            <input name="bahasa" value="{{ old('bahasa') }}" type="text" class="form-control {{ $errors->has('bahasa') ? 'is-invalid' : '' }}">
+                            <input name="bahasa" value="{{ $bahasa->bahasa }}" type="text" class="form-control {{ $errors->has('bahasa') ? 'is-invalid' : '' }}">
                             @if($errors->has('bahasa'))
                             <div class="invalid-feedback">
                                 <strong>{{ $errors->first('bahasa') }}</strong>
@@ -54,7 +59,7 @@
                         <select class="form-control select2 {{ $errors->has('kemampuan') ? 'is-invalid' : '' }}" name="kemampuan">
                             <option value="">--Pilih--</option>
                             @foreach(App\Enums\Status::toArray() as $item)
-                            <option value="{{ $item }}" {{ $item == old('kemampuan') ? 'selected' : '' }}>{{ $item }} </option>
+                            <option value="{{ $item }}" {{ $item ==$bahasa->kemampuan ? 'selected' : '' }}>{{ $item }} </option>
                             @endforeach
                         </select>
                         @if($errors->has('kemampuan'))
@@ -73,8 +78,8 @@
         </div>
     </div>
 </div>
-@endsection
 
+@endsection
 @section('javascript')
 <script>
     $(document).ready(function () {
@@ -87,7 +92,6 @@
 
 
     $(document).ready(function () {
-
         $('#pegawai_id').keyup(function () {
             let query = $(this).val();
             if (query != '') {
@@ -109,6 +113,12 @@
                 $('#pegawaiList').html('');
             }
         });
+
+        // $(document).on('click', 'option', function () {
+        //     $('#nama_lengkap').val($(this).text());
+        //     $('#pegawaiList').fadeOut();
+        // });
+
     });
 
 </script>

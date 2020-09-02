@@ -26,7 +26,6 @@ class BahasaRequest extends FormRequest
         return [
             'pegawai_id' => 'required',
             'jenis_bahasa' => 'required',
-            'bahasa' => 'required',
             'kemampuan' => 'required',
         ];
     }

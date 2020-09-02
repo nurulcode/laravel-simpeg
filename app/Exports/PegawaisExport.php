@@ -25,7 +25,7 @@ class PegawaisExport implements FromView
 
     public function view(): View
         {
-            return view('excel.pegawais', [
+            return view('excels.pegawai.pegawais', [
                 'results' => Pegawai::all()
             ]);
         }

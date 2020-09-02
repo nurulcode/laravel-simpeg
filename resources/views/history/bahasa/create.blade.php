@@ -1,32 +1,31 @@
 @extends("layouts.global")
 
-@section("title") Edit Data @endsection
-@section("page-title") Tambah Edit Riwayat Bahasa @endsection
+@section("title") Tambah Data @endsection
+@section("page-title") Tambah Data Riwayat Bahasa @endsection
 
 @section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('bahasa.update', $bahasa->id) }}" method="post">
-                    @method('PUT')
+                <form action="{{ route('bahasa.store') }}" method="post">
                     @csrf
 
-                    <div class="form-group ">
-                        <label class="control-label">Pilih Pegawai</label>
-                        <select class="form-control select2 {{ $errors->has('pegawai_id') ? 'is-invalid' : '' }}" name="pegawai_id">
-                            <option value="">--Pilih--</option>
-                            @foreach($pegawais as $item)
-                            <option value="{{ $item->id }}" {{ $item->id == $bahasa->pegawai_id ? 'selected' : '' }}>{{ $item->nip }} - {{ $item->nama_lengkap }}
-                            </option>
-                            @endforeach
-                        </select>
-                        @if($errors->has('pegawai_id'))
-                        <div class="invalid-feedback">
-                            <strong>{{ $errors->first('pegawai_id') }}</strong>
+                    @if (auth()->user()->role == 'superuser')
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Search</label>
+                            <input type="text" id="pegawai_id" class="form-control input-lg" placeholder="Pilih Pegawai" autocomplete="off" />
+                            <small class="text-danger">{{ $errors->first('pegawai_id') }}</small>
                         </div>
-                        @endif
+                        <div class="form-group col-md-8">
+                            <label class="control-label">Pilih Pegawai</label>
+                            <div id="pegawaiList"></div>
+                        </div>
                     </div>
+                    @else
+                    <input type="hidden" name="pegawai_id" value="{{ auth()->user()->pegawai_id }}">
+                    @endif
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -34,7 +33,7 @@
                             <select class="form-control select2 {{ $errors->has('jenis_bahasa') ? 'is-invalid' : '' }}" name="jenis_bahasa">
                                 <option value="">--Pilih--</option>
                                 @foreach(App\Enums\JenisBahasa::toArray() as $item)
-                                <option value="{{ $item }}" {{ $item == $bahasa->jenis_bahasa ? 'selected' : '' }}>{{ $item }} </option>
+                                <option value="{{ $item }}" {{ $item == old('jenis_bahasa') ? 'selected' : '' }}>{{ $item }} </option>
                                 @endforeach
                             </select>
                             @if($errors->has('jenis_bahasa'))
@@ -45,7 +44,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Bahasa</label>
-                            <input name="bahasa" value="{{ $bahasa->bahasa }}" type="text" class="form-control {{ $errors->has('bahasa') ? 'is-invalid' : '' }}">
+                            <input name="bahasa" value="{{ old('bahasa') }}" type="text" class="form-control {{ $errors->has('bahasa') ? 'is-invalid' : '' }}">
                             @if($errors->has('bahasa'))
                             <div class="invalid-feedback">
                                 <strong>{{ $errors->first('bahasa') }}</strong>
@@ -59,7 +58,7 @@
                         <select class="form-control select2 {{ $errors->has('kemampuan') ? 'is-invalid' : '' }}" name="kemampuan">
                             <option value="">--Pilih--</option>
                             @foreach(App\Enums\Status::toArray() as $item)
-                            <option value="{{ $item }}" {{ $item ==$bahasa->kemampuan ? 'selected' : '' }}>{{ $item }} </option>
+                            <option value="{{ $item }}" {{ $item == old('kemampuan') ? 'selected' : '' }}>{{ $item }} </option>
                             @endforeach
                         </select>
                         @if($errors->has('kemampuan'))
@@ -78,5 +77,43 @@
         </div>
     </div>
 </div>
+@endsection
 
+@section('javascript')
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+
+
+    $(document).ready(function () {
+
+        $('#pegawai_id').keyup(function () {
+            let query = $(this).val();
+            if (query != '') {
+                let _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{ route('autocomplete.fetch') }}",
+                    method: "POST",
+                    data: {
+                        query: query,
+                        _token: _token
+                    },
+                    success: function (data) {
+                        $('#pegawaiList').fadeIn();
+                        $('#pegawaiList').html(data);
+                    }
+                });
+            } else {
+                $('#pegawaiList').fadeOut();
+                $('#pegawaiList').html('');
+            }
+        });
+    });
+
+</script>
 @endsection

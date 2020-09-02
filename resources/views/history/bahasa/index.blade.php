@@ -10,7 +10,7 @@
                         Tambah Data
                     </a>
                 </div>
-                <table id="table_bahasa" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <table id="table_bahasa" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
                             <th>Jenis Bahasa</th>
@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    @include('bahasa.delete')
+    @include('history.bahasa.delete')
 </div>
 @endsection
 
@@ -47,6 +47,11 @@
                 url: "{{ route('bahasa.index') }}",
                 type: 'GET'
             },
+            columnDefs: [{
+                orderable: true,
+                className: 'text-center',
+                targets: [4]
+            }],
             columns: [{
                 data: 'jenis_bahasa',
             }, {

@@ -28,7 +28,6 @@ class KeluargaRequest extends FormRequest
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
-            'nik' => 'required',
             'status' => 'required',
 
             'pekerjaan' => 'required',

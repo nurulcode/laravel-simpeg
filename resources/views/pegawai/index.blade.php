@@ -49,20 +49,24 @@
                 url: "{{ route('pegawai.index') }}",
                 type: 'GET'
             },
+            columnDefs: [{
+                orderable: true,
+                className: 'text-center',
+                targets: [0, 1, 4]
+            }],
             columns: [{
-                    data: 'foto',
-                }, {
-                    data: 'nip',
-                }, {
-                    data: 'nama_lengkap',
-                }, {
-                    data: 'ttl',
-                }, {
-                    data: 'action',
-                }
-            ],
+                data: 'foto',
+            }, {
+                data: 'nip',
+            }, {
+                data: 'nama_lengkap',
+            }, {
+                data: 'ttl',
+            }, {
+                data: 'action',
+            }],
             order: [
-                [0, 'asc']
+                [1, 'asc']
             ]
         });
     });
@@ -85,7 +89,7 @@
                 setTimeout(function () {
                     $('#delete-pegawai-modal').modal('hide');
                     $('#delete-pegawai-button').text('Hapus');
-                     // Reset Datatable
+                    // Reset Datatable
                     let oTable = $('#table_pegawai').dataTable();
                     oTable.fnDraw(false);
                 });

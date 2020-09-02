@@ -11,6 +11,7 @@
                 <form action="{{ route('keluarga.store') }}" method="post">
                     @csrf
 
+                    @if (auth()->user()->role == 'superuser')
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label class="control-label">Search</label>
@@ -22,6 +23,10 @@
                             <div id="pegawaiList"></div>
                         </div>
                     </div>
+                    @else
+                    <input type="hidden" name="pegawai_id" value="{{ auth()->user()->pegawai_id }}">
+                    @endif
+
 
                     <div class="form-row">
                         <div class="form-group col-md-4">
