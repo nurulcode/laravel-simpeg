@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PDF;
-use Auth;
 use App\Exports\PegawaisExport;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
@@ -28,8 +26,6 @@ class PegawaiController extends Controller
         $this->middleware('permission:pegawai-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:pegawai-delete', ['only' => ['destroy']]);
     }
-
-
 
     /**
      * Display a listing of the resource.
@@ -121,8 +117,6 @@ class PegawaiController extends Controller
             $foto = $request->file('foto')->store('fotos', 'public');
             $pegawai->foto = $foto;
         }
-
-
 
         $pegawai->save();
         return redirect()->route('pegawai.create')->with('status', 'Data has been saved successfully.');

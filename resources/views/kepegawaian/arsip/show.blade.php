@@ -8,44 +8,96 @@
             <div class="card-body">
                 @include('kepegawaian.arsip.create')
                 <hr>
-                <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead>
-                        <tr class="text-center">
-                            <th>No</th>
-                            <th>Nama Berkas</th>
-                            <th>Jenis</th>
-                            <th>File Arsip</th>
-                            <th>Actions</th>
+                <table id="table_arsip" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead class="text-center text-bold">
+                        <tr>
+                            <th>Nama</th>
+                            <th>jenis</th>
+                            <th>File Surat</th>
+                            <th>Created At</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @php $i=1 @endphp
-                        @foreach($arsips as $result)
-                        <tr>
-                            <td class="text-center">{{ $i++ }}</td>
-                            <td>{{ $result->nama }}</td>
-                            <td>{{ $result->jenis }}</td>
-
-                            <td class="text-center">
-                                <a class="btn btn-sm btn-info" href="{{ asset('storage/' . $result->file_arsip) }}" target="_blank">Lihat Surat</a>
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-primary btn-sm waves-effect waves-light" href="{{ route('arsip.edit', $result->id) }}"><i class="fas fa-edit"></i></a>
-                                <form class="d-inline" action="{{ route('arsip.destroy', $result->id) }}" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-danger btn-sm waves-effect waves-light" onclick="return confirm('Are you sure?')">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
-            {{-- @include('arsip.edit') --}}
         </div>
     </div>
+    @include('kepegawaian.arsip.delete')
 </div>
+@endsection
+
+@section('javascript')
+<script>
+    $(function () {
+        $("#datepicker-autoclose1").datepicker({
+            autoclose: !0,
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+
+    // Get Data
+    $(document).ready(function () {
+        $('#table_arsip').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('arsip.show', $arsip) }}",
+                type: 'GET'
+            },
+            columnDefs: [{
+                orderable: true,
+                className: 'text-center',
+                targets: [2, 3, 4]
+            }],
+            columns: [{
+                data: 'nama',
+            }, {
+                data: 'jenis',
+            }, {
+                data: 'file_arsip',
+            }, {
+                data: 'created_at',
+            }, {
+                data: 'action',
+            }],
+            order: [
+                [0, 'asc']
+            ]
+        });
+    });
+
+    //Delete Data
+    $(document).on('click', '.delete', function () {
+        dataId = $(this).attr('id');
+        $('#delete-arsip-modal').modal('show');
+    });
+
+    $('#delete-arsip-button').click(function () {
+        $.ajax({
+
+            url: dataId,
+            type: 'delete',
+            beforeSend: function () {
+                $('#delete-arsip-button').text('Loading ...');
+            },
+            success: function (data) {
+                setTimeout(function () {
+                    $('#delete-arsip-modal').modal('hide');
+                    $('#delete-arsip-button').text('Hapus');
+                    // Reset Datatable
+                    let oTable = $('#table_arsip').dataTable();
+                    oTable.fnDraw(false);
+                });
+            }
+        })
+    });
+
+</script>
 @endsection

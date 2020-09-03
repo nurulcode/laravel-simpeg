@@ -5,44 +5,100 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                @include('kepegawaian.teguran.create')
+                @if (auth()->user()->role == 'superuser')
+                    @include('kepegawaian.teguran.create')
+                @endif
                 <hr>
-                <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead>
-                        <tr class="text-center">
+                <table id="table_teguran" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead class="text-center text-bold">
+                        <tr>
                             <th>Jenis</th>
-                            <th>Nomor</th>
-                            <th>Tanggal Surat</th>
-                            <th>File</th>
-                            <th>Actions</th>
+                            <th>Nomor Tanggal</th>
+                            <th>Tgl Surat</th>
+                            <th>Berkas</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach($tegurans as $result)
-                        <tr>
-                            <td>{{ $result->jenis }}</td>
-                            <td>{{ $result->nomor }}</td>
-                            <td>{{ $result->tgl_surat }}</td>
-                            <td class="text-center">
-                                <a class="btn btn-sm btn-info" href="{{ asset('storage/' . $result->file_surat) }}" target="_blank">Lihat Surat</a>
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-primary btn-sm waves-effect waves-light" href="{{ route('teguran.edit', $result->id) }}"><i class="fas fa-edit"></i></a>
-                                <form class="d-inline" action="{{ route('teguran.destroy', $result->id) }}" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-danger btn-sm waves-effect waves-light" onclick="return confirm('Are you sure?')">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
-            {{-- @include('teguran.edit') --}}
         </div>
     </div>
+    @include('kepegawaian.teguran.delete')
 </div>
+@endsection
+
+@section('javascript')
+<script>
+    $(function () {
+        $("#datepicker-autoclose1").datepicker({
+            autoclose: !0,
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+
+    // Get Data
+    $(document).ready(function () {
+        $('#table_teguran').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('teguran.show', $teguran) }}",
+                type: 'GET'
+            },
+            columnDefs: [{
+                orderable: true,
+                className: 'text-center',
+                targets: [3, 4]
+            }],
+            columns: [{
+                data: 'jenis',
+            }, {
+                data: 'nomor',
+            }, {
+                data: 'tgl_surat',
+            }, {
+                data: 'file',
+            }, {
+                data: 'action',
+            }],
+            order: [
+                [0, 'asc']
+            ]
+        });
+    });
+
+    //Delete Data
+    $(document).on('click', '.delete', function () {
+        dataId = $(this).attr('id');
+        $('#delete-teguran-modal').modal('show');
+    });
+
+    $('#delete-teguran-button').click(function () {
+        $.ajax({
+
+            url:  dataId,
+            type: 'delete',
+            beforeSend: function () {
+                $('#delete-teguran-button').text('Loading ...');
+            },
+            success: function (data) {
+                setTimeout(function () {
+                    $('#delete-teguran-modal').modal('hide');
+                    $('#delete-teguran-button').text('Hapus');
+                    // Reset Datatable
+                    let oTable = $('#table_teguran').dataTable();
+                    oTable.fnDraw(false);
+                });
+            }
+        })
+    });
+
+</script>
 @endsection

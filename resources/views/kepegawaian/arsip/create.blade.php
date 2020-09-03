@@ -52,14 +52,3 @@
         </div>
     </div>
 </form>
-
-@section('javascript')
-<script>
-    $(function () {
-        $("#datepicker-autoclose1").datepicker({
-            autoclose: !0,
-        });
-    });
-
-</script>
-@endsection

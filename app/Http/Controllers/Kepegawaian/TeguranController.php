@@ -18,7 +18,12 @@ class TeguranController extends Controller
      */
     public function index(Request $request)
     {
-        $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap', 'tempat_lahir', 'tanggal_lahir')->get();
+        if (auth()->user()->role !== 'superuser') {
+            $pegawais = Pegawai::where('id', auth()->user()->pegawai_id )->select('id', 'nip', 'nama_lengkap', 'tempat_lahir', 'tanggal_lahir')->get();
+        } else {
+            $pegawais = Pegawai::select('id', 'nip', 'nama_lengkap', 'tempat_lahir', 'tanggal_lahir')->get();
+
+        }
 
         if($request->ajax()){
             return datatables()->of($pegawais)
@@ -55,18 +60,18 @@ class TeguranController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'pegawai_id' => 'required',
             'jenis' => 'required',
-            'nomor' => 'required',
+            'nomor' => 'required|unique:kep_tegurans,nomor',
             'tgl_surat' => 'required',
             'file_surat' => 'required|file|mimes:pdf|max:1024',
 
         ]);
-
-        $teguran = new Teguran();
         $id = $request->pegawai_id;
 
+        $teguran = new Teguran();
         $teguran->pegawai_id = $id;
         $teguran->jenis = $request->jenis;
         $teguran->nomor = $request->nomor;
@@ -89,12 +94,44 @@ class TeguranController extends Controller
      * @param  \App\Models\Kepegawaian\Teguran  $teguran
      * @return \Illuminate\Http\Response
      */
-    public function show($teguran)
+    public function show(Request $request, $teguran)
     {
         $tegurans =  Teguran::where('pegawai_id', $teguran)->get();
-        return view('kepegawaian.teguran.show', compact('tegurans', 'teguran'));
-    }
 
+        if($request->ajax() && auth()->user()->role == 'superuser'){
+            return datatables()->of($tegurans)
+                        ->addColumn('action', function($data){
+                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light text-center" href="'.route("teguran.show", $data->id).'" ><i class="fas fa-eye"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+                            return $action;
+                        })->addColumn('file', function($data){
+                            $url_file = asset('storage/' . $data->file_surat);
+                            $foto = '<a class="btn btn-sm btn-info" href="'.$url_file.'" target="_blank">Lihat Surat</a>';
+                            return $foto;
+                        })
+                        ->rawColumns(['action', 'file'])
+                        ->addIndexColumn()
+                        ->make(true);
+        }
+
+        if($request->ajax() ){
+            return datatables()->of($tegurans)
+                        ->addColumn('action', function($data){
+                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light text-center disabled" href="'.route("teguran.show", $data->id).'" ><i class="fas fa-eye"></i></a>';
+                            return $action;
+                        })->addColumn('file', function($data){
+                            $url_file = asset('storage/' . $data->file_surat);
+                            $foto = '<a class="btn btn-sm btn-info" href="'.$url_file.'" target="_blank">Lihat Surat</a>';
+                            return $foto;
+                        })
+                        ->rawColumns(['action', 'file'])
+                        ->addIndexColumn()
+                        ->make(true);
+        }
+
+        return view('kepegawaian.teguran.show', compact('teguran'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -152,9 +189,14 @@ class TeguranController extends Controller
      * @param  \App\Models\Kepegawaian\Teguran  $teguran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Teguran $teguran)
+    public function destroy(Request $request, Teguran $teguran)
     {
         $teguran->delete();
+
+        if ($request->ajax()) {
+            return response()->json($teguran);
+        }
+
         return back()->with('status', 'Data has been deleted successfully.');
     }
 }

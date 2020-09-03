@@ -168,6 +168,7 @@ class SekolahController extends Controller
     public function destroy(Request $request,Sekolah $sekolah)
     {
         $sekolah->delete();
+
         if($request->ajax()){
             return response()->json($sekolah);
 

@@ -5,11 +5,6 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="text-right">
-                    <a href="{{ route('teguran.create') }}" class="btn btn-primary waves-light mb-3">
-                        Tambah Data
-                    </a>
-                </div>
                 <table id="table_teguran" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead class="text-center text-bold">
                         <tr>
@@ -19,7 +14,6 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-
                 </table>
             </div>
         </div>
