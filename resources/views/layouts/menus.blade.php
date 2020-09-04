@@ -120,6 +120,9 @@
                         <li>
                             <a href="{{ route('roles.index') }}"> <i class="ti-minus"></i> Manage Role </a>
                         </li>
+                        <li>
+                            <a href="{{ route('pengumuman.index') }}"> <i class="ti-minus"></i> Manage Info</a>
+                        </li>
                     </ul>
                 </li>
                @endif

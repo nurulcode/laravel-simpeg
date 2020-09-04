@@ -25,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home', );
+        $pegawais = Pegawai::count();
+        $pns = Pegawai::where('kepegawaian', 'ASN')->count();
+        $honor = Pegawai::where('kepegawaian', 'PTT')->count();
+        $pengumumans =  DB::select('select * from pengumumans');
+        return view('home', compact('pengumumans', 'pegawais', 'pns', 'honor') );
     }
 }

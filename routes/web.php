@@ -65,4 +65,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('users','UserController');
     });
 
+    Route::resource('pengumuman','PengumumanController')->except('show', 'edit', 'update');
+
+
 });
