@@ -1,7 +1,6 @@
 @extends("layouts.global")
+@section("title") Edit Sekolah @endsection
 
-@section("title") Tambah Data @endsection
-@section("page-title") Tambah Data Riwayat Pendidikan @endsection
 
 @section('content')
 <div class="row">

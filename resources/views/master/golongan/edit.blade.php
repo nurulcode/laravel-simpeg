@@ -1,4 +1,6 @@
 @extends('layouts.global')
+@section("title") Edit Golongan @endsection
+
 
 @section('content')
 <div class="row justify-content-center ">

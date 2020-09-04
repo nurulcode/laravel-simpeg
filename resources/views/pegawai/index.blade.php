@@ -1,4 +1,5 @@
 @extends('layouts.global')
+@section("title") Pegawai @endsection
 
 @section('content')
 <div class="row">

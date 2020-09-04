@@ -1,7 +1,5 @@
 @extends("layouts.global")
-
-@section("title") Tambah @endsection
-@section("page-title") Tambah User @endsection
+@section("title") Tambah User @endsection
 
 @section('content')
 <div class="row justify-content-center">

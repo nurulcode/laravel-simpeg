@@ -1,4 +1,6 @@
 @extends('layouts.global')
+@section("title") Detail Arsip @endsection
+
 
 @section('content')
 <div class="row">

@@ -1,6 +1,6 @@
 @extends("layouts.global")
 
-@section("title") Tambah Data @endsection
+@section("title") Edit Pegawai @endsection
 @section("page-title") Tambah Data Pegawai @endsection
 
 @section('content')

@@ -1,7 +1,6 @@
 @extends("layouts.global")
 
-@section("title") Tambah Data @endsection
-@section("page-title") Tambah Data Pegawai @endsection
+@section("title") Tambah Pegawai @endsection
 
 @section('content')
 <div class="row">

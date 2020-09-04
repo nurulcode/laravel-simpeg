@@ -1,4 +1,6 @@
 @extends('layouts.global')
+@section("title") Bahasa @endsection
+
 
 @section('content')
 <div class="row">

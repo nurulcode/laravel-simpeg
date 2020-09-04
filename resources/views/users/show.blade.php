@@ -1,7 +1,6 @@
 @extends("layouts.global")
+@section("title") Detail User @endsection
 
-@section("title") Detail @endsection
-@section("page-title") Detail User @endsection
 
 @section('content')
 <div class="row">

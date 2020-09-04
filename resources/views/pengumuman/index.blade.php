@@ -1,4 +1,5 @@
 @extends('layouts.global')
+@section("title") Edit Pengumuman @endsection
 
 @section('content')
 <div class="row">

@@ -1,4 +1,6 @@
 @extends('layouts.global')
+@section("title") Detail Kepegawaian @endsection
+
 
 @section('content')
 <div class="row">

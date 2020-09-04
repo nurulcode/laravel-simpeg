@@ -1,7 +1,5 @@
 @extends("layouts.global")
-
-@section("title") Kepegawaian @endsection
-@section("page-title") Kepegawaian Arsip @endsection
+@section("title") Edit Arsip @endsection
 
 @section('content')
 <div class="row justify-content-center">
