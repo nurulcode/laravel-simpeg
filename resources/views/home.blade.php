@@ -16,7 +16,7 @@
         </div>
         <!-- end row -->
         <div class="row">
-            <div class="col-xl-4 col-md-6">
+            <div class="col-xl-3 col-md-6">
                 <div class="card mini-stat bg-primary text-white">
                     <div class="card-body">
                         <div class="mb-4">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6">
+            <div class="col-xl-3 col-md-6">
                 <div class="card mini-stat bg-primary text-white">
                     <div class="card-body">
                         <div class="mb-4">
@@ -37,13 +37,14 @@
                                 <img src="assets\images\services-icon\02.png" alt="" />
                             </div>
 
-                            <h5 class="font-14 text-uppercase mt-0 text-white-50">ASN / PNS</h5>
+                            <h5 class="font-14 text-uppercase mt-0 text-white-50">PNS</h5>
                             <h4 class="font-500">{{ $pns }}</h4>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6">
+
+            <div class="col-xl-3 col-md-6">
                 <div class="card mini-stat bg-primary text-white">
                     <div class="card-body">
                         <div class="mb-4">
@@ -51,8 +52,23 @@
                                 <img src="assets\images\services-icon\03.png" alt="" />
                             </div>
 
-                            <h5 class="font-14 text-uppercase mt-0 text-white-50">Kontrak / Honor</h5>
+                            <h5 class="font-14 text-uppercase mt-0 text-white-50">Honor</h5>
                             <h4 class="font-500">{{ $honor }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card mini-stat bg-primary text-white">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="float-left mini-stat-img mr-4">
+                                <img src="assets\images\services-icon\04.png" alt="" />
+                            </div>
+
+                            <h5 class="font-14 text-uppercase mt-0 text-white-50">Kontrak</h5>
+                            <h4 class="font-500">{{ $kontrak }}</h4>
                         </div>
                     </div>
                 </div>
