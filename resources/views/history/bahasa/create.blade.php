@@ -32,7 +32,7 @@
                             <label>Bahasa Bajasa</label>
                             <select class="form-control select2 {{ $errors->has('jenis_bahasa') ? 'is-invalid' : '' }}" name="jenis_bahasa">
                                 <option value="">--Pilih--</option>
-                                @foreach(App\Enums\JenisBahasa::toArray() as $item)
+                                @foreach(App\Enums\JenisBahasa::asArray() as $item)
                                 <option value="{{ $item }}" {{ $item == old('jenis_bahasa') ? 'selected' : '' }}>{{ $item }} </option>
                                 @endforeach
                             </select>
@@ -57,7 +57,7 @@
                         <label class="control-label">Tingkat Kemampuan</label>
                         <select class="form-control select2 {{ $errors->has('kemampuan') ? 'is-invalid' : '' }}" name="kemampuan">
                             <option value="">--Pilih--</option>
-                            @foreach(App\Enums\Status::toArray() as $item)
+                            @foreach(App\Enums\Status::asArray() as $item)
                             <option value="{{ $item }}" {{ $item == old('kemampuan') ? 'selected' : '' }}>{{ $item }} </option>
                             @endforeach
                         </select>

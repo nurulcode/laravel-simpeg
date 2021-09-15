@@ -9,7 +9,25 @@
             <div class="card-body">
                 <form action="{{ route('pegawai.store') }}" enctype="multipart/form-data" method="post">
                     @csrf
-                    <p class="text-muted">DATA PRIBADI</p>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label>Provinsi</label>
+                            <select class="form-control formselect required" name="provinsi" placeholder="Select Provinsi" id="provinsi"></select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Kebupaten</label>
+                            <select class="form-control formselect required" name="kabupaten" placeholder="Select Kabupaten" id="kabupaten"></select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Kecamatan</label>
+                            <select class="form-control formselect required" name="kecamatan" placeholder="Select Kecamatan" id="kecamatan"></select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Kelurahan</label>
+                            <select class="form-control formselect required" name="kelurahan" placeholder="Select Kelurahan" id="kelurahan"></select>
+                        </div>
+                    </div>
+
                     <hr>
                     <div class="form-row">
                         <div class="form-group col-md-4">
@@ -108,14 +126,14 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-row">
                         <div class="form-group col-md-2">
                             <label class="control-label">Agama</label>
-                            <select class="form-control select2 {{ $errors->has('agama') ? 'is-invalid' : '' }}" name="agama">
-                                <option value="">--Pilih--</option>
-                                @foreach(App\Enums\Agama::toSelectArray() as $item)
-                                <option value="{{ $item }}" {{ $item == old('agama') ? 'selected' : '' }}>{{ $item }}</option>
+                            <select class="form-control text-uppercase select2 {{ $errors->has('agama') ? 'is-invalid' : '' }}" name="agama">
+                                <option value="" >--Pilih--</option>
+                                {{-- $arrAgama = array("Islam","Protestan","Khatolik","Hindu","Budha","Lain-lain") --}}
+                                @foreach(App\Enums\Agama::asSelectArray() as $item)
+                                <option  value="{{ $item }}" {{ $item == old('agama') ? 'selected' : '' }}>{{ $item }}</option>
                                 @endforeach
                             </select>
                             @if($errors->has('agama'))
@@ -128,7 +146,7 @@
                             <label class="control-label">Jenis Kelamin</label>
                             <select class="form-control select2 {{ $errors->has('jenis_kelamin') ? 'is-invalid' : '' }}" name="jenis_kelamin">
                                 <option value="">--Pilih--</option>
-                                @foreach(App\Enums\JenisKelamin::toSelectArray() as $item)
+                                @foreach(App\Enums\JenisKelamin::asArray() as $item)
                                 <option value="{{ $item }}" {{ $item == old('jenis_kelamin') ? 'selected' : '' }}>{{ $item }}</option>
                                 @endforeach
                             </select>
@@ -142,7 +160,7 @@
                             <label class="control-label">Golda</label>
                             <select class="form-control select2 {{ $errors->has('golongan_darah') ? 'is-invalid' : '' }}" name="golongan_darah">
                                 <option value="">--Pilih--</option>
-                                @foreach(App\Enums\GolonganDarah::toArray() as $item)
+                                @foreach(App\Enums\GolonganDarah::asArray() as $item)
                                 <option value="{{ $item }}" {{ $item == old('golongan_darah') ? 'selected' : '' }}>{{ $item }}</option>
                                 @endforeach
                             </select>
@@ -156,7 +174,7 @@
                             <label class="control-label"> Pernikahan</label>
                             <select class="form-control select2 {{ $errors->has('pernikahan') ? 'is-invalid' : '' }}" name="pernikahan">
                                 <option value="">--Pilih--</option>
-                                @foreach(App\Enums\StatusPernikahan::toSelectArray() as $item)
+                                @foreach(App\Enums\StatusPernikahan::asArray() as $item)
                                 <option value="{{ $item }}" {{ $item == old('pernikahan') ? 'selected' : '' }}>{{ $item }}</option>
                                 @endforeach
                             </select>
@@ -170,7 +188,7 @@
                             <label class="control-label"> Kepegawaian</label>
                             <select class="form-control select2 {{ $errors->has('kepegawaian') ? 'is-invalid' : '' }}" name="kepegawaian">
                                 <option value="">--Pilih--</option>
-                                @foreach(App\Enums\StatusKepegawaian::toArray() as $item)
+                                @foreach(App\Enums\StatusKepegawaian::asArray() as $item)
                                 <option value="{{ $item }}" {{ $item == old('kepegawaian') ? 'selected' : '' }}>{{ $item }}</option>
                                 @endforeach
                             </select>
@@ -280,6 +298,8 @@
 @endsection
 
 @section('javascript')
+<script src="{{ asset('assets\js\wilayah.js') }}"></script>
+
 <script>
     $(function () {
         $("#datepicker-autoclose1").datepicker({

@@ -34,7 +34,7 @@
 
                 @can('pegawai-list')
                 <li>
-                    <a href="javascript:void(0);" class="waves-effect">
+                    <a href="javascript:void(0);" class="waves-effect" aria-expanded="true">
                         <i class="ti-view-list-alt"></i>
                         <span> Manage Pegawai
                             <span class="float-right menu-arrow">
@@ -42,11 +42,48 @@
                             </span>
                         </span>
                     </a>
-                    <ul class="submenu mm-collapse">
+                    <ul class="submenu mm-collapse {{ activeMenu('pegawai') }}">
                         <li><a href="{{ route('pegawai.index') }}"><i class="ti-minus"></i>Pegawai</a></li>
                     </ul>
                 </li>
                 @endcan
+
+                {{-- <li>
+                    <a href="javascript:void(0);" class="waves-effect">
+                        <i class="ti-view-list-alt"></i>
+                        <span> Registrasi
+                            <span class="float-right menu-arrow">
+                                <i class="mdi mdi-chevron-right"></i>
+                            </span>
+                        </span>
+                    </a>
+                    <ul class="submenu mm-collapse">
+                        <li><a href="{{ route('registrasi.index') }}"><i class="ti-minus"></i>Reg Pasien Baru</a></li>
+                    </ul>
+                    <ul class="submenu mm-collapse">
+                        <li><a href="{{ route('registrasi.index') }}"><i class="ti-minus"></i>Reg Rawat Jalan</a></li>
+                    </ul>
+                    <ul class="submenu mm-collapse">
+                        <li><a href="{{ route('registrasi.index') }}"><i class="ti-minus"></i>Reg Rawat Inap</a></li>
+                    </ul>
+                    <ul class="submenu mm-collapse">
+                        <li><a href="{{ route('registrasi.index') }}"><i class="ti-minus"></i>Reg UGD/IGD</a></li>
+                    </ul>
+                </li> --}}
+
+                <li>
+                    <a href="javascript:void(0);" class="waves-effect">
+                        <i class="ti-view-list-alt"></i>
+                        <span> Hasil
+                            <span class="float-right menu-arrow">
+                                <i class="mdi mdi-chevron-right"></i>
+                            </span>
+                        </span>
+                    </a>
+                    <ul class="submenu mm-collapse">
+                        <li><a href="{{ route('registrasi.index') }}"><i class="ti-minus"></i>Hasil</a></li>
+                    </ul>
+                </li>
 
                 @can('history-list')
                 <li>
@@ -122,6 +159,12 @@
                         </li>
                         <li>
                             <a href="{{ route('pengumuman.index') }}"> <i class="ti-minus"></i> Manage Info</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('permissions.index') }}"> <i class="ti-minus"></i> Manage Permission</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('logs.index') }}"> <i class="ti-minus"></i> Manage Logs</a>
                         </li>
                     </ul>
                 </li>

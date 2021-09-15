@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Arr;
+use Yajra\DataTables\DataTables;
 
 
 class UserController extends Controller
@@ -19,10 +20,37 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::with('pegawai:id,nama_lengkap')->orderBy('id','DESC')->paginate(10);
-        return view('users.index',compact('users'))->with('i');
+        $result = User::with('pegawai:id,nama_lengkap')->get();
+        if($request->ajax()){
+            return datatables()->of($result)
+                        ->addColumn('action', function($data){
+                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light" href="'.route("users.show", $data->id).'" ><i class="fas fa-eye"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<a class="btn btn-primary btn-sm waves-effect waves-light" href="'.route("users.edit", $data->id).'"><i class="fas fa-edit"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+                            return $action;
+                        })
+                        ->editColumn('pegawai', function($data) {
+                            $pegawai = $data->pegawai ? $data->pegawai->nama_lengkap : '<span class="text-danger">Super Admin</span>';
+                            return $pegawai ;
+                        })
+                        ->addColumn('roles', function($data){
+                            $roles = $data->getRoleNames();
+                            $role = '';
+                            foreach ($roles as $v) {
+                                $role .= '<label class="badge badge-primary">'.$v.'</label> ';
+                            }
+                            return $role;
+                        })
+                        ->rawColumns(['action', 'pegawai', 'roles'])
+                        ->addIndexColumn()
+                        ->make(true);
+        }
+
+        return view('users.index');
     }
 
     /**

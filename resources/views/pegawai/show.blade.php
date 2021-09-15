@@ -6,7 +6,7 @@
     <div class="col-lg-10">
         <div class="card">
             <div class="card-body">
-                <ul class="nav nav-pills nav-justified" role="tablist">
+                <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
                     <li class="nav-item waves-effect waves-light">
                         <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab" aria-selected="true">
                             <span class="d-block d-sm-none">

@@ -34,10 +34,11 @@ class TeguranController extends Controller
                             $ttl =  $data->tempat_lahir.', <br> '. Carbon::parse($data->tanggal_lahir)->format('d-m-Y');
                             return $ttl;
                         })
-                        ->rawColumns(['action', 'foto', 'ttl'])
+                        ->rawColumns(['action', 'ttl'])
                         ->addIndexColumn()
                         ->make(true);
         }
+
         return view('kepegawaian.teguran.index');
     }
 

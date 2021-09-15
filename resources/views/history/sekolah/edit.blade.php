@@ -95,7 +95,7 @@
                             <label class="control-label">Tingkat Pendidikan</label>
                             <select class="form-control select2 {{ $errors->has('tingkat') ? 'is-invalid' : '' }}" name="tingkat">
                                 <option value="">--Pilih--</option>
-                                @foreach(App\Enums\TingkatPendidikan::toArray() as $item)
+                                @foreach(App\Enums\TingkatPendidikan::asArray() as $item)
                                     <option value="{{ $item }}" {{ $item == $sekolah->tingkat ? 'selected' : '' }}>{{ $item }} </option>
                                 @endforeach
                             </select>

@@ -27,10 +27,24 @@ class JabatanController extends Controller
                             $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
                             return $action;
                         })
+
                         ->rawColumns(['action'])
                         ->addIndexColumn()
                         ->make(true);
         }
+
+        // if($request->ajax()){
+        //     return datatables()->of($result)
+        //                 ->addColumn('action', function($data){
+        //                     $action  = '<a class="btn btn-info btn-sm waves-effect waves-light" href="#"  onclick="routeToEdit('.$data->id.')" ><i class="fas fa-edit"></i></a>';
+        //                     $action .= '&nbsp;';
+        //                     $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+        //                     return $action;
+        //                 })
+        //                 ->rawColumns(['action'])
+        //                 ->addIndexColumn()
+        //                 ->make(true);
+        // }
         return view('master.jabatan.index');
     }
 
@@ -50,6 +64,10 @@ class JabatanController extends Controller
         $jabatan->nama = $request->nama;
 
         $jabatan->save();
+
+        if($request->ajax()){
+            return response()->json($jabatan);
+        }
         return back()->with('success', 'Data has been saved successfully.');
     }
 

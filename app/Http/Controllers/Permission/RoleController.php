@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Permission;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
+
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
@@ -29,10 +32,43 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::with('permissions')->orderBy('id','DESC')->paginate(10);
-        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
+        $roles = Role::with('permissions')->get();
+        // $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
         // ->where("role_has_permissions.role_id",$id)
-        ->get();
+        // ->get();
+
+        if($request->ajax()){
+            return datatables()->of($roles)
+                        ->addColumn('action', function($data){
+                            $action  = '<a class="btn btn-info btn-sm waves-effect waves-light" href="'.route("roles.show", $data->id).'" ><i class="fas fa-eye"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<a class="btn btn-primary btn-sm waves-effect waves-light" href="'.route("roles.edit", $data->id).'"><i class="fas fa-edit"></i></a>';
+                            $action .= '&nbsp;';
+                            $action .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>';
+                            return $action;
+                        })
+                        ->addColumn('roles', function($data){
+                            $roles = '';
+
+                            foreach ($data->permissions as $v) {
+                                $roles .= '<label class="badge badge-primary mr-1 p-1">'.$v->name.'</label>';
+                                if ( Str::of($v->name)->contains('delete') || $v->name == 'superuser' ) {
+                                    $roles .='<br>';
+
+                                }
+                            }
+                            return $roles;
+                        })
+                        ->editColumn('created_at', function($data){
+                            $create = Carbon::parse($data->created_at);
+                            return $create;
+                        })
+                        ->rawColumns(['action', 'roles'])
+                        ->addIndexColumn()
+                        ->make(true);
+        }
+
+
         return view('roles.index',compact('roles'))->with('i');
     }
 
@@ -93,7 +129,7 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $permission = Permission::select('id', 'name')->get();
-        $rolePermissions = DB::table("role_has_permissions")
+        return $rolePermissions = DB::table("role_has_permissions")
             ->where("role_has_permissions.role_id",$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
@@ -122,7 +158,8 @@ class RoleController extends Controller
 
         $role->syncPermissions($request->input('permission'));
 
-        return back()->with('success','Role updated successfully');
+        return redirect()->route('roles.index')->with('success','Role updated successfully');
+
     }
 
     /**

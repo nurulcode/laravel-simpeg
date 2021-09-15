@@ -56,6 +56,11 @@ Pendidikan
                 url: "{{ route('pendidikan.index') }}",
                 type: 'GET'
             },
+            columnDefs: [{
+                orderable: true,
+                className: 'text-center',
+                targets: [1, 2, 3, 4]
+            }],
             columns: [{
                 data: 'nama',
             }, {

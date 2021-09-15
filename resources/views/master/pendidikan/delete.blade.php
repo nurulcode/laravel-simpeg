@@ -2,6 +2,7 @@
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
+                    Hapus Data
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body text-center justify-content-center">

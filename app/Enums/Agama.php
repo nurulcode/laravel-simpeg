@@ -17,5 +17,5 @@ final class Agama extends Enum
     const Hindu     = 4;
     const Buddha    = 5;
     const Khonghucu = 6;
-    const Lain      = 7;
+    const LainLain      = 7;
 }

@@ -399,6 +399,7 @@ dt {
     font-size: 16px
 }
 
+
 /*!
  * Waves v0.7.6
  * http://fian.my.id/Waves
@@ -406,6 +407,7 @@ dt {
  * Copyright 2014-2018 Alfiana E. Sibuea and other contributors
  * Released under the MIT license
  * https://github.com/fians/Waves/blob/master/LICENSE */
+
 .waves-effect {
     position: relative;
     cursor: pointer;
@@ -568,8 +570,9 @@ dt {
 }
 
 .submenu li.mm-active>a {
-    color: #b4c9de;
-    background-color: #333547
+    color: #ffffff;
+    background-color: #4e5dcfd2;
+    /* background-color: #333547; */
 }
 
 .topbar {
@@ -712,7 +715,7 @@ dt {
 
 #sidebar-menu>ul>li>a.mm-active {
     color: #b4c9de !important;
-    background-color: #383b4e
+    background-color: #4e5ccf
 }
 
 .menu-title {
@@ -1438,7 +1441,6 @@ button:focus {
         float: none;
         width: 100%
     }
-
     .email-rightbar {
         margin: 0
     }
@@ -2434,7 +2436,6 @@ pre[class*=language-] {
     .wizard>.steps>ul>li {
         width: 50%
     }
-
     .form-wizard-wrapper label {
         text-align: left
     }
@@ -2571,7 +2572,6 @@ th {
 .table>tbody>tr>td,
 .table>tfoot>tr>td,
 .table>thead>tr>td {
-    /* padding: 15px 12px */
     padding: 15px 12px
 }
 
@@ -3317,7 +3317,6 @@ table.focus-on tbody tr.focused td {
         margin-bottom: 3em;
         margin-top: 3em
     }
-
     .cd-timeline-content {
         width: 56%
     }
@@ -3328,17 +3327,14 @@ table.focus-on tbody tr.focused td {
         padding-left: 15px;
         padding-right: 15px
     }
-
     .timeline .timeline-list {
         padding: 15px
     }
-
     .timeline .timeline-list .date {
         top: 18px !important;
         left: -30px !important;
         padding: 14px !important
     }
-
     .timeline .timeline-list.right .date {
         right: -30px !important
     }
@@ -3548,28 +3544,23 @@ a.faq[data-toggle=collapse]:before {
 }
 
 @media print {
-
     .footer,
     .left,
     .page-title-box,
     .topbar {
         display: none
     }
-
     .wrapper {
         padding: 0
     }
-
     .content {
         margin-top: 0;
         padding-top: 0
     }
-
     .content-page {
         margin-left: 0;
         margin-top: 0
     }
-
     .container-fluid {
         width: 100%
     }
@@ -3624,7 +3615,7 @@ a.faq[data-toggle=collapse]:before {
 }
 
 .accountbg {
-    background: url(../images/bg.jpg);
+    background: url(../images/bgn.jpg);
     position: absolute;
     background-size: cover;
     background-position: center;
@@ -3655,11 +3646,9 @@ a.faq[data-toggle=collapse]:before {
     .mo-mb-2 {
         margin-bottom: 10px
     }
-
     .mo-mt-2 {
         margin-top: 10px !important
     }
-
     .ex-pages {
         padding: 24px 0
     }
@@ -3675,40 +3664,31 @@ a.faq[data-toggle=collapse]:before {
     body {
         overflow-x: hidden
     }
-
     .topbar-left {
         width: 70px !important
     }
-
     .topbar-left span {
         display: none !important
     }
-
     .topbar-left i {
         display: block !important;
         line-height: 70px !important
     }
-
     .navbar-custom {
         margin-left: 70px !important
     }
-
     .topbar .topbar-left {
         height: 70px
     }
-
     .content-page {
         margin-left: 0 !important
     }
-
     .content-page .content {
         padding: 0
     }
-
     .enlarged .left.side-menu {
         margin-left: -70px
     }
-
     .footer {
         left: 0 !important
     }
@@ -3718,15 +3698,12 @@ a.faq[data-toggle=collapse]:before {
     .side-menu {
         z-index: 10 !important
     }
-
     .button-menu-mobile {
         display: block
     }
-
     .navbar-custom {
         margin-left: 0 !important
     }
-
     .account-page-full.wrapper-page {
         width: 100%;
         position: relative
@@ -3737,16 +3714,13 @@ a.faq[data-toggle=collapse]:before {
     .topbar-left {
         width: 70px !important
     }
-
     .content-page {
         margin-left: 70px
     }
-
     .enlarged .side-menu.left {
         -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .1) !important;
         box-shadow: 0 1px 1px rgba(0, 0, 0, .1) !important
     }
-
     .topbar-left {
         display: none
     }

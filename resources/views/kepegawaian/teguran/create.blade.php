@@ -2,13 +2,13 @@
     @csrf
     <div>
         <input name="pegawai_id" value="{{ $teguran }}" type="hidden">
-
+{{-- {{ App\Enums\JenisHukuman::asSelectArray() }} --}}
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Jenis Hukuman</label>
             <div class="col-sm-10">
                 <select class="form-control select2 {{ $errors->has('jenis') ? 'is-invalid' : '' }}" name="jenis">
                     <option value="">--Pilih--</option>
-                    @foreach(App\Enums\JenisHukuman::toArray() as $item)
+                    @foreach(App\Enums\JenisHukuman::asArray() as $item)
                     <option value="{{ $item }}" {{ $item == old('jenis') ? 'selected' : '' }}>{{ $item }}</option>
                     @endforeach
                 </select>
@@ -73,4 +73,3 @@
         </div>
     </div>
 </form>
-

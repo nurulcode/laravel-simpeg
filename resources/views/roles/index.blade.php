@@ -1,61 +1,125 @@
 @extends('layouts.global')
+@section('title')
+roles
+@endsection
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="text-right">
-                    <a href="{{ route('roles.create') }}" class="btn btn-primary waves-light mb-3">
-                        Tambah Data
-                    </a>
-                </div>
-                <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead class="text-center text-bold">
-                        <tr>
-                            <td>No</td>
-                            <th>Nama</th>
-                            <th>Guard Name</th>
-                            <th>Roles</th>
-                            <th>Create At</th>
-                            <td>Action</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($roles as $result)
-                        <tr>
-                            <td class="text-center">{{ ++$i }}</td>
-                            <td>{{ $result->name }}</td>
-                            <td>
-                                {{ $result->guard_name }}
-                            </td>
-                            <td>
-                                @php $no = 1; @endphp
-                                @foreach ($result->permissions as $role)
-                                <label class="badge badge-primary">{{ $role->name }}</label>
-                                    @if ($no++%4 == 0)
-                                        <br>
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>{{ $result->created_at }}</td>
-                            <td class="text-center">
-                                {{-- <a class="btn btn-info btn-sm waves-effect waves-light" href="{{ route('roles.show', $result->id) }}"><i class="fas fa-eye"></i></a> --}}
-                                <a class="btn btn-primary btn-sm waves-effect waves-light" href="{{ route('roles.edit', $result->id) }}"><i class="fas fa-edit"></i></a>
-                                <form class="d-inline" action="{{ route('roles.destroy', $result->id) }}" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-danger btn-sm waves-effect waves-light" onclick="return confirm('Are you sure?')">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+<div class="index">
+    <x-app-card col1="col-lg-12" col2="">
+        <x-slot name="header1">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="{{ route('roles.create') }}" class="btn btn-outline-secondary waves-effect waves-light">
+                    Tambah Data
+                </a>
             </div>
-        </div>
-    </div>
+        </x-slot>
+        <x-slot name="body1">
+            <table id="table-roles" class="table table-bordered table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <thead class="text-center text-bold">
+                    <tr>
+                        <th>Nama</th>
+                        <th>Roles</th>
+                        <th>Create At</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </x-slot>
+
+    </x-app-card>
+    {{-- @include('roles.delete') --}}
 </div>
+@endsection
+
+
+
+@section('javascript')
+<script>
+    $(document).ready(function () {
+        $('#form-insert-roles').parsley();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#table-roles').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('roles.index') }}",
+                type: 'GET'
+            },
+            columnDefs: [{
+                orderable: true,
+                className: 'text-center',
+                targets: [3]
+            }],
+            columns: [{
+                data: 'name',
+            }, {
+                data: 'roles',
+            }, {
+                data: 'created_at'
+            }, {
+                data: 'action',
+                orderable: false,
+                searchable: false,
+            }],
+            order: [
+                [0, 'asc']
+            ]
+        });
+    });
+
+
+    // Insert Data
+    $('#form-insert-roles').on('submit', function (e) {
+        e.preventDefault();
+        $('#submit').html('Sending..');
+        $.ajax({
+            data: $('#form-insert-roles')
+                .serialize(),
+            url: "{{ route('roles.store') }}",
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+
+                $('#form-insert-roles').trigger("reset");
+                $('#submit').html('Simpan');
+                let oTable = $('#table-roles').dataTable();
+                oTable.fnDraw(false);
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                $('#submit').html('Simpan');
+            }
+        });
+    })
+
+    //Delete Data
+    $(document).on('click', '.delete', function () {
+        dataId = $(this).attr('id');
+        $('#delete-roles-modal').modal('show');
+
+        $('#delete-roles-button').click(function () {
+            $.ajax({
+                url: "roles/" + dataId,
+                type: 'delete',
+                beforeSend: function () {
+                    $('#delete-roles-button').text('Loading ...');
+                },
+                success: function (data) {
+                    setTimeout(function () {
+                        $('#delete-roles-modal').modal('hide');
+                        $('#delete-roles-button').text('Hapus');
+                        let oTable = $('#table-roles').dataTable();
+                        oTable.fnDraw(false);
+                    });
+                }
+            })
+        });
+    });
+
+</script>
 @endsection

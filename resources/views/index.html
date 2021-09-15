@@ -1,37 +1,52 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
+    <title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
     <link href="{{ asset('assets\css\bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets\css\metismenu.min.css) }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets\css\icons.css) }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets\css\style.css) }}" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
-	<style type="text/css">
-		table tr td,
-		table tr th{
-			font-size: 9pt;
-		}
-	</style>
+    <style type="text/css">
+        table tr td,
+        table tr th {
+            font-size: 9pt;
+        }
 
-<center>
-    <h5>Membuat Laporan PDF Dengan DOMPDF Laravel</h4>
-    <h6><a target="_blank" href="https://www.malasngoding.com/membuat-laporan-…n-dompdf-laravel/">www.malasngoding.com</a></h5>
-</center>
+    </style>
 
-	<table class='table table-bordered'>
-		<tbody>
-			@php $i=1 @endphp
-			@foreach($pegawais as $p)
-			<tr>
-				<td>{{ $i++ }}</td>
-				<td>{{$p->nip}}</td>
-\
-			</tr>
-			@endforeach
-		</tbody>
-	</table>
+    <center>
+        <h5>Membuat Laporan PDF Dengan DOMPDF Laravel</h4>
+            <h6><a target="_blank" href="https://www.malasngoding.com/membuat-laporan-…n-dompdf-laravel/">www.malasngoding.com</a>
+        </h5>
+    </center>
+
+    <table class='table table-bordered'>
+        <tbody>
+            @php $i=1 @endphp
+            @foreach($pegawais as $p)
+            <tr>
+                <td>{{ $i++ }}</td>
+                <td>{{$p->nip}}</td>
+                \
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 
 </body>
+
 </html>
+
+<div class="col-lg-4">
+    <div class="card">
+        <h4 class="card-header font-16 mt-0">Featured</h4>
+        <div class="card-body">
+            <h4 class="card-title font-16 mt-0">Special title treatment</h4>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p><a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+</div>

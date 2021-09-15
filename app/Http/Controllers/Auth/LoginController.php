@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Carbon\Carbon;
+
 
 class LoginController extends Controller
 {
@@ -53,7 +55,13 @@ class LoginController extends Controller
             'password' => $request->password
         ];
 
+
         if (auth()->attempt($login)) {
+            $user = auth()->user();
+            $user->ip_last_login =  $request->ip();
+            $user->last_login = Carbon::now();
+            $user->save();
+
             return redirect()->route('home');
         }
         return redirect()->route('login')->with('error', 'Incorrect email or password');

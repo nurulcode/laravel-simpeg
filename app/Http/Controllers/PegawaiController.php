@@ -8,8 +8,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Exports\PegawaisExport;
+use App\Provinsi;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
@@ -35,7 +36,7 @@ class PegawaiController extends Controller
     public function index(Request $request)
     {
         if (auth()->user()->role !== 'superuser') {
-            $pegawais = Pegawai::where('id', auth()->user()->pegawai_id );
+    $pegawais = Pegawai::where('id', auth()->user()->pegawai_id );
         } else {
             $pegawais = Pegawai::all();
         }
@@ -72,8 +73,9 @@ class PegawaiController extends Controller
      */
     public function create()
     {
+        $provinsi = Provinsi::get();
         $units = DB::table('units')->get();
-        return view('pegawai.create', compact('units'));
+        return view('pegawai.create', compact('units', 'provinsi'));
     }
 
     /**
@@ -216,4 +218,5 @@ class PegawaiController extends Controller
 		return Excel::download(new PegawaisExport, 'Laporan_pegawai_rsu_manokwari.xlsx');
 
     }
+
 }

@@ -121,7 +121,7 @@
                             <label class="control-label">Jenis Kelamin</label>
                             <select class="form-control select2 {{ $errors->has('jenis_kelamin') ? 'is-invalid' : '' }}" name="jenis_kelamin">
                                 <option value="">--Pilih--</option>
-                                @foreach(App\Enums\JenisKelamin::toSelectArray() as $item)
+                                @foreach(App\Enums\JenisKelamin::asSelectArray() as $item)
                                     <option value="{{ $item }}" {{ $item == $keluarga->jenis_kelamin ? 'selected' : '' }}>{{ $item }}</option>
                                 @endforeach
                             </select>

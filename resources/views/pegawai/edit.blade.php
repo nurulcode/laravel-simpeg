@@ -51,7 +51,6 @@
                             </div>
                             @endif
                         </div>
-
                         <div class="form-group col-md-6">
                             <label>Tanggal Lahir</label>
                             <div>
@@ -77,8 +76,8 @@
                             <label class="control-label">Agama</label>
                             <select class="form-control select2 {{ $errors->has('agama') ? 'is-invalid' : '' }}" name="agama">
                                 <option value="">--Pilih--</option>
-                                @foreach(App\Enums\Agama::toSelectArray() as $item)
-                                <option value="{{ $item }}" {{ $item == $pegawai->agama ? 'selected' : '' }}>{{ $item }}</option>
+                                @foreach(App\Enums\Agama::asSelectArray() as $v)
+                                <option value="{{ $v }}" {{ Str::lower($v) == $pegawai->agama ? 'selected' : '' }}>{{ $v }}</option>
                                 @endforeach
                             </select>
                             @if($errors->has('agama'))
@@ -104,7 +103,7 @@
                             <label class="control-label">Golda</label>
                             <select class="form-control select2 {{ $errors->has('golongan_darah') ? 'is-invalid' : '' }}" name="golongan_darah">
                                 <option value="">--Pilih--</option>
-                                @foreach(App\Enums\GolonganDarah::toArray() as $item)
+                                @foreach(App\Enums\GolonganDarah::asArray() as $item)
                                 <option value="{{ $item }}" {{ $item == $pegawai->golongan_darah ? 'selected' : '' }}>{{ $item }}</option>
                                 @endforeach
                             </select>
@@ -118,8 +117,8 @@
                             <label class="control-label"> Pernikahan</label>
                             <select class="form-control select2 {{ $errors->has('pernikahan') ? 'is-invalid' : '' }}" name="pernikahan">
                                 <option value="">--Pilih--</option>
-                                @foreach(App\Enums\StatusPernikahan::toSelectArray() as $item)
-                                <option value="{{ $item }}" {{ $item == $pegawai->pernikahan ? 'selected' : '' }}>{{ $item }}</option>
+                                @foreach(App\Enums\StatusPernikahan::asSelectArray() as $item)
+                                <option value="{{ $item }}" {{ Str::lower($item) == $pegawai->pernikahan ? 'selected' : '' }}>{{ $item }}</option>
                                 @endforeach
                             </select>
                             @if($errors->has('pernikahan'))
@@ -132,7 +131,7 @@
                             <label class="control-label"> Kepegawaian</label>
                             <select class="form-control select2 {{ $errors->has('kepegawaian') ? 'is-invalid' : '' }}" name="kepegawaian">
                                 <option value="">--Pilih--</option>
-                                @foreach(App\Enums\StatusKepegawaian::toArray() as $item)
+                                @foreach(App\Enums\StatusKepegawaian::asArray() as $item)
                                 <option value="{{ $item }}" {{ $item == $pegawai->kepegawaian ? 'selected' : '' }}>{{ $item }}</option>
                                 @endforeach
                             </select>

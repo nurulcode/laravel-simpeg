@@ -4,12 +4,25 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Pegawai extends Model
 {
+    use LogsActivity;
     protected $guarded = [];
 
-    public function user()
+    protected static $logAttributes = ['id','nama_lengkap', 'nip'];
+    protected static $logAttributesToIgnore = [ 'updated_at', 'created_at'];
+    protected static $logOnlyDirty = true;
+    protected static $submitEmptyLogs = false;
+    protected static $logName = 'pegawai';
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return auth()->user()->username .' '. $eventName ;
+    }
+
+        public function user()
     {
         return $this->hasOne('App\User');
     }

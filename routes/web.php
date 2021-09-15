@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Models\Activity;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,8 +58,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('pegawai', 'PegawaiController');
 
     Route::resource('rekapitulasi', 'RekapitulasiController');
+    Route::resource('registrasi', 'RegistrasiController');
 
     Route::get('/home', 'HomeController@index')->name('home');
+
 
 
     Route::namespace('Permission')->group(function () {
@@ -65,7 +69,14 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('users','UserController');
     });
 
+    Route::resource('logs','LogController');
+    Route::resource('permissions','PermissionController');
+
     Route::resource('pengumuman','PengumumanController')->except('show', 'edit', 'update');
 
+    Route::get('/kelurahan/{id}','WilayahController@getKelurahan');
+    Route::get('/kecamatan/{id}','WilayahController@getKecamatan');
+    Route::get('/kabupaten/{id}','WilayahController@getKabupaten');
+    Route::get('/provinsi','WilayahController@getProvinsi');
 
 });

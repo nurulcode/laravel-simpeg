@@ -19,6 +19,7 @@ class PendidikanController extends Controller
      */
     public function index(Request $request)
     {
+        $breadcrumb = ['Home', 'Pendidikan'];
         $pendidikans = Pendidikan::get();
         $kategoris = Pendidikan::select('kategori')->groupBy('kategori')->get();
 
@@ -35,7 +36,7 @@ class PendidikanController extends Controller
                         ->make(true);
         }
 
-       return view('master.pendidikan.index', compact('kategoris', 'pendidikans'));
+       return view('master.pendidikan.index', compact('kategoris', 'pendidikans', 'breadcrumb'));
     }
 
     /**
